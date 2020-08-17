@@ -2,3 +2,5 @@ jmakela
 *.DS_Store
 file.txt
 lem_in
+*.o
+*.a

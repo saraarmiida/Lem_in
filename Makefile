@@ -6,15 +6,17 @@
 #    By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/01 14:57:04 by tlouekar          #+#    #+#              #
-#    Updated: 2020/08/18 14:25:33 by tlouekar         ###   ########.fr        #
+#    Updated: 2020/08/18 15:26:23 by tlouekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 
 SRCS = 	srcs/main.c \
+		srcs/bfs.c
 
 OBJS = 	main.o \
+		bfs.o
 
 INCS = -I ./srcs -I ./libft/includes/
 

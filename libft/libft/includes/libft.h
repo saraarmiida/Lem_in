@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:12:21 by spentti           #+#    #+#             */
-/*   Updated: 2020/08/12 13:42:55 by spentti          ###   ########.fr       */
+/*   Updated: 2020/08/18 17:53:12 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int					ft_getnbr(const char *str);
 int					ft_intbaselen(unsigned int n, unsigned int base);
 long long			ft_pow(int num, int power);
 void				ft_putmem(char *s, int len);
+char				*ft_strcdup(const char *str, char c);
 
 #endif

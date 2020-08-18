@@ -6,7 +6,7 @@
 #    By: spentti <spentti@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 12:56:58 by spentti           #+#    #+#              #
-#    Updated: 2020/08/12 13:32:59 by spentti          ###   ########.fr        #
+#    Updated: 2020/08/18 17:53:49 by spentti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 	  ft_isupper.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 	  ft_lstiter.c ft_lstmap.c ft_wordcount.c ft_strclen.c \
 	  ft_intlen.c ft_strndup.c ft_strnjoin.c ft_strccpy.c ft_strcjoin.c \
-	  get_next_line.c ft_getnbr.c ft_putarr.c ft_pow.c ft_putmem.c
+	  get_next_line.c ft_getnbr.c ft_putarr.c ft_pow.c ft_putmem.c \
+	  ft_strcdup.c
 HDR = includes/
 FLAGS = -Wall -Wextra -Werror
 OBJ = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o \
@@ -42,7 +43,8 @@ OBJ = ft_memset.o ft_bzero.o ft_memcpy.o ft_memccpy.o \
 	  ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o \
 	  ft_lstiter.o ft_lstmap.o ft_wordcount.o ft_strclen.o \
 	  ft_intlen.o ft_strndup.o ft_strnjoin.o ft_strccpy.o ft_strcjoin.o \
-	  get_next_line.o ft_getnbr.o ft_putarr.o ft_pow.o ft_putmem.o
+	  get_next_line.o ft_getnbr.o ft_putarr.o ft_pow.o ft_putmem.o \
+	  ft_strcdup.o
 
 all: $(NAME)
 

@@ -22,5 +22,6 @@ typedef struct	s_lem
 	char		*input;
 }				t_lem;
 
+int		bfs(int ants);
 
 #endif

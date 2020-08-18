@@ -2,12 +2,10 @@ NAME = lem-in
 
 SRCS = 	srcs/main.c \
 		srcs/read_input.c \
-
-OBJS = 	main.o \
-		read_input.o \
 		srcs/bfs.c
 
 OBJS = 	main.o \
+		read_input.o \
 		bfs.o
 
 INCS = -I ./srcs -I ./libft/includes/

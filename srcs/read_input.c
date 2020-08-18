@@ -2,9 +2,10 @@
 
 int		skip_line(char *input, int i)
 {
+	ft_printf("Skipping line\n");
 	while (input[i] && input[i] != '\n')
 		i++;
-	return (i);
+	return (i + 1);
 }
 
 int		get_ants(t_lem *lem)
@@ -22,13 +23,13 @@ int		get_ants(t_lem *lem)
 		}
 		else if (ft_isdigit(lem->input[i]) && (i == 0 || lem->input[i - 1] == '\n'))
 		{
-			lem->ants = ft_atoi(&lem->input[i]);
-			ft_printf("%d\n", lem->ants);
-			return (i + 1);
+			lem->ants = ft_atoi(&lem->input[i]); /* check amount of ants */
+			ft_printf("Got %d ants\n", lem->ants);
+			return (i + ft_intlen(lem->ants) + 1);
 		}
 	}
-	ft_printf("got ants\n");
-	return (1); /* add error message here */
+	ft_printf("Ants error\n");
+	return (1); /* add error message / exit here */
 }
 
 // int		save_room(t_lem *lem, int i)
@@ -46,11 +47,14 @@ int		get_ants(t_lem *lem)
 
 int		check_room(t_lem *lem, int i)
 {
+	ft_printf("Checking room\n");
+	ft_printf("Check: %.4s\n", &lem->input[i]);
 	while(ft_isprint(lem->input[i]) && lem->input[i] != ' ')
 		i++;
 	if (lem->input[i] != ' ')
 	{
-		ft_printf("Room format error\n");
+		ft_putstr(&lem->input[i]);
+		ft_printf("Room format error 1\n");
 		exit(0) ;
 	}
 	i++;
@@ -58,7 +62,7 @@ int		check_room(t_lem *lem, int i)
 		i++;
 	if (lem->input[i] != ' ')
 	{
-		ft_printf("Room format error\n");
+		ft_printf("Room format error 2\n");
 		exit(0) ;
 	}
 	i++;
@@ -66,7 +70,7 @@ int		check_room(t_lem *lem, int i)
 		i++;
 	if (lem->input[i] != '\n')
 	{
-		ft_printf("Room format error\n");
+		ft_printf("Room format error 3\n");
 		exit(0) ;
 	}
 	lem->rooms++;

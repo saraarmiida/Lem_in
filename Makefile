@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: spentti <spentti@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/01 14:57:04 by tlouekar          #+#    #+#              #
-#    Updated: 2020/08/18 16:19:54 by spentti          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = lem-in
 
 SRCS = 	srcs/main.c \
@@ -17,6 +5,10 @@ SRCS = 	srcs/main.c \
 
 OBJS = 	main.o \
 		read_input.o \
+		srcs/bfs.c
+
+OBJS = 	main.o \
+		bfs.o
 
 INCS = -I ./srcs -I ./libft/includes/
 

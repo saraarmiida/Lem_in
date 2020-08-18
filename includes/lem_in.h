@@ -30,5 +30,6 @@ typedef struct	s_lem
 
 int					read_input(t_lem *lem);
 
+int		bfs(int ants);
 
 #endif

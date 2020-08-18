@@ -1,6 +1,7 @@
 jmakela
 *.DS_Store
 file.txt
-lem_in
+lem-in
 *.o
 *.a
+.vscode

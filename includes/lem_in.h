@@ -5,6 +5,13 @@
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 
+typedef struct		s_llink
+{
+	char			*from;
+	char			*to;
+	int				visited;
+}					t_llink;
+
 typedef struct		s_room
 {
 	char			*name;
@@ -17,10 +24,11 @@ typedef struct		s_room
 
 typedef struct	s_lem
 {
-	t_room			**room;
+	t_room			**rooms;
+	t_llink			**links;
 	int				ants;		/*make unsigned long*/
-	int				rooms;
-	int				links;
+	int				room_amount;
+	int				link_amount;
 	int				fd;
 	char			*input;
 	int				i;

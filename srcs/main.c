@@ -5,11 +5,12 @@ void	init_lem(t_lem *lem)
 	lem->fd = 0;
 	lem->ants = 0;
 	lem->links = 0;
-	lem->rooms = 0;
+	lem->room_amount = 0;
+	lem->link_amount = 0;
 	lem->input = NULL;
 }
 
-int		main()
+int		main(void)
 {
 	t_lem	*lem;
 

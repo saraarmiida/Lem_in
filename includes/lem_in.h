@@ -2,6 +2,8 @@
 # define LEM_IN_H
 
 # define BUF_SIZE	4194305
+# define START_ROOM	1
+# define END_ROOM	2
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>

@@ -136,7 +136,6 @@ int		read_input(t_lem *lem)
 		lem->input = tmp;
 	}
 	get_ants(lem);
-	get_start_and_end(lem);
 	get_rooms(lem);
 	get_links(lem);
 	return (0);

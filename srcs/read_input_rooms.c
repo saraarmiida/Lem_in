@@ -1,6 +1,36 @@
 #include "../includes/lem_in.h"
 
 /*
+** ft_strmatchlen takes haystack and needle and
+** returns the number of indexes the haystack had to
+** search plus the length of needle. If needle is
+** not found, it returns -1.
+*/
+
+int	ft_strmatchlen(char const *s, char const *s2)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(s[i] != '\0')
+	{
+		j = 0;
+		while (s[i] != s2[0] && s[i] != '\0')
+			i++;
+		while(s[i] == s2[j])
+		{
+			i++;
+			j++;
+		}
+		if (s2[j] == '\0')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+/*
 ** create a room to be saved in struct
 ** - save hash value instead of room name
 */
@@ -10,16 +40,16 @@ int		is_double(t_lem *lem, int i)
 	int j;
 
 	j = 0;
-	while (j < lem->room_amount)
+	while (lem->rooms[j] != NULL)
 	{
-		if(ft_strstr(lem->rooms[j]->name, &lem->input[i]) != NULL)
+		if(ft_strstr(lem->rooms[j]->name, lem->input + i) != NULL)
 		{
-			ft_printf("Found a double");
+			ft_printf("Found a double\n");
 			return (1);
 		}
 		j++;
 	}
-	ft_printf("Room is not a double");
+	ft_printf("Room is not a double.\n");
 	return (0);
 }
 
@@ -27,8 +57,11 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 {
 	t_room	*room;
 
-	if(is_double(lem, i) == 1)
-		return(0);
+	if (start_or_end == 0)
+	{
+		if(is_double(lem, i) == 1)
+			return(0);
+	}
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	room->name = ft_strcdup(&lem->input[i], ' ');
@@ -41,6 +74,7 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 		lem->start = room;
 	if (start_or_end == 2)
 		lem->end = room;
+	ft_printf("Name: %s | X: %d | Y: %d | Next: %p\n", room->name, room->x, room->y, room->next);
 	return (i + ft_intlen(room->y) + 1);
 }
 
@@ -51,25 +85,16 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 int		get_start_and_end(t_lem *lem)
 {
 	int		i;
-	char	*tempstart;
-	char	*tempend;
+	int		start;
+	int		end;
 
 	i = 0;
-	if ((tempstart = ft_strstr(lem->input, "##start\n")) != NULL)
-	{
-		while(tempstart[i] != '\n')
-			i++;
-		save_room(lem, i++, 0, 1);
-	}
-	i = 0;
-	if ((tempend = ft_strstr(lem->input, "##end\n")) != NULL)
-	{
-		while(tempend[i] != '\n')
-			i++;
-		save_room(lem, i++, 1, 2);
-	}
-	if (lem->start == NULL || lem->end == NULL)
+	start = ft_strmatchlen(lem->input, "##start\n");
+	end = ft_strmatchlen(lem->input, "##end\n");
+	if (start == -1 || end == -1)
 		return (0);
+	save_room(lem, start, 0, START_ROOM);
+	save_room(lem, end, 1, END_ROOM);
 	return (1);
 }
 
@@ -143,8 +168,9 @@ int		get_rooms(t_lem *lem)
 	ft_printf("Got %d rooms\n", lem->room_amount);
 	if (!(lem->rooms = (t_room**)malloc(sizeof(t_room) * lem->room_amount)))
 		return (1);
+	get_start_and_end(lem);
 	i = lem->i;
-	j = 0;
+	j = 2;
 	while (j < lem->room_amount)
 	{
 		if (lem->input[i] == '#')

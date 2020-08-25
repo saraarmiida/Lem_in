@@ -4,6 +4,7 @@
 # define BUF_SIZE	4194305
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
+# include <fcntl.h>
 
 typedef struct		s_llink
 {

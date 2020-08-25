@@ -27,6 +27,8 @@ typedef struct	s_lem
 {
 	t_room			**rooms;
 	t_llink			**links;
+	t_room			*start;
+	t_room			*end;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
 	int				link_amount;
@@ -34,6 +36,12 @@ typedef struct	s_lem
 	char			*input;
 	int				i;
 }					t_lem;
+
+typedef struct	s_route
+{
+	t_room			**rooms;
+	t_llink			**links;
+}					t_route;
 
 /* read_input.c */
 

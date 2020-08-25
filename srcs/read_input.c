@@ -7,6 +7,23 @@ int		skip_line(char *input, int i)
 	return (i + 1);
 }
 
+int		get_start_and_end(t_lem *lem)
+{
+	int	i;
+
+	i = 0;
+	while (lem->input[i])
+	{
+		if (ft_strstr(lem->input[i], "##start\n") != NULL) // Doesn't facilitate edge cases like #dsgfsd##start
+			lem->start = save_start(i);
+		else if (ft_strstr(lem->input, "##end\n") != NULL) // Doesn't facilitate edge cases like #dsgfsd##end
+			lem->end = save_end(i);
+		i++;
+	}
+	if (lem->start == NULL || lem->end == NULL)
+		return (-1);
+	return (0);
+}
 /*
 ** count the amount of ants
 ** - validate amount of ants
@@ -250,5 +267,6 @@ int		read_input(t_lem *lem)
 	get_ants(lem);
 	get_rooms(lem);
 	get_links(lem);
+	get_start_and_end(lem);
 	return (0);
 }

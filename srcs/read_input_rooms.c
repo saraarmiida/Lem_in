@@ -35,36 +35,39 @@ int	ft_strmatchlen(char const *s, char const *s2)
 ** - save hash value instead of room name
 */
 
-int		is_double(t_lem *lem, int i)
+int		is_double(t_lem *lem, int j, char *name)
 {
-	int j;
-
-	j = 0;
-	while (lem->rooms[j] != NULL)
+	while (j >= 0)
 	{
-		if(ft_strstr(lem->rooms[j]->name, lem->input + i) != NULL)
+		if(ft_strcmp(lem->rooms[j]->name, name) == 0)
 		{
-			ft_printf("Found a double\n");
+			//ft_printf("Found a double\n");
+			//ft_printf("Found a double\n");
 			return (1);
 		}
-		j++;
+		j--;
 	}
-	ft_printf("Room is not a double.\n");
+	//ft_printf("Room is not a double.\n");
 	return (0);
 }
 
 int		save_room(t_lem *lem, int i, int j, int start_or_end)
 {
 	t_room	*room;
+	char	*name;
 
+	name = ft_strcdup(&lem->input[i], ' ');
 	if (start_or_end == 0)
 	{
-		if(is_double(lem, i) == 1)
-			return(0);
+		if(is_double(lem, j - 1, name) == 1)
+		{
+			lem->j = j;
+			return(skip_line(lem->input, i));
+		}
 	}
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
-	room->name = ft_strcdup(&lem->input[i], ' ');
+	room->name = name;
 	i += ft_strlen(room->name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
@@ -75,6 +78,7 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 	if (start_or_end == 2)
 		lem->end = room;
 	ft_printf("Name: %s | X: %d | Y: %d | Next: %p\n", room->name, room->x, room->y, room->next);
+	lem->j = j + 1;
 	return (i + ft_intlen(room->y) + 1);
 }
 
@@ -178,7 +182,7 @@ int		get_rooms(t_lem *lem)
 		else
 		{
 			i = save_room(lem, i, j, 0);
-			j++;
+			j = lem->j;
 		}
 	}
 	lem->i = i;

@@ -8,6 +8,7 @@ void	init_lem(t_lem *lem)
 	lem->room_amount = 0;
 	lem->link_amount = 0;
 	lem->input = NULL;
+	lem->j = 0;
 }
 
 int		main(int argc, char **argv)

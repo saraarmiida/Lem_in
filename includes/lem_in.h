@@ -37,6 +37,7 @@ typedef struct	s_lem
 	int				fd;
 	char			*input;
 	int				i;
+	int				j;
 }					t_lem;
 
 typedef struct	s_route

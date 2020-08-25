@@ -43,10 +43,12 @@ typedef struct	s_route
 	t_llink			**links;
 }					t_route;
 
-/* read_input.c */
-
+/* read_input_basics.c */
 int					read_input(t_lem *lem);
+int					skip_line(char *input, int i);
 
-int		bfs(int ants);
+/* read_input_rooms.c */
+int					get_rooms(t_lem *lem);
+int					get_start_and_end(t_lem *lem);
 
 #endif

@@ -60,12 +60,14 @@ int		check_link(t_lem *lem, int i)
 int		save_link(t_lem *lem, int i, int j)
 {
 	t_llink	*link;
+	char	*from;
+	char	*to;
 
 	if (!(link = (t_llink*)malloc(sizeof(t_llink))))
 		return (1);
-	link->from = ft_strcdup(&lem->input[i], '-');
+	from = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(link->from) + 1;
-	link->to = ft_strcdup(&lem->input[i], '\n');
+	to = ft_strcdup(&lem->input[i], '\n');
 	link->visited = 0;
 	lem->links[j] = link;
 	return (i + ft_strlen(link->to) + 1);

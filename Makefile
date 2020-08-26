@@ -3,12 +3,14 @@ NAME = lem-in
 SRCS = 	srcs/main.c \
 		srcs/read_input_basics.c \
 		srcs/read_input_rooms.c \
-		srcs/bfs.c
+		srcs/bfs.c \
+		srcs/hash.c
 
 OBJS = 	main.o \
 		read_input_basics.o \
 		read_input_rooms.o \
-		bfs.o
+		bfs.o \
+		hash.o
 
 INCS = -I ./srcs -I ./libft/includes/
 

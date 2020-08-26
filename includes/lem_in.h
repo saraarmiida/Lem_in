@@ -1,12 +1,26 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+# define TABLE_SIZE	100000
 # define BUF_SIZE	4194305
 # define START_ROOM	1
 # define END_ROOM	2
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
+
+typedef struct		s_entry
+{
+	char			*key;
+	char			*value;
+	struct s_entry	*next;
+}					t_entry;
+
+typedef struct		s_table
+{
+	t_entry			**entries;
+}					t_table;
+
 
 typedef struct		s_llink
 {
@@ -53,5 +67,11 @@ int					skip_line(char *input, int i);
 /* read_input_rooms.c */
 int					get_rooms(t_lem *lem);
 int					get_start_and_end(t_lem *lem);
+
+/* hash.c */
+void				test_hash(void);
+unsigned int		hash(char *key);
+t_table				*create_table(void);
+void				set_value(t_table *hashtable, char *key, char *value);
 
 #endif

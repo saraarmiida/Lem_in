@@ -53,24 +53,23 @@ int		check_link(t_lem *lem, int i)
 }
 
 /*
-** create a link
+** Create a link. Currently only supports rooms with
+** integers as names and all must be unique.
 ** - save hash values instead of room names
 */
 
 int		save_link(t_lem *lem, int i, int j)
 {
 	t_llink	*link;
-	char	*from;
-	char	*to;
 
 	if (!(link = (t_llink*)malloc(sizeof(t_llink))))
 		return (1);
-	from = ft_strcdup(&lem->input[i], '-');
-	i += ft_strlen(link->from) + 1;
-	to = ft_strcdup(&lem->input[i], '\n');
+	link->from = ft_atoi(ft_strcdup(&lem->input[i], '-'));
+	i += ft_intlen(link->from) + 1;
+	link->to = ft_atoi(ft_strcdup(&lem->input[i], '\n'));
 	link->visited = 0;
 	lem->links[j] = link;
-	return (i + ft_strlen(link->to) + 1);
+	return (i + ft_intlen(link->to) + 1);
 }
 
 /*

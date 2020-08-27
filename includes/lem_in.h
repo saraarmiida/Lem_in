@@ -31,7 +31,7 @@ typedef struct		s_llink
 
 typedef struct		s_room
 {
-	char			*name;
+	int				name;
 	int				x;
 	int				y;
 	int				level;

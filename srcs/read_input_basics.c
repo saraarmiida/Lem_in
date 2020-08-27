@@ -69,6 +69,7 @@ int		save_link(t_lem *lem, int i, int j)
 	link->to = ft_atoi(ft_strcdup(&lem->input[i], '\n'));
 	link->visited = 0;
 	lem->links[j] = link;
+	ft_printf("Link pointer: %p | from: %d | to: %d | visited: %d\n", link, link->from, link->to, link->visited);
 	return (i + ft_intlen(link->to) + 1);
 }
 

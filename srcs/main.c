@@ -11,6 +11,8 @@ void	init_lem(t_lem *lem)
 	lem->j = 0;
 }
 
+
+
 int		main(int argc, char **argv)
 {
 	t_lem	*lem;
@@ -21,5 +23,6 @@ int		main(int argc, char **argv)
 		lem->fd = open(argv[1], O_RDONLY);
 	init_lem(lem);
 	read_input(lem);
+	make_hashtable(lem);
 	return (0);
 }

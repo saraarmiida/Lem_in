@@ -6,15 +6,18 @@ void			print_table(t_table *hashtable)
 	t_entry	*entry;
 
 	i = 0;
-	entry = hashtable->entries[i];
 	while (i < TABLE_SIZE)
 	{
+		entry = hashtable->entries[i];
 		if (entry == NULL)
+		{
+			i++;
 			continue ;
+		}
 		printf("slot[%4d]: ", i);
 		while (entry != NULL)
 		{
-			printf("%s=%s", entry->key, entry->value);
+			printf("%s=%s ", entry->key, entry->value);
 			entry = entry->next;
 		}
 		printf("\n");
@@ -60,13 +63,13 @@ void			set_value(t_table *hashtable, char *key, char *value)
 	prev->next = pair(key, value);
 }
 
-t_table			*create_table(void)
+t_table			*create_table(int tablesize)
 {
 	t_table		*hashtable;
 	int			i;
 
 	hashtable = (t_table*)malloc(sizeof(t_table));
-	hashtable->entries = (t_entry**)malloc(sizeof(t_entry*) * TABLE_SIZE);
+	hashtable->entries = (t_entry**)malloc(sizeof(t_entry*) * tablesize);
 	i = 0;
 	while (i < TABLE_SIZE)
 	{
@@ -94,17 +97,19 @@ unsigned int	hash(char *key)
 	return (value);
 }
 
-void		test_hash(void)
+void		make_hashtable(t_lem *lem)
 {
 	t_table *ht;
+	int		j;
+	char	*name;
 
-	printf("here");
-	ht = create_table();
-	set_value(ht, "name1", "kisuli");
-	set_value(ht, "name2", "koiruli");
-	set_value(ht, "name3", "fisu");
-	set_value(ht, "name4", "fretti");
-	set_value(ht, "name5", "heponen");
-	set_value(ht, "name6", "pupu");
+	ht = create_table(lem->room_amount);
+	j = 0;
+	while (j < lem->room_amount)
+	{
+		name = ft_itoa(lem->rooms[j]->name);
+		set_value(ht, ft_itoa(j), name);
+		j++;
+	}
 	print_table(ht);
 }

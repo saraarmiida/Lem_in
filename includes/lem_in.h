@@ -1,7 +1,7 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# define TABLE_SIZE	100000
+# define TABLE_SIZE	100
 # define BUF_SIZE	4194305
 # define START_ROOM	1
 # define END_ROOM	2
@@ -31,6 +31,7 @@ typedef struct		s_llink
 
 typedef struct		s_room
 {
+	char			*c_name;
 	int				name;
 	int				x;
 	int				y;
@@ -69,9 +70,9 @@ int					get_rooms(t_lem *lem);
 int					get_start_and_end(t_lem *lem);
 
 /* hash.c */
-void				test_hash(void);
+void				make_hashtable(t_lem *lem);
 unsigned int		hash(char *key);
-t_table				*create_table(void);
+t_table				*create_table(int tablesize);
 void				set_value(t_table *hashtable, char *key, char *value);
 
 #endif

@@ -23,6 +23,6 @@ int		main(int argc, char **argv)
 		lem->fd = open(argv[1], O_RDONLY);
 	init_lem(lem);
 	read_input(lem);
-	make_hashtable(lem);
+	// make_hashtable(lem);
 	return (0);
 }

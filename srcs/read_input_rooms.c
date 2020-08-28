@@ -51,35 +51,58 @@ int		is_double(t_lem *lem, int j, int name)
 	return (0);
 }
 
-int		save_room(t_lem *lem, int i, int j, int start_or_end)
+t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 {
 	t_room	*room;
-	int		name;
-
-	name = ft_atoi(ft_strcdup(&lem->input[i], ' '));
-	if (start_or_end == 0)
-	{
-		if(is_double(lem, j - 1, name) == 1)
-		{
-			lem->j = j;
-			return(skip_line(lem->input, i));
-		}
-	}
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
-	room->name = name;
+	room->c_name = name;
+	room->name = ft_atoi(name);
 	i += ft_intlen(room->name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
-	lem->rooms[j] = room;
 	if (start_or_end == 1)
 		lem->start = room;
 	if (start_or_end == 2)
 		lem->end = room;
-	ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", room->name, room->x, room->y, room->next);
+	room->next = NULL;
+	lem->i = i + ft_intlen(room->y) + 1;
+	return (room);
+}
+
+int		save_room(t_lem *lem, int i, int j, int start_or_end)
+{
+	t_room			*room;
+	t_room			*prev;
+	char			*name;
+	unsigned int	slot;
+
+	name = ft_strcdup(&lem->input[i], ' ');
+	slot = hash(name, lem->room_amount);
+	room = lem->rooms[slot];
+	if (room == NULL)
+	{
+		lem->rooms[slot] = get_room_info(lem, name, i, start_or_end);
+		ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", lem->rooms[slot]->name, lem->rooms[slot]->x, lem->rooms[slot]->y, lem->rooms[slot]->next);
+		lem->j = j + 1;
+		return (lem->i);
+	}
+	while (room != NULL)
+	{
+		if (ft_strcmp(room->c_name, name) == 0)
+		{
+			lem->j = j;
+			ft_printf("Found a duplicate\n");
+			return(skip_line(lem->input, i));
+		}
+		prev = room;
+		room = prev->next;
+	}
+	prev->next = get_room_info(lem, name, i, start_or_end);
+	// ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", room->name, room->x, room->y, room->next);
 	lem->j = j + 1;
-	return (i + ft_intlen(room->y) + 1);
+	return (lem->i);
 }
 
 /*
@@ -170,11 +193,10 @@ int		get_rooms(t_lem *lem)
 		}
 	}
 	ft_printf("Got %d rooms\n", lem->room_amount);
-	if (!(lem->rooms = (t_room**)malloc(sizeof(t_room) * lem->room_amount)))
-		return (1);
+	lem->rooms = create_table(lem);
 	get_start_and_end(lem);
 	i = lem->i;
-	j = 2;
+	j = 1;
 	while (j < lem->room_amount)
 	{
 		if (lem->input[i] == '#')

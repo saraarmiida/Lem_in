@@ -71,8 +71,9 @@ int					get_start_and_end(t_lem *lem);
 
 /* hash.c */
 void				make_hashtable(t_lem *lem);
-unsigned int		hash(char *key);
-t_table				*create_table(int tablesize);
+unsigned int		hash(char *key, int tablesize);
+void				*create_table(t_lem *lem);
 void				set_value(t_table *hashtable, char *key, char *value);
+void				print_table(t_lem *lem);
 
 #endif

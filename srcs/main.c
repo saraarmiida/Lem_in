@@ -27,12 +27,11 @@ void		print_debug_info(t_lem *lem)
 	{
 		r = lem->rooms[i];
 		ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", r->name, r->x, r->y, r->next);
-		/*
-		while (r->links[j]->from != -1)
+		while (r->links[j]->from != NULL)
 		{
-			ft_printf("\tLink pointer: %p | from: %d | to: %d | visited: %d\n", r->links[j], r->links[j]->from, r->links[j]->to, r->links[j]->visited);
+			ft_printf("\tLink pointer: %p | from: %s | to: %s | visited: %d\n", r->links[j], r->links[j]->from, r->links[j]->to, r->links[j]->visited);
 			j++;
-		}*/
+		}
 		j = 0;
 		i++;
 	}
@@ -48,6 +47,6 @@ int		main(int argc, char **argv)
 		lem->fd = open(argv[1], O_RDONLY);
 	init_lem(lem);
 	read_input(lem);
-	// make_hashtable(lem);
+	print_debug_info(lem);
 	return (0);
 }

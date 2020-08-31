@@ -18,8 +18,9 @@ int			init_links(t_room *room)
 	{
 		if (!(room->links[i] = (t_llink*)malloc(sizeof(t_llink))))
 			return (0);
-		room->links[i]->from = -1;
-		room->links[i]->to = -1;
+		room->links[i]->from = NULL;
+		room->links[i]->to = NULL;
+		room->links[i]->visited = 0;
 		i++;
 	}
 	return (1);

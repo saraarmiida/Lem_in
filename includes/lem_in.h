@@ -25,8 +25,8 @@ typedef struct		s_table
 
 typedef struct		s_llink
 {
-	int				from;
-	int				to;
+	char			*from;
+	char			*to;
 	int				visited;
 }					t_llink;
 

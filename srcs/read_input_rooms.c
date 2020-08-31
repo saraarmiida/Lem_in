@@ -54,7 +54,7 @@ int		is_double(t_lem *lem, int j, int name)
 t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 {
 	t_room	*room;
-	
+
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	room->c_name = name;
@@ -114,11 +114,9 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 
 int		get_start_and_end(t_lem *lem)
 {
-	int		i;
 	int		start;
 	int		end;
 
-	i = 0;
 	start = ft_strmatchlen(lem->input, "##start\n");
 	end = ft_strmatchlen(lem->input, "##end\n");
 	if (start == -1 || end == -1)
@@ -198,8 +196,8 @@ int		get_rooms(t_lem *lem)
 	ft_printf("Got %d rooms\n", lem->room_amount);
 	lem->rooms = create_table(lem);
 	get_start_and_end(lem);
-	i = lem->i;
-	j = 0;
+	i = ft_intlen(lem->ants) + 1;
+	j = 2;
 	while (j < lem->room_amount)
 	{
 		if (lem->input[i] == '#')

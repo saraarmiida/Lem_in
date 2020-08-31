@@ -42,10 +42,17 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
+typedef struct	s_route
+{
+	t_room			**rooms;
+	t_llink			**links;
+}					t_route;
+
 typedef struct	s_lem
 {
 	t_room			**rooms;
 	t_llink			**links;
+	t_route			**routes;
 	t_room			*start;
 	t_room			*end;
 	int				ants;		/*make unsigned long*/
@@ -57,11 +64,6 @@ typedef struct	s_lem
 	int				j;
 }					t_lem;
 
-typedef struct	s_route
-{
-	t_room			**rooms;
-	t_llink			**links;
-}					t_route;
 
 /* read_input_basics.c */
 int					read_input(t_lem *lem);
@@ -86,6 +88,6 @@ int					init_links(t_room *room);
 void				init_lem(t_lem *lem);
 
 /* bfs.c */
-t_route				*bfs(t_lem *lem);
+void				bfs(t_lem *lem);
 
 #endif

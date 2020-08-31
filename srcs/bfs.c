@@ -1,12 +1,12 @@
 #include "../includes/lem_in.h"
 
-t_route		*bfs(t_lem *lem)
+void	bfs(t_lem *lem)
 {
-	t_route	*route;
-
-	if (!(route = (t_route*)malloc(sizeof(t_route))))
-		return (NULL);
+	if (!(lem->routes = (t_route**)malloc(sizeof(t_route) * lem->room_amount / 2)))
+	{
+		ft_printf("Malloc failed");
+		return ;
+	}
 	if (lem->start)
-		ft_printf("We have a star");
-	return (route);
+		ft_printf("We have a start");
 }

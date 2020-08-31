@@ -85,4 +85,7 @@ void				print_table(t_lem *lem);
 int					init_links(t_room *room);
 void				init_lem(t_lem *lem);
 
+/* bfs.c */
+t_route				*bfs(t_lem *lem);
+
 #endif

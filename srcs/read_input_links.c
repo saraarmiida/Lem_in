@@ -28,7 +28,7 @@ int		add_link_to_room(t_room *room, char *linkfrom, char *linkto)
 	int		i;
 
 	i = 0;
-	if(room == NULL)
+	if (room == NULL)
 		return (0);
 	while (i < BAD_MAGIC_NUMBER_LINKS)
 	{
@@ -94,7 +94,8 @@ int		save_link(t_lem *lem, int i, int j)
 		ft_printf("Failed to add link to room.\n");
 		return (0);
 	}
-	if (add_link_to_room(room2, link->from, link->to) == 0) // remove if double saving of links is not favorable
+	/* remove if double saving of links is not favorable */
+	if (add_link_to_room(room2, link->from, link->to) == 0)
 	{
 		ft_printf("Failed to add link to room.\n");
 		return (0);

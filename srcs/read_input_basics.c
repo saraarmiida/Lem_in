@@ -21,7 +21,6 @@ int		get_ants(t_lem *lem)
 		else if (ft_isdigit(lem->input[i]) && (i == 0 || lem->input[i - 1] == '\n'))
 		{
 			lem->ants = ft_atoi(&lem->input[i]);
-			ft_printf("Got %d ants\n", lem->ants);
 			lem->i = i + ft_intlen(lem->ants) + 1;
 			return (0);
 		}

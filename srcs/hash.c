@@ -1,30 +1,5 @@
 #include "../includes/lem_in.h"
 
-void			print_table(t_lem *lem)
-{
-	int		i;
-	t_room	*room;
-
-	i = 0;
-	while (i < lem->room_amount)
-	{
-		room = lem->rooms[i];
-		if (room == NULL)
-		{
-			i++;
-			continue ;
-		}
-		ft_printf("slot[%4d]: ", i);
-		while (room != NULL)
-		{
-			ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", room->name, room->x, room->y, room->next);
-			room = room->next;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
-
 void			*create_table(t_lem *lem)
 {
 	int			i;

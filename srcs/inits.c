@@ -15,7 +15,7 @@ void	init_lem(t_lem *lem)
 ** Allocate memory for links in a room and set the initial values
 */
 
-int			init_links(t_room *room)
+int		init_links(t_room *room)
 {
 	int		i;
 

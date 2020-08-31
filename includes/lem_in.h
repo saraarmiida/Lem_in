@@ -71,7 +71,6 @@ int					get_links(t_lem *lem);
 /* hash.c */
 unsigned int		hash(char *key, int tablesize);
 void				*create_table(t_lem *lem);
-void				print_table(t_lem *lem);
 
 /* inits.c */
 int					init_links(t_room *room);

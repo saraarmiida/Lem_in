@@ -7,18 +7,18 @@
 ** not found, it returns -1.
 */
 
-int	ft_strmatchlen(char const *s, char const *s2)
+int		ft_strmatchlen(char const *s, char const *s2)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while(s[i] != '\0')
+	while (s[i] != '\0')
 	{
 		j = 0;
 		while (s[i] != s2[0] && s[i] != '\0')
 			i++;
-		while(s[i] == s2[j])
+		while (s[i] == s2[j])
 		{
 			i++;
 			j++;
@@ -67,7 +67,6 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 	if (room == NULL)
 	{
 		lem->rooms[slot] = get_room_info(lem, name, i, start_or_end);
-		ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", lem->rooms[slot]->name, lem->rooms[slot]->x, lem->rooms[slot]->y, lem->rooms[slot]->next);
 		lem->j = j + 1;
 		return (lem->i);
 	}
@@ -77,13 +76,12 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 		{
 			lem->j = j;
 			ft_printf("Found a duplicate\n");
-			return(skip_line(lem->input, i));
+			return (skip_line(lem->input, i));
 		}
 		prev = room;
 		room = prev->next;
 	}
 	prev->next = get_room_info(lem, name, i, start_or_end);
-	// ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", room->name, room->x, room->y, room->next);
 	lem->j = j + 1;
 	return (lem->i);
 }
@@ -173,7 +171,6 @@ int		get_rooms(t_lem *lem)
 			}
 		}
 	}
-	ft_printf("Got %d rooms\n", lem->room_amount);
 	lem->rooms = create_table(lem);
 	get_start_and_end(lem);
 	i = ft_intlen(lem->ants) + 1;

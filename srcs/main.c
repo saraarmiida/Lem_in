@@ -12,7 +12,7 @@ void		print_debug_info(t_lem *lem)
 	t_rlink	*rl;
 
 	i = 0;
-	while(i < lem->room_amount)
+	while (i < lem->room_amount)
 	{
 		r = lem->rooms[i];
 		j = 0;

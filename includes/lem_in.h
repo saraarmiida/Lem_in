@@ -55,6 +55,7 @@ typedef struct	s_lem
 	t_route			**routes;
 	t_room			*start;
 	t_room			*end;
+	t_room			*current;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
 	int				link_amount;

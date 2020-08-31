@@ -77,6 +77,7 @@ int		save_link(t_lem *lem, int i, int j)
 {
 	t_llink	*link;
 	t_room	*room;
+	t_room	*room2;
 	int		k;
 
 	k = 0;
@@ -86,6 +87,7 @@ int		save_link(t_lem *lem, int i, int j)
 	i += ft_strlen(link->from) + 1;
 	link->to = ft_strcdup(&lem->input[i], '\n');
 	room = lem->rooms[hash(link->from, lem->room_amount)];
+	room2 = lem->rooms[hash(link->to, lem->room_amount)];
 	lem->links[j] = link;
 	if (add_link_to_room(room, link->from, link->to) == 0)
 	{
@@ -93,6 +95,7 @@ int		save_link(t_lem *lem, int i, int j)
 		return (0);
 	}
 	add_room_to_rooms_linked_rooms(lem, room, link->to);
+	add_room_to_rooms_linked_rooms(lem, room2, link->from);
 	return (i + ft_strlen(link->to) + 1);
 }
 

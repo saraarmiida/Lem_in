@@ -54,6 +54,7 @@ int		is_double(t_lem *lem, int j, int name)
 t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 {
 	t_room	*room;
+	
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	room->c_name = name;
@@ -62,6 +63,8 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
+	if (init_links(room) == 0)
+		return (NULL);
 	if (start_or_end == 1)
 		lem->start = room;
 	if (start_or_end == 2)
@@ -196,7 +199,7 @@ int		get_rooms(t_lem *lem)
 	lem->rooms = create_table(lem);
 	get_start_and_end(lem);
 	i = lem->i;
-	j = 1;
+	j = 0;
 	while (j < lem->room_amount)
 	{
 		if (lem->input[i] == '#')

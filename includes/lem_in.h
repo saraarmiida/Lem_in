@@ -78,4 +78,7 @@ void				*create_table(t_lem *lem);
 void				set_value(t_table *hashtable, char *key, char *value);
 void				print_table(t_lem *lem);
 
+/* inits.c */
+int					init_links(t_room *room);
+
 #endif

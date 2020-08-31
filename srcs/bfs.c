@@ -7,6 +7,6 @@ t_route		*bfs(t_lem *lem)
 	if (!(route = (t_route*)malloc(sizeof(t_route))))
 		return (NULL);
 	if (lem->start)
-		ft_printf("We have a start");
+		ft_printf("We have a star");
 	return (route);
 }

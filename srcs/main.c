@@ -9,19 +9,27 @@ void		print_debug_info(t_lem *lem)
 	int		i;
 	int		j;
 	t_room	*r;
+	t_rlink	*rl;
 
 	i = 0;
-	j = 0;
 	while(i < lem->room_amount)
 	{
 		r = lem->rooms[i];
+		j = 0;
 		ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", r->name, r->x, r->y, r->next);
 		while (r->links[j]->from != NULL)
 		{
 			ft_printf("\tLink pointer: %p | from: %s | to: %s | visited: %d\n", r->links[j], r->links[j]->from, r->links[j]->to, r->links[j]->visited);
 			j++;
 		}
-		j = 0;
+		rl = r->linked_rooms;
+		ft_printf("\tLinked rooms: ");
+		while (rl != NULL)
+		{
+			ft_printf("%s -> ", rl->room->c_name);
+			rl = rl->next;
+		}
+		ft_printf("\n");
 		i++;
 	}
 }

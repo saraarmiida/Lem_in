@@ -10,18 +10,11 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct		s_entry
+typedef struct		s_rlink
 {
-	char			*key;
-	char			*value;
-	struct s_entry	*next;
-}					t_entry;
-
-typedef struct		s_table
-{
-	t_entry			**entries;
-}					t_table;
-
+	struct s_room	*room;
+	struct s_rlink	*next;
+}					t_rlink;
 
 typedef struct		s_llink
 {
@@ -39,6 +32,7 @@ typedef struct		s_room
 	int				level;
 	int				ant;
 	t_llink			**links;
+	t_rlink			*linked_rooms;
 	struct s_room	*next;
 }					t_room;
 
@@ -75,10 +69,8 @@ int					get_start_and_end(t_lem *lem);
 int					get_links(t_lem *lem);
 
 /* hash.c */
-void				make_hashtable(t_lem *lem);
 unsigned int		hash(char *key, int tablesize);
 void				*create_table(t_lem *lem);
-void				set_value(t_table *hashtable, char *key, char *value);
 void				print_table(t_lem *lem);
 
 /* inits.c */

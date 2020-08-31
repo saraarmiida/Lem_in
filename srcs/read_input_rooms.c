@@ -49,6 +49,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	if (start_or_end == 2)
 		lem->end = room;
 	room->next = NULL;
+	room->linked_rooms = NULL;
 	lem->i = i + ft_intlen(room->y) + 1;
 	return (room);
 }

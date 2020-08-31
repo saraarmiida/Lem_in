@@ -1,5 +1,24 @@
 #include "../includes/lem_in.h"
 
+void	add_room_to_rooms_linked_rooms(t_lem *lem, t_room *room, char *linkto)
+{
+	t_rlink	*link;
+
+	link = room->linked_rooms;
+	while (link != NULL)
+		link = link->next;
+	if (!(link = (t_rlink*)malloc(sizeof(t_rlink))))
+	{
+		ft_printf("Malloc error\n");
+		return ;
+	}
+	link->room = lem->rooms[hash(linkto, lem->room_amount)];
+	link->next = NULL;
+	if (room->linked_rooms != NULL)
+		link->next = room->linked_rooms;
+	room->linked_rooms = link;
+}
+
 /*
 ** Add link to room
 */
@@ -30,7 +49,6 @@ int		add_link_to_room(t_room *room, char *linkfrom, char *linkto)
 /*
 ** check correct syntax of link
 ** - validate room names
-** - count only unique links
 ** - one or more links
 */
 
@@ -74,6 +92,7 @@ int		save_link(t_lem *lem, int i, int j)
 		ft_printf("Failed to add link to room.\n");
 		return (0);
 	}
+	add_room_to_rooms_linked_rooms(lem, room, link->to);
 	return (i + ft_strlen(link->to) + 1);
 }
 

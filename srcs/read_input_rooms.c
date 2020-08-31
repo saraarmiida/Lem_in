@@ -30,27 +30,6 @@ int	ft_strmatchlen(char const *s, char const *s2)
 	return (-1);
 }
 
-/*
-** create a room to be saved in struct
-** - save hash value instead of room name
-*/
-
-int		is_double(t_lem *lem, int j, int name)
-{
-	while (j >= 0)
-	{
-		if (lem->rooms[j]->name == name)
-		{
-			//ft_printf("Found a double\n");
-			//ft_printf("Found a double\n");
-			return (1);
-		}
-		j--;
-	}
-	//ft_printf("Room is not a double.\n");
-	return (0);
-}
-
 t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 {
 	t_room	*room;

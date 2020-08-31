@@ -11,7 +11,32 @@ void	init_lem(t_lem *lem)
 	lem->j = 0;
 }
 
+/*
+** Print debug info
+*/
 
+void		print_debug_info(t_lem *lem)
+{
+	int		i;
+	int		j;
+	t_room	*r;
+
+	i = 0;
+	j = 0;
+	while(i < lem->room_amount)
+	{
+		r = lem->rooms[i];
+		ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", r->name, r->x, r->y, r->next);
+		/*
+		while (r->links[j]->from != -1)
+		{
+			ft_printf("\tLink pointer: %p | from: %d | to: %d | visited: %d\n", r->links[j], r->links[j]->from, r->links[j]->to, r->links[j]->visited);
+			j++;
+		}*/
+		j = 0;
+		i++;
+	}
+}
 
 int		main(int argc, char **argv)
 {

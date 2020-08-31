@@ -37,6 +37,33 @@ int		get_ants(t_lem *lem)
 ** - one or more links
 */
 
+/*
+** Add link to room
+*/
+
+int		add_link_to_room(t_room *room, int linkfrom, int linkto)
+{
+	int		i;
+
+	i = 0;
+	if(room == NULL)
+		return (0);
+	while (i < BAD_MAGIC_NUMBER_LINKS)
+	{
+		if ((room->links[i]->from == linkfrom && room->links[i]->to == linkto) ||
+		(room->links[i]->from == linkto && room->links[i]->to == linkfrom)) // Check for doubles
+			return (0);
+		else if (room->links[i]->from == -1)
+		{
+			room->links[i]->from = linkfrom;
+			room->links[i]->to = linkto;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		check_link(t_lem *lem, int i)
 {
 	while (ft_isprint(lem->input[i]) && lem->input[i] != '-')
@@ -61,15 +88,31 @@ int		check_link(t_lem *lem, int i)
 int		save_link(t_lem *lem, int i, int j)
 {
 	t_llink	*link;
+	t_room	*room;
+	int		k;
 
+	k = 0;
 	if (!(link = (t_llink*)malloc(sizeof(t_llink))))
 		return (1);
 	link->from = ft_atoi(ft_strcdup(&lem->input[i], '-'));
 	i += ft_intlen(link->from) + 1;
 	link->to = ft_atoi(ft_strcdup(&lem->input[i], '\n'));
 	link->visited = 0;
+	while (k < lem->room_amount)
+	{
+		if (lem->rooms[k]->name == j)
+		{
+			ft_printf("Found room by i.\n");
+			room = lem->rooms[k];
+		}
+		k++;
+	}
 	lem->links[j] = link;
-	ft_printf("Link pointer: %p | from: %d | to: %d | visited: %d\n", link, link->from, link->to, link->visited);
+	if (add_link_to_room(room, link->from, link->to) == 0)
+	{
+		ft_printf("Failed to add link to room.\n");
+		return (0);
+	}
 	return (i + ft_intlen(link->to) + 1);
 }
 

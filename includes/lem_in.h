@@ -5,6 +5,7 @@
 # define BUF_SIZE	4194305
 # define START_ROOM	1
 # define END_ROOM	2
+# define BAD_MAGIC_NUMBER_LINKS 10
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -37,6 +38,7 @@ typedef struct		s_room
 	int				y;
 	int				level;
 	int				ant;
+	t_llink			**links;
 	struct s_room	*next;
 }					t_room;
 

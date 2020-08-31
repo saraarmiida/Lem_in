@@ -37,6 +37,7 @@ void		print_debug_info(t_lem *lem)
 int		main(int argc, char **argv)
 {
 	t_lem	*lem;
+	t_route	*testroute;
 
 	if (!(lem = (t_lem*)malloc(sizeof(t_lem))))
 		return (1);
@@ -45,5 +46,6 @@ int		main(int argc, char **argv)
 	init_lem(lem);
 	read_input(lem);
 	print_debug_info(lem);
+	testroute = bfs(lem);
 	return (0);
 }

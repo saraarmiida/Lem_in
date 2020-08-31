@@ -3,13 +3,15 @@ NAME = lem-in
 SRCS = 	srcs/main.c \
 		srcs/read_input_basics.c \
 		srcs/read_input_rooms.c \
+		srcs/read_input_links.c \
 		srcs/bfs.c \
 		srcs/hash.c \
-		srcs/inits.c
+		srcs/inits.c 
 
 OBJS = 	main.o \
 		read_input_basics.o \
 		read_input_rooms.o \
+		read_input_links.o \
 		bfs.o \
 		hash.o \
 		inits.o

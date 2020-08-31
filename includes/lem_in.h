@@ -71,6 +71,9 @@ int					skip_line(char *input, int i);
 int					get_rooms(t_lem *lem);
 int					get_start_and_end(t_lem *lem);
 
+/* read_input_links.c */
+int					get_links(t_lem *lem);
+
 /* hash.c */
 void				make_hashtable(t_lem *lem);
 unsigned int		hash(char *key, int tablesize);
@@ -80,5 +83,6 @@ void				print_table(t_lem *lem);
 
 /* inits.c */
 int					init_links(t_room *room);
+void				init_lem(t_lem *lem);
 
 #endif

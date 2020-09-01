@@ -36,3 +36,4 @@ int		init_links(t_room *room)
 	}
 	return (1);
 }
+

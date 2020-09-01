@@ -16,6 +16,12 @@ typedef struct		s_rlink
 	struct s_rlink	*next;
 }					t_rlink;
 
+typedef struct		s_queues
+{
+	struct s_rlink	*linked_rooms;
+	struct s_queue	*next;
+}					t_queues;
+
 typedef struct		s_llink
 {
 	char			*from;
@@ -50,6 +56,7 @@ typedef struct	s_lem
 	t_room			*start;
 	t_room			*end;
 	t_room			*current;
+	t_queues		**queues;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
 	int				link_amount;

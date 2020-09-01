@@ -1,5 +1,13 @@
 #include "../includes/lem_in.h"
 
+/*
+** Problem: if temp is a copy of a pointer to linked_rooms, it already has all
+** other rooms of linked_rooms connected to it -> how do we copy the whole linked list
+** and not just the pointer to the first link?
+** or do we just initially save the pointer to the first room in linked rooms and move the
+** pointer of temp to the next one when we have iterated over the first one?
+*/
+
 int		iterate_nodes(t_lem *lem, t_room *current)
 {
 	t_rlink		*current_child;
@@ -17,12 +25,7 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		return (0);
 	}
 	queues->next = NULL;
-	if (!(temp = (t_rlink*)malloc(sizeof(t_rlink))))
-	{
-		ft_printf("Could not allocate temp.");
-		return (0);
-	}
-	ft_memcpy(temp, current_child, sizeof(t_rlink));
+	temp = current->linked_rooms;
 	queues->linked_rooms = temp;
 	ft_printf("Queue %s\n", queues->linked_rooms->room->c_name);
 	while (current_child)
@@ -30,26 +33,13 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		if (current_child->room->level == 0 && lem->start != current_child->room)
 		{
 			current_child->room->level = level;
-			if (!(temp = (t_rlink*)malloc(sizeof(t_rlink))))
-			{
-				ft_printf("Could not allocate temp.");
-				return (0);
-			}
 			ft_printf("Saved room %s | ", current_child->room->c_name);
 			if (current_child->next)
 			{
-				if (!(temp->next = (t_rlink*)malloc(sizeof(t_rlink))))
-				{
-					ft_printf("Could not allocate temp->next.");
-					return (0);
-				}
-				ft_memcpy(temp->next, current_child->next, sizeof(t_rlink));
-				temp = temp->next;
 				current_child = current_child->next;
 			}
 			else {
 				current_child = NULL;
-				temp->next = NULL;
 			}
 		}
 		else
@@ -61,14 +51,14 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		}
 	}
 	if (level > 1) {
-		prev = temp;
-		temp = temp->next;
+		prev = queues->linked_rooms;
+		temp = queues->linked_rooms->next;
 		prev = NULL;
 	}
-	if (current->linked_rooms->next == NULL)
+	if (temp->next == NULL)
 		current = current_child->room->linked_rooms->room;
 	else
-		current = current->linked_rooms->room;
+		current = temp->next->room;
 	ft_printf("Changed to next lvl.\n");
 	level++;
 	queues = queues->next;
@@ -87,7 +77,7 @@ void	bfs(t_lem *lem)
 		return ;
 	}
 	if (lem->start)
-		ft_printf("We have a start");
+		ft_printf("We have a start\n");
 	if (iterate_nodes(lem, lem->start) == 1)
-		ft_printf("Nodes iterated");
+		ft_printf("Nodes iterated\n");
 }

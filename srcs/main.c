@@ -16,7 +16,7 @@ void		print_debug_info(t_lem *lem)
 	{
 		r = lem->rooms[i];
 		j = 0;
-		ft_printf("Name: %d | X: %d | Y: %d | Next: %p\n", r->name, r->x, r->y, r->next);
+		ft_printf("Name: %d | X: %d | Y: %d | Next: %p | Level: %d\n", r->name, r->x, r->y, r->next, r->level);
 		while (r->links[j]->from != NULL)
 		{
 			ft_printf("\tLink pointer: %p | from: %s | to: %s | visited: %d\n", r->links[j], r->links[j]->from, r->links[j]->to, r->links[j]->visited);
@@ -44,7 +44,7 @@ int		main(int argc, char **argv)
 		lem->fd = open(argv[1], O_RDONLY);
 	init_lem(lem);
 	read_input(lem);
-	print_debug_info(lem);
 	bfs(lem);
+	print_debug_info(lem);
 	return (0);
 }

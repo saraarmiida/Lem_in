@@ -94,7 +94,7 @@ int		save_link(t_lem *lem, int i, int j)
 		ft_printf("Failed to add link to room.\n");
 		return (0);
 	}
-	/* remove if double saving of links is not favorable */
+	/* remove if double saving of links is not wanted */
 	if (add_link_to_room(room2, link->from, link->to) == 0)
 	{
 		ft_printf("Failed to add link to room.\n");

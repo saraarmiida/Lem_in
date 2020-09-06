@@ -10,24 +10,28 @@
 
 int		iterate_nodes(t_lem *lem, t_room *current)
 {
-	t_rlink		*current_child;
-	t_rlink		*temp;
-	t_rlink		*prev;
-	t_queues	*queues;
-	static int	level;
+	t_rlink			*current_child;
+	t_rlink			*temp;
+	t_rlink			*prev;
+	t_queues		*currentq;
+	t_queues		*tempq;
+	static int		level;
+	static t_queues *temp_prevq;
 
 	if (!level)
 		level = 1;
 	current_child = current->linked_rooms;
-	if (!(queues = (t_queues*)malloc(sizeof(t_queues))))
+	if (!(currentq = (t_queues*)malloc(sizeof(t_queues))))
 	{
 		ft_printf("Could not allocate queue.");
 		return (0);
 	}
-	queues->nextq = NULL;
+	currentq->nextq = NULL;
+	currentq->prevq = NULL;
+	currentq->prevq = temp_prevq;
 	temp = current->linked_rooms;
-	queues->linked_rooms = temp;
-	ft_printf("Queue %s\n", queues->linked_rooms->room->c_name);
+	currentq->linked_rooms = temp;
+	ft_printf("Queue %s\n", currentq->linked_rooms->room->c_name);
 	while (current_child)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
@@ -51,23 +55,26 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		}
 	}
 	if (level > 1) {
-		prev = queues->linked_rooms;
-		temp = queues->linked_rooms->next;
+		prev = currentq->linked_rooms;
+		temp = currentq->linked_rooms->next;
 		prev = NULL;
 	}
 	if (temp->next == NULL)
 	{
 		//current = current_child->room->linked_rooms->room; // At this point current_child no longer exists -> segfault
-		current = current_child->room->linked_rooms->room;
+		current = currentq->prevq->linked_rooms->room;
+		ft_printf("temp->next was null.\n");
 	}
 	else
 		current = temp->next->room;
 	ft_printf("Changed to next lvl.\n");
-	level++;
-	queues = queues->nextq;
-	if (current == lem->end)
+	if (current->level == 3)
 		return(1);
-	else
+	level++;
+	tempq = currentq;
+	currentq = currentq->nextq;
+	temp_prevq = tempq;
+	if (current != lem->end)
 		iterate_nodes(lem, current);
 	return(0);
 }

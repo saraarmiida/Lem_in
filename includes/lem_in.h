@@ -19,7 +19,7 @@ typedef struct		s_rlink
 typedef struct		s_queues
 {
 	struct s_rlink	*linked_rooms;
-	struct s_queues	*next;
+	struct s_queues	*nextq;
 }					t_queues;
 
 typedef struct		s_llink

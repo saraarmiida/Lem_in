@@ -14,7 +14,8 @@ void	add_room_to_rooms_linked_rooms(t_lem *lem, t_room *room, char *linkto)
 	}
 	link->room = lem->rooms[hash(linkto, lem->room_amount)];
 	link->next = NULL;
-	if (room->linked_rooms != NULL)
+	//if (room->linked_rooms != NULL && room->linked_rooms->room != lem->start)
+	if (room->linked_rooms)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
 }

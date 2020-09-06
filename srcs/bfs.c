@@ -24,7 +24,7 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		ft_printf("Could not allocate queue.");
 		return (0);
 	}
-	queues->next = NULL;
+	queues->nextq = NULL;
 	temp = current->linked_rooms;
 	queues->linked_rooms = temp;
 	ft_printf("Queue %s\n", queues->linked_rooms->room->c_name);
@@ -56,12 +56,15 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		prev = NULL;
 	}
 	if (temp->next == NULL)
+	{
+		//current = current_child->room->linked_rooms->room; // At this point current_child no longer exists -> segfault
 		current = current_child->room->linked_rooms->room;
+	}
 	else
 		current = temp->next->room;
 	ft_printf("Changed to next lvl.\n");
 	level++;
-	queues = queues->next;
+	queues = queues->nextq;
 	if (current == lem->end)
 		return(1);
 	else

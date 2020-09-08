@@ -31,13 +31,13 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 	currentq->prevq = temp_prevq;
 	temp = current->linked_rooms;
 	currentq->linked_rooms = temp;
-	ft_printf("Queue %s\n", currentq->linked_rooms->room->c_name);
+	//ft_printf("Queue %s\n", currentq->linked_rooms->room->c_name);
 	while (current_child)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
 		{
 			current_child->room->level = level;
-			ft_printf("Saved room %s | ", current_child->room->c_name);
+			//ft_printf("Saved room %s | ", current_child->room->c_name);
 			if (current_child->next)
 			{
 				current_child = current_child->next;
@@ -63,11 +63,11 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 	{
 		//current = current_child->room->linked_rooms->room; // At this point current_child no longer exists -> segfault
 		current = currentq->prevq->linked_rooms->room;
-		ft_printf("temp->next was null.\n");
+		//ft_printf("temp->next was null.\n");
 	}
 	else
 		current = temp->next->room;
-	ft_printf("Changed to next lvl.\n");
+	//ft_printf("Changed to next lvl.\n");
 	if (current->level == 3)
 		return(1);
 	level++;
@@ -89,5 +89,7 @@ void	bfs(t_lem *lem)
 	if (lem->start)
 		ft_printf("We have a start\n");
 	if (iterate_nodes(lem, lem->start) == 1)
-		ft_printf("Nodes iterated\n");
+		ft_printf("Nodes iterated.\n");
+	else
+		ft_printf("BFS did not complete.\n\nDebug info:\n");
 }

@@ -75,7 +75,7 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 		if (ft_strcmp(room->c_name, name) == 0)
 		{
 			lem->j = j;
-			ft_printf("Found a duplicate\n");
+			//ft_printf("Found a duplicate\n");
 			return (skip_line(lem->input, i));
 		}
 		prev = room;

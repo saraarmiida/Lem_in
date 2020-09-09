@@ -8,3 +8,4 @@ Getting deeper into algorithms.
 [Adjacency matrix in Wikipedia](https://en.wikipedia.org/wiki/Adjacency_matrix)
 [Pretty good video on hashtables](https://www.youtube.com/watch?v=wg8hZxMRwcw)
 [Code of that video](https://github.com/engineer-man/youtube/tree/master/077)
+[Another 42 lem_in](https://git.42l.fr/amamy/Lem-in)

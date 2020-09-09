@@ -52,6 +52,7 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		temp = currentq->linked_rooms->next;
 		prev = NULL;
 	}
+	prev = NULL;
 	if (temp->next == NULL)
 	{
 		//current = current_child->room->linked_rooms->room; // At this point current_child no longer exists -> segfault

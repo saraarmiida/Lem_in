@@ -38,20 +38,13 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 		{
 			current_child->room->level = current->level + 1;
 			//ft_printf("Saved room %s | ", current_child->room->c_name);
-			if (current_child->next)
-			{
-				current_child = current_child->next;
-			}
-			else {
-				current_child = NULL;
-			}
 		}
-		else
+		if (current_child->next)
 		{
-			if (current_child->next)
-				current_child = current_child->next;
-			else
-				current_child = NULL;
+			current_child = current_child->next;
+		}
+		else {
+			current_child = NULL;
 		}
 	}
 	if (level > 1) {

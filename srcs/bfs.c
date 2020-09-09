@@ -36,7 +36,7 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
 		{
-			current_child->room->level = level;
+			current_child->room->level = current->level + 1;
 			//ft_printf("Saved room %s | ", current_child->room->c_name);
 			if (current_child->next)
 			{
@@ -63,12 +63,15 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 	{
 		//current = current_child->room->linked_rooms->room; // At this point current_child no longer exists -> segfault
 		current = currentq->prevq->linked_rooms->room;
+		level--;
 		//ft_printf("temp->next was null.\n");
 	}
 	else
+	{
 		current = temp->next->room;
+	}
 	//ft_printf("Changed to next lvl.\n");
-	if (current->level == 3)
+	if (lem->current == lem->end)
 		return(1);
 	level++;
 	tempq = currentq;

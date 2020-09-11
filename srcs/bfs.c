@@ -63,6 +63,12 @@ int		iterate_nodes(t_lem *lem, t_room *current)
 	temp_prevq = newq;
 	if (current != lem->end)
 		iterate_nodes(lem, current);
+	if (current == lem->end)
+	{
+		ft_printf("BFS about to return 1.");
+		return (1);
+	}
+	ft_printf("BFS about to return 0.");
 	return(0);
 }
 
@@ -143,5 +149,5 @@ void	bfs(t_lem *lem)
 	if (iterate_nodes(lem, lem->start) == 1)
 		ft_printf("Nodes iterated.\n");
 	else
-		ft_printf("BFS did not complete.\n\nDebug info:\n");
+		ft_printf("\n\nDebug info:\n");
 }

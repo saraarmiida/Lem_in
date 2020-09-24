@@ -90,4 +90,7 @@ void				init_lem(t_lem *lem);
 /* bfs.c */
 void				bfs(t_lem *lem);
 
+/* visualiser.c */
+int					visualiser();
+
 #endif

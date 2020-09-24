@@ -8,7 +8,7 @@
 ** pointer of temp to the next one when we have iterated over the first one?
 */
 
-// int		level_rooms(t_lem *lem, t_room *current)
+// int		iterate_nodes(t_lem *lem, t_room *current)
 // {
 // 	t_rlink			*current_child;
 // 	t_rlink			*temp;

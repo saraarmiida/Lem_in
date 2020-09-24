@@ -126,7 +126,7 @@ int		level_rooms(t_lem *lem, t_room *current)
 	temp_prevq = newq;
 	if (current != lem->end)
 		level_rooms(lem, current);
-	return(0);
+	return(1);
 }
 
 /* Recursive function, on each function call, we create a path from start to end,
@@ -142,15 +142,51 @@ int		level_rooms(t_lem *lem, t_room *current)
 
 int		find_paths(t_lem *lem)
 {
-	t_room	*current;
-	t_route	*new_route;
+	t_path	*head;
+	t_path	*current;
+	t_rlink	*saved_linked_rooms;
 
-	if (!(new_route = (t_route*)malloc(sizeof(t_route))))
+	if (!(head = (t_path*)malloc(sizeof(t_path))))
 	{
 		ft_printf("Malloc failed");
 		return(0);
 	}
-
+	head->room = lem->start;
+	head->prev = NULL;
+	head->next = NULL;
+	current = head;
+	while (current->room != lem->end)
+	{
+		saved_linked_rooms = current->room->linked_rooms;
+		while (current->room->linked_rooms)
+		{
+			if (current->room->linked_rooms->room->level > current->room->level)
+			{
+				if (!(current->next = (t_path*)malloc(sizeof(t_path))))
+				{
+					ft_printf("Malloc failed");
+					return(0);
+				}
+				current->room->linked_rooms = saved_linked_rooms;
+				current->next->prev = current;
+				current->next->room = current->room->linked_rooms->room;
+				current->next->next = NULL;
+				break ;
+			}
+			else
+			{
+				current->room->linked_rooms = current->room->linked_rooms->next;
+			}
+		}
+		current = current->next;
+	}
+	current = head;
+	ft_printf("Path:\n");
+	while (current)
+	{
+		ft_printf("%s -> ", current->room->c_name);
+		current = current->next;
+	}
 	return (0);
 }
 
@@ -167,8 +203,9 @@ void	bfs(t_lem *lem)
 		ft_printf("Rooms leveled.\n");
 	else
 		ft_printf("BFS did not complete.\n\nDebug info:\n");
-	if (find_paths(lem) == 1)
-		ft_printf("Paths found.\n");
-	else
-		ft_printf("BFS did not complete.\n\nDebug info:\n");
+	print_debug_info(lem);
+	// if (find_paths(lem) == 1)
+	// 	ft_printf("Paths found.\n");
+	// else
+	// 	ft_printf("BFS did not complete.\n\nDebug info:\n");
 }

@@ -10,6 +10,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct		s_path
+{
+	struct s_room	*room;
+	struct s_path	*next;
+	struct s_path	*prev;
+}					t_path;
+
 typedef struct		s_rlink
 {
 	struct s_room	*room;
@@ -92,5 +99,7 @@ void				bfs(t_lem *lem);
 
 /* visualiser.c */
 int					visualiser();
+
+void				print_debug_info(t_lem *lem);
 
 #endif

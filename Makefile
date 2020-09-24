@@ -24,6 +24,8 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 LIB = -L./libft -lft
 
+SDL2 = -L lib -l SDL2-2.0.0
+
 HEADER	= includes/
 
 all: $(NAME)
@@ -31,7 +33,7 @@ all: $(NAME)
 $(NAME):
 	make -C libft
 	gcc $(CFLAGS) -c $(SRCS) $(INCS)
-	gcc $(CFLAGS) $(INCS) $(OBJS) $(LIB) -o $(NAME)
+	gcc $(CFLAGS) $(INCS) $(OBJS) $(LIB) $(SDL2) -o $(NAME)
 
 debug:
 

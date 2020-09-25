@@ -4,7 +4,7 @@
 ** Print debug info
 */
 
-void		print_debug_info(t_lem *lem)
+void		print_rooms(t_lem *lem)
 {
 	int		i;
 	int		j;
@@ -32,6 +32,38 @@ void		print_debug_info(t_lem *lem)
 		ft_printf("\n");
 		i++;
 	}
+	ft_printf("\n\n");
+}
+
+void		print_paths(t_lem *lem)
+{
+	t_paths	*path;
+	t_path	*room;
+	int		i;
+	int		j;
+
+	path = lem->paths;
+	i = 0;
+	while (path != NULL)
+	{
+		j = 0;
+		room = path->path;
+		ft_printf("Path %d:\n", i + 1);
+		while (room != NULL)
+		{
+			ft_printf("	Room %s (level: %d)\n", room->room->c_name, room->room->level);
+			room = room->next;
+		}
+		i++;
+		ft_printf("\n\n");
+		path = path->next;
+	}
+}
+
+void		print_debug_info(t_lem *lem)
+{
+	print_rooms(lem);
+	print_paths(lem);
 }
 
 int		main(int argc, char **argv)
@@ -45,6 +77,6 @@ int		main(int argc, char **argv)
 	init_lem(lem);
 	read_input(lem);
 	bfs(lem);
-	// print_debug_info(lem);
+	print_debug_info(lem);
 	return (0);
 }

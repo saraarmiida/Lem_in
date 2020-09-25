@@ -6,7 +6,6 @@ SRCS = 	srcs/main.c \
 		srcs/read_input_links.c \
 		srcs/bfs.c \
 		srcs/hash.c \
-		srcs/visualiser.c \
 		srcs/inits.c 
 
 OBJS = 	main.o \
@@ -15,7 +14,6 @@ OBJS = 	main.o \
 		read_input_links.o \
 		bfs.o \
 		hash.o \
-		visualiser.o \
 		inits.o
 
 INCS = -I ./srcs -I ./libft/includes/
@@ -24,8 +22,6 @@ CFLAGS = -g -Wall -Wextra -Werror
 
 LIB = -L./libft -lft
 
-SDL2 = -L lib -l SDL2-2.0.0
-
 HEADER	= includes/
 
 all: $(NAME)
@@ -33,7 +29,7 @@ all: $(NAME)
 $(NAME):
 	make -C libft
 	gcc $(CFLAGS) -c $(SRCS) $(INCS)
-	gcc $(CFLAGS) $(INCS) $(OBJS) $(LIB) $(SDL2) -o $(NAME)
+	gcc $(CFLAGS) $(INCS) $(OBJS) $(LIB) -o $(NAME)
 
 debug:
 

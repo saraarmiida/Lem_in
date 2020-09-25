@@ -1,13 +1,5 @@
 #include "../includes/lem_in.h"
 
-/*
-** Problem: if temp is a copy of a pointer to linked_rooms, it already has all
-** other rooms of linked_rooms connected to it -> how do we copy the whole linked list
-** and not just the pointer to the first link?
-** or do we just initially save the pointer to the first room in linked rooms and move the
-** pointer of temp to the next one when we have iterated over the first one?
-*/
-
 t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 {
 	t_queues	*newq;
@@ -110,49 +102,83 @@ t_path	*find_next_room(t_path *current)
 	return (current->next);
 }
 
-int		find_paths(t_lem *lem)
+/*
+** Creates a single path. Makes a linked list of rooms that lead
+** from start to end room. Returns NULL if path couldn't be found.
+*/
+
+t_path	*find_path(t_room *path_start, t_room *start, t_room *end)
 {
-	t_path	*head;
 	t_path	*current;
+	t_path	*head;
 
 	if (!(head = (t_path*)malloc(sizeof(t_path))))
 	{
 		ft_printf("Malloc failed");
 		return(0);
 	}
-	head->room = lem->start;
+	head->room = path_start;
 	head->prev = NULL;
 	head->next = NULL;
 	current = head;
-	while (current->room != lem->end)
-	{
+	while (current->room != end && current->room != start)
 		current = find_next_room(current);
-	}
-	current = head;
-	ft_printf("Path:\n");
-	while (current)
+	if (current->room == start)
+		return (NULL);
+	return (head);
+}
+
+/*
+** Creates a bucket of paths. Tries to create a new path, if there are
+** unvisited rooms that connect to start room. Makes a linked list of
+** paths that are found.
+*/
+
+int		create_bucket(t_lem *lem)
+{
+	t_paths			*bucket;
+	t_paths			*temp_prev_path;
+	t_path			*path;
+	t_rlink			*start_room;
+
+	temp_prev_path = NULL;
+	start_room = lem->start->linked_rooms;
+	while (start_room != NULL)
 	{
-		ft_printf("%s -> ", current->room->c_name);
-		current = current->next;
+		if (start_room->room->visited == 0)
+		{
+			path = find_path(start_room->room, lem->start, lem->end);
+			if (path != NULL)
+			{
+				if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
+				{
+					ft_printf("Malloc failed");
+					return(0);
+				}
+				bucket->path = path;
+				bucket->next = NULL;
+				if (temp_prev_path)
+					temp_prev_path->next = bucket;
+				temp_prev_path = bucket;
+				if (!lem->paths)
+					lem->paths = bucket;
+			}
+		}
+		start_room = start_room->next;
 	}
+
 	return (1);
 }
 
 void	bfs(t_lem *lem)
 {
-	if (!(lem->routes = (t_route**)malloc(sizeof(t_route) * lem->room_amount / 2)))
-	{
-		ft_printf("Malloc failed");
-		return ;
-	}
 	if (lem->start)
 		ft_printf("We have a start\n");
 	if (level_rooms(lem, lem->start) == 1)
 		ft_printf("Rooms leveled.\n");
 	else
 		ft_printf("BFS did not complete.\n\nDebug info:\n");
-	print_debug_info(lem);
-	if (find_paths(lem) == 1)
+	if (create_bucket(lem) == 1)
 		ft_printf("\nPaths found.\n\n\n");
 	else
 		ft_printf("BFS did not complete.\n\nDebug info:\n");

@@ -30,6 +30,12 @@ typedef struct		s_queues
 	struct s_queues	*prevq;
 }					t_queues;
 
+typedef struct		s_paths
+{
+	struct s_path	*path;
+	struct s_paths	*next;
+}					t_paths;
+
 typedef struct		s_llink
 {
 	char			*from;
@@ -51,21 +57,15 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-typedef struct	s_route
-{
-	t_room			**rooms;
-	t_llink			**links;
-}					t_route;
-
 typedef struct	s_lem
 {
 	t_room			**rooms;
 	t_llink			**links;
-	t_route			**routes;
 	t_room			*start;
 	t_room			*end;
 	t_room			*current;
 	t_queues		**queues;
+	t_paths			*paths;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
 	int				link_amount;

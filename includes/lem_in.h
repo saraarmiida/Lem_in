@@ -44,6 +44,7 @@ typedef struct		s_room
 	int				x;
 	int				y;
 	int				level;
+	int				visited;
 	int				ant;
 	t_llink			**links;
 	t_rlink			*linked_rooms;

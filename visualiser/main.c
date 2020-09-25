@@ -2,6 +2,20 @@
 #include "includes/SDL.h"
 #include <stdio.h>
 
+int read_lem_in()
+{
+	char *line;
+
+	while (get_next_line(0, &line) == 1)
+	{
+		if (ft_strncmp(line, "Name", 3) == 0)
+		{
+			ft_printf("%s\n", line);
+		}
+	}
+	return (0);
+}
+
 int main() {
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
 	{
@@ -28,6 +42,7 @@ int main() {
 				quit = 1;
 			}
 		}
+		read_lem_in();
 	}
 	printf("There was a window supposedly.\n");
 	SDL_DestroyWindow(win);

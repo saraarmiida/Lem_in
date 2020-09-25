@@ -6,13 +6,15 @@ OBJS = 	main.o
 
 CFLAGS = -g -Wall -Wextra -Werror
 
+LIB = -L ../libft -lft
+
 SDL2 = -L lib -l SDL2-2.0.0
 
 all: $(NAME)
 
 $(NAME):
 	gcc $(CFLAGS) -c $(SRCS)
-	gcc $(CFLAGS) $(OBJS) $(SDL2) -o $(NAME)
+	gcc $(CFLAGS) $(OBJS) $(SDL2) $(LIB) -o $(NAME)
 
 debug:
 
@@ -20,10 +22,8 @@ debug:
 
 clean:
 	rm -f $(OBJS)
-	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C libft fclean
 
 re: fclean all

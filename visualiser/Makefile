@@ -1,19 +1,29 @@
 NAME = visu
 
-SRCS = srcs/main.c
+SRCS = 	main.c \
 
-INC = /Users/spentti/.brew/Cellar/sdl2/2.0.12_1/include
+OBJS = 	main.o
 
-LIB = /Users/spentti/.brew/Cellar/sdl2/2.0.12_1/lib
+CFLAGS = -g -Wall -Wextra -Werror
+
+SDL2 = -L lib -l SDL2-2.0.0
 
 all: $(NAME)
 
 $(NAME):
-	clang srcs/main.c -I $(INC) -L $(LIB) -lSDL2 -o $(NAME)
+	gcc $(CFLAGS) -c $(SRCS)
+	gcc $(CFLAGS) $(OBJS) $(SDL2) -o $(NAME)
+
+debug:
+
+.PHONY: clean fclean re all
 
 clean:
+	rm -f $(OBJS)
+	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C libft fclean
 
 re: fclean all

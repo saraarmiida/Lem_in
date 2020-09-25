@@ -137,8 +137,43 @@ int		level_rooms(t_lem *lem, t_room *current)
 ** we can continue (and mark traversed rooms unvisited)
 ** We save the path to a bucket of paths if it leads to end room.
 ** - Do we need to delete dead ends at this point?
+** - Miten/mihin tallennetaan reitit?
 ** 
 */
+
+t_path	*backtrack(t_path *current)
+{
+	t_rlink	*saved_linked_rooms;
+	
+	current->room->visited = 1;
+	current = current->prev; // free current here
+	saved_linked_rooms = current->room->linked_rooms;
+	while (current->room->linked_rooms)
+	{
+		if (current->room->linked_rooms->room->visited == 0)
+		{
+			if (!(current->next = (t_path*)malloc(sizeof(t_path))))
+			{
+				ft_printf("Malloc failed");
+				return (NULL);
+			}
+			current->room->visited = 1;
+			current->next->prev = current;
+			current->next->room = current->room->linked_rooms->room;
+			current->next->next = NULL;
+			current->room->linked_rooms = saved_linked_rooms;
+			break ;
+		}
+		else
+		{
+			if (current->room->linked_rooms->next != NULL)
+				current->room->linked_rooms = current->room->linked_rooms->next;
+			else
+				current = backtrack(current);
+		}
+	}
+	return (current);
+}
 
 int		find_paths(t_lem *lem)
 {
@@ -160,22 +195,26 @@ int		find_paths(t_lem *lem)
 		saved_linked_rooms = current->room->linked_rooms;
 		while (current->room->linked_rooms)
 		{
-			if (current->room->linked_rooms->room->level > current->room->level)
+			if (current->room->linked_rooms->room->visited == 0)
 			{
 				if (!(current->next = (t_path*)malloc(sizeof(t_path))))
 				{
 					ft_printf("Malloc failed");
 					return(0);
 				}
-				current->room->linked_rooms = saved_linked_rooms;
+				current->room->visited = 1;
 				current->next->prev = current;
 				current->next->room = current->room->linked_rooms->room;
 				current->next->next = NULL;
+				current->room->linked_rooms = saved_linked_rooms;
 				break ;
 			}
 			else
 			{
-				current->room->linked_rooms = current->room->linked_rooms->next;
+				if (current->room->linked_rooms->next != NULL)
+					current->room->linked_rooms = current->room->linked_rooms->next;
+				else
+					current = backtrack(current);
 			}
 		}
 		current = current->next;
@@ -187,7 +226,7 @@ int		find_paths(t_lem *lem)
 		ft_printf("%s -> ", current->room->c_name);
 		current = current->next;
 	}
-	return (0);
+	return (1);
 }
 
 void	bfs(t_lem *lem)
@@ -204,8 +243,8 @@ void	bfs(t_lem *lem)
 	else
 		ft_printf("BFS did not complete.\n\nDebug info:\n");
 	print_debug_info(lem);
-	// if (find_paths(lem) == 1)
-	// 	ft_printf("Paths found.\n");
-	// else
-	// 	ft_printf("BFS did not complete.\n\nDebug info:\n");
+	if (find_paths(lem) == 1)
+		ft_printf("\nPaths found.\n\n\n");
+	else
+		ft_printf("BFS did not complete.\n\nDebug info:\n");
 }

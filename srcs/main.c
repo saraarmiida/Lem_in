@@ -46,6 +46,5 @@ int		main(int argc, char **argv)
 	read_input(lem);
 	bfs(lem);
 	// print_debug_info(lem);
-	// visualiser();
 	return (0);
 }

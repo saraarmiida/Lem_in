@@ -8,82 +8,10 @@
 ** pointer of temp to the next one when we have iterated over the first one?
 */
 
-// int		iterate_nodes(t_lem *lem, t_room *current)
-// {
-// 	t_rlink			*current_child;
-// 	t_rlink			*temp;
-// 	t_rlink			*prev;
-// 	t_queues		*currentq;
-// 	t_queues		*tempq;
-// 	static int		level;
-// 	static t_queues *temp_prevq;
-
-// 	if (!level)
-// 		level = 1;
-// 	current_child = current->linked_rooms;
-// 	if (!(currentq = (t_queues*)malloc(sizeof(t_queues))))
-// 	{
-// 		ft_printf("Could not allocate queue.");
-// 		return (0);
-// 	}
-// 	currentq->nextq = NULL;
-// 	currentq->prevq = NULL;
-// 	currentq->prevq = temp_prevq;
-// 	temp = current->linked_rooms;
-// 	currentq->linked_rooms = temp;
-// 	//ft_printf("Queue %s\n", currentq->linked_rooms->room->c_name);
-// 	while (current_child)
-// 	{
-// 		if (current_child->room->level == 0 && lem->start != current_child->room)
-// 		{
-// 			current_child->room->level = current->level + 1;
-// 			ft_printf("Saved room %s | ", current_child->room->c_name);
-// 		}
-// 		if (current_child->next)
-// 			current_child = current_child->next;
-// 		else
-// 			current_child = NULL;
-// 	}
-// 	if (level > 1) {
-// 		prev = currentq->linked_rooms;
-// 		temp = currentq->linked_rooms->next;
-// 		prev = NULL;
-// 	}
-// 	prev = NULL;
-// 	if (temp->next == NULL)
-// 	{
-// 		//current = current_child->room->linked_rooms->room; // At this point current_child no longer exists -> segfault
-// 		current = currentq->prevq->linked_rooms->room;
-// 		level--;
-// 		//ft_printf("temp->next was null.\n");
-// 	}
-// 	else
-// 	{
-// 		current = temp->next->room;
-// 	}
-// 	//ft_printf("Changed to next lvl.\n");
-// 	if (current == lem->end)
-// 		return(1);
-// 	level++;
-// 	tempq = currentq;
-// 	currentq = currentq->nextq;
-// 	temp_prevq = tempq;
-// 	if (current != lem->end)
-// 		level_rooms(lem, current);
-// 	return(0);
-// }
-
-int		level_rooms(t_lem *lem, t_room *current)
+t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 {
-	t_rlink			*current_child;
-	t_queues		*newq;
-	static int		level;
-	static t_queues *temp_prevq;
-	static t_queues	*currentq;
+	t_queues	*newq;
 
-	if (!level)
-		level = 1;
-	current_child = current->linked_rooms;
 	if (!(newq = (t_queues*)malloc(sizeof(t_queues))))
 	{
 		ft_printf("Could not allocate queue.");
@@ -95,14 +23,24 @@ int		level_rooms(t_lem *lem, t_room *current)
 	newq->linked_rooms = current->linked_rooms;
 	if (temp_prevq)
 		temp_prevq->nextq = newq;
-	//ft_printf("Queue %s\n", newq->linked_rooms->room->c_name);
+	return (newq);
+}
+
+int		level_rooms(t_lem *lem, t_room *current)
+{
+	t_rlink			*current_child;
+	t_queues		*newq;
+	static int		level;
+	static t_queues *temp_prevq;
+	static t_queues	*currentq;
+
+	level = !level ? 1 : level;
+	current_child = current->linked_rooms;
+	newq = init_newq(temp_prevq, current);
 	while (current_child)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
-		{
 			current_child->room->level = current->level + 1;
-			ft_printf("Saved room %s | ", current_child->room->c_name);
-		}
 		if (current_child->next)
 			current_child = current_child->next;
 		else
@@ -118,9 +56,7 @@ int		level_rooms(t_lem *lem, t_room *current)
 			return (1);
 	}
 	else
-	{
 		currentq->linked_rooms = currentq->linked_rooms->next;
-	}
 	current = currentq->linked_rooms->room;
 	level++;
 	temp_prevq = newq;
@@ -138,15 +74,15 @@ int		level_rooms(t_lem *lem, t_room *current)
 ** We save the path to a bucket of paths if it leads to end room.
 ** - Do we need to delete dead ends at this point?
 ** - Miten/mihin tallennetaan reitit?
+** - 
 ** 
 */
 
-t_path	*backtrack(t_path *current)
+t_path	*find_next_room(t_path *current)
 {
 	t_rlink	*saved_linked_rooms;
 	
 	current->room->visited = 1;
-	current = current->prev; // free current here
 	saved_linked_rooms = current->room->linked_rooms;
 	while (current->room->linked_rooms)
 	{
@@ -157,7 +93,6 @@ t_path	*backtrack(t_path *current)
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
-			current->room->visited = 1;
 			current->next->prev = current;
 			current->next->room = current->room->linked_rooms->room;
 			current->next->next = NULL;
@@ -169,17 +104,16 @@ t_path	*backtrack(t_path *current)
 			if (current->room->linked_rooms->next != NULL)
 				current->room->linked_rooms = current->room->linked_rooms->next;
 			else
-				current = backtrack(current);
+				current = find_next_room(current->prev);
 		}
 	}
-	return (current);
+	return (current->next);
 }
 
 int		find_paths(t_lem *lem)
 {
 	t_path	*head;
 	t_path	*current;
-	t_rlink	*saved_linked_rooms;
 
 	if (!(head = (t_path*)malloc(sizeof(t_path))))
 	{
@@ -192,32 +126,7 @@ int		find_paths(t_lem *lem)
 	current = head;
 	while (current->room != lem->end)
 	{
-		saved_linked_rooms = current->room->linked_rooms;
-		while (current->room->linked_rooms)
-		{
-			if (current->room->linked_rooms->room->visited == 0)
-			{
-				if (!(current->next = (t_path*)malloc(sizeof(t_path))))
-				{
-					ft_printf("Malloc failed");
-					return(0);
-				}
-				current->room->visited = 1;
-				current->next->prev = current;
-				current->next->room = current->room->linked_rooms->room;
-				current->next->next = NULL;
-				current->room->linked_rooms = saved_linked_rooms;
-				break ;
-			}
-			else
-			{
-				if (current->room->linked_rooms->next != NULL)
-					current->room->linked_rooms = current->room->linked_rooms->next;
-				else
-					current = backtrack(current);
-			}
-		}
-		current = current->next;
+		current = find_next_room(current);
 	}
 	current = head;
 	ft_printf("Path:\n");

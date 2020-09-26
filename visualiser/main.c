@@ -2,6 +2,7 @@
 #include "includes/SDL.h"
 #include <stdio.h>
 
+
 typedef struct	s_node
 {
 	int			x;
@@ -9,62 +10,82 @@ typedef struct	s_node
 	int			name;
 }				t_node;
 
-int	drawnodes(SDL_Renderer *renderer, t_node *nodes)
+typedef struct	s_line
+{
+	int			fromx;
+	int			fromy;
+	int			tox;
+	int			toy;
+}				t_line;
+
+typedef struct	s_visu
+{
+	t_line		*lines;
+	t_node		*nodes;
+}				t_visu;
+
+int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	int i;
 
 	i = 0;
-	while (i < 9)
+	while (i < 8)
 	{
 		SDL_Rect rect;
-		rect.x = nodes[i].x;
-		rect.y = nodes[i].y;
+		rect.x = visu->nodes[i].x;
+		rect.y = visu->nodes[i].y;
 		rect.w = 10;
 		rect.h = 10;
 		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 255);
-		SDL_Delay(10);
+		SDL_Delay(5);
 		SDL_RenderDrawRect(renderer, &rect);
-		SDL_Delay(10);
+		SDL_Delay(5);
 		SDL_RenderPresent(renderer);
-		SDL_Delay(10);
-		ft_printf("Node name: %d | x: %d | y: %d\n", nodes[i].name, nodes[i].x, nodes[i].y);
+		SDL_Delay(5);
+		ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
 		i++;
 	}
 	return (0);
 }
 
-t_node *read_lem_in()
+t_visu *init_visu_data()
 {
-	char 	*line;
-	t_node 	*nodes;
-	int		x;
-	int		y;
-	int		content;
+	t_visu	*visu;
+	char	*line;
 	int		i;
 
-	x = 0;
-	y = 0;
-	content = 0;
 	i = 0;
-	if (!(nodes = (t_node*)malloc(sizeof(t_node) * 8)))
+	if (!(visu = (t_visu*)malloc(sizeof(t_visu))))
+		return (0);
+	if (!(visu->nodes = (t_node*)malloc(sizeof(t_node) * 8)))
+		return (0);
+	if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * 8)))
 		return (0);
 	while (get_next_line(0, &line) == 1)
 	{
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{
-			nodes[i].name = ft_atoi(line += 5);
-			nodes[i].x = ft_atoi(line += 7) * 10 + 550;
-			nodes[i].y = ft_atoi(line += 7) * 10 + 100;
+			visu->nodes[i].name = ft_atoi(line += 5);
+			visu->nodes[i].x = ft_atoi(line += 7) * 10 + 550;
+			visu->nodes[i].y = ft_atoi(line += 7) * 10 + 100;
+			i++;
+		}
+		if (ft_strncmp(line, "from", 3) == 0)
+		{
+			visu->lines[i].fromx = ft_atoi(line += 7) * 10 + 550;
+			visu->lines[i].fromy = ft_atoi(line += 7) * 10 + 100;
+			visu->lines[i].tox = ft_atoi(line += 7) * 10 + 550;
+			visu->lines[i].toy = ft_atoi(line += 7) * 10 + 100;
 			i++;
 		}
 	}
-	return (nodes);
+	return(visu);
 }
 
 int main() {
-	t_node 	*nodes;
+	t_visu 	*visu;
 
-	nodes = NULL;
+	visu = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
 	{
 		printf("NO SDL\n");
@@ -81,7 +102,7 @@ int main() {
 		printf("No window: %s", SDL_GetError());
 		return (0);
 	}
-	nodes = read_lem_in();
+	visu = init_visu_data();
 	while (quit == 0){
 		while (SDL_PollEvent(&e)){
 			if (e.type == SDL_QUIT){
@@ -94,7 +115,7 @@ int main() {
 				quit = 1;
 			}
 		}
-		drawnodes(renderer, nodes);
+		drawvisu(renderer, visu);
 		//SDL_Delay(100);
 	}
 	printf("There was a window supposedly.\n");

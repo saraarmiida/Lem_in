@@ -27,6 +27,7 @@ typedef struct	s_visu
 int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	int i;
+	int j;
 
 	i = 0;
 	while (i < 8)
@@ -42,7 +43,18 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 		SDL_Delay(5);
 		SDL_RenderPresent(renderer);
 		SDL_Delay(5);
-		ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
+		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
+		ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
+		j = 0;
+		while (j < 8)
+		{
+			if(visu->lines[j].fromx == visu->nodes[i].x && visu->lines[j].fromy == visu->nodes[i].y)
+			{
+				SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+				SDL_Delay(5);
+			}
+			j++;
+		}
 		i++;
 	}
 	return (0);
@@ -53,8 +65,10 @@ t_visu *init_visu_data()
 	t_visu	*visu;
 	char	*line;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	if (!(visu = (t_visu*)malloc(sizeof(t_visu))))
 		return (0);
 	if (!(visu->nodes = (t_node*)malloc(sizeof(t_node) * 8)))
@@ -70,13 +84,11 @@ t_visu *init_visu_data()
 			visu->nodes[i].y = ft_atoi(line += 7) * 10 + 100;
 			i++;
 		}
-		if (ft_strncmp(line, "from", 3) == 0)
+		if (ft_strncmp(line, "Curr", 3) == 0)
 		{
-			visu->lines[i].fromx = ft_atoi(line += 7) * 10 + 550;
-			visu->lines[i].fromy = ft_atoi(line += 7) * 10 + 100;
-			visu->lines[i].tox = ft_atoi(line += 7) * 10 + 550;
-			visu->lines[i].toy = ft_atoi(line += 7) * 10 + 100;
-			i++;
+			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 550; 
+			visu->lines[j].fromy = ft_atoi(line += 5) * 10 + 100;
+			j++;
 		}
 	}
 	return(visu);

@@ -9,6 +9,7 @@ void	init_lem(t_lem *lem)
 	lem->link_amount = 0;
 	lem->input = NULL;
 	lem->j = 0;
+	lem->visu_info = 0;
 }
 
 /*

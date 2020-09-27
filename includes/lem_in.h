@@ -73,6 +73,7 @@ typedef struct	s_lem
 	char			*input;
 	int				i;
 	int				j;
+	int				visu_info;
 }					t_lem;
 
 

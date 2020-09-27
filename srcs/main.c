@@ -75,6 +75,7 @@ int		main(int argc, char **argv)
 	if (argc == 2)
 		lem->fd = open(argv[1], O_RDONLY);
 	init_lem(lem);
+	lem->visu_info = 1;
 	read_input(lem);
 	bfs(lem);
 	print_debug_info(lem);

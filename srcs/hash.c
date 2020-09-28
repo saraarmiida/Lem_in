@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-void			*create_table(t_lem *lem)
+void			*init_table(t_lem *lem)
 {
 	int			i;
 	t_room		**rooms;

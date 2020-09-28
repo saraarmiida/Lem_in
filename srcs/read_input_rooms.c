@@ -173,7 +173,7 @@ int		get_rooms(t_lem *lem)
 			}
 		}
 	}
-	lem->rooms = create_table(lem);
+	lem->rooms = init_table(lem);
 	get_start_and_end(lem);
 	i = ft_intlen(lem->ants) + 1;
 	j = 2;

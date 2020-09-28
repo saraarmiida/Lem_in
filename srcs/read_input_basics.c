@@ -15,9 +15,7 @@ int		get_ants(t_lem *lem)
 	while (lem->input[i])
 	{
 		if (lem->input[i] == '#')
-		{
 			i = skip_line(lem->input, i);
-		}
 		else if (ft_isdigit(lem->input[i]) && (i == 0 || lem->input[i - 1] == '\n'))
 		{
 			lem->ants = ft_atoi(&lem->input[i]);

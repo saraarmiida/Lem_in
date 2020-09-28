@@ -59,17 +59,14 @@ int		level_rooms(t_lem *lem, t_room *current)
 	return(1);
 }
 
-/* Recursive function, on each function call, we create a path from start to end,
+/* 
+** Recursive function, on each function call, we create a path from start to end,
 ** we call the function again, if there still is a possibility to start a new path
 ** from start room (there is an unvisited room in start->linked rooms).
 ** To decide to which room to go next, we try to find an unvisited room with a higher
 ** level than the current room has. If can't continue the path, we traverse back until
 ** we can continue (and mark traversed rooms unvisited)
 ** We save the path to a bucket of paths if it leads to end room.
-** - Do we need to delete dead ends at this point?
-** - Miten/mihin tallennetaan reitit?
-** - 
-** 
 */
 
 t_path	*find_next_room(t_path *current)

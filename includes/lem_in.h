@@ -90,7 +90,7 @@ int					get_links(t_lem *lem);
 
 /* hash.c */
 unsigned int		hash(char *key, int tablesize);
-void				*create_table(t_lem *lem);
+void				*init_table(t_lem *lem);
 
 /* inits.c */
 int					init_links(t_room *room);
@@ -99,8 +99,8 @@ void				init_lem(t_lem *lem);
 /* bfs.c */
 void				bfs(t_lem *lem);
 
-/* visualiser.c */
-int					visualiser();
+/* send_ants.c */
+void				send_ants(t_lem *lem);
 
 void				print_debug_info(t_lem *lem);
 

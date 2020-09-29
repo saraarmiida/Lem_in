@@ -44,15 +44,13 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 		SDL_RenderPresent(renderer);
 		SDL_Delay(5);
 		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
-		ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
+		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
 		j = 0;
 		while (j < 8)
 		{
-			if(visu->lines[j].fromx == visu->nodes[i].x && visu->lines[j].fromy == visu->nodes[i].y)
-			{
-				SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
-				SDL_Delay(5);
-			}
+			ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+			SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+			SDL_Delay(1);
 			j++;
 		}
 		i++;
@@ -77,18 +75,20 @@ t_visu *init_visu_data()
 		return (0);
 	while (get_next_line(0, &line) == 1)
 	{
+		if (ft_strncmp(line, "Curr", 3) == 0)
+		{
+			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 550; 
+			visu->lines[j].fromy = ft_atoi(line += 4) * 10 + 100;
+			visu->lines[j].tox = ft_atoi(line += 4) * 10 + 550; 
+			visu->lines[j].toy = ft_atoi(line += 4) * 10 + 100;
+			j++;
+		}
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{
 			visu->nodes[i].name = ft_atoi(line += 5);
 			visu->nodes[i].x = ft_atoi(line += 7) * 10 + 550;
 			visu->nodes[i].y = ft_atoi(line += 7) * 10 + 100;
 			i++;
-		}
-		if (ft_strncmp(line, "Curr", 3) == 0)
-		{
-			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 550; 
-			visu->lines[j].fromy = ft_atoi(line += 5) * 10 + 100;
-			j++;
 		}
 	}
 	return(visu);

@@ -80,8 +80,6 @@ typedef struct	s_lem
 	t_room			*current;
 	t_queues		**queues;
 	t_paths			*paths;
-	t_queue			*queues;
-	t_queue			*paths;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
 	int				link_amount;

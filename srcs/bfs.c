@@ -29,14 +29,16 @@ int		level_rooms(t_lem *lem, t_room *current)
 	level = !level ? 1 : level;
 	current_child = current->linked_rooms;
 	newq = init_newq(temp_prevq, current);
-	if (lem->visu_info == 1)
-		ft_printf("Curr: %d | %d\n", current->x, current->y);
 	while (current_child)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
 			current_child->room->level = current->level + 1;
 		if (current_child->next)
+		{
+			if (lem->visu_info == 1)
+				ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
 			current_child = current_child->next;
+		}
 		else
 			current_child = NULL;
 	}

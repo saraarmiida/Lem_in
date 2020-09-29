@@ -77,10 +77,10 @@ t_visu *init_visu_data()
 	{
 		if (ft_strncmp(line, "Curr", 3) == 0)
 		{
-			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 550; 
-			visu->lines[j].fromy = ft_atoi(line += 4) * 10 + 100;
-			visu->lines[j].tox = ft_atoi(line += 4) * 10 + 550; 
-			visu->lines[j].toy = ft_atoi(line += 4) * 10 + 100;
+			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 555; 
+			visu->lines[j].fromy = ft_atoi(line += 4) * 10 + 105;
+			visu->lines[j].tox = ft_atoi(line += 4) * 10 + 555; 
+			visu->lines[j].toy = ft_atoi(line += 4) * 10 + 105;
 			j++;
 		}
 		if (ft_strncmp(line, "Name", 3) == 0)

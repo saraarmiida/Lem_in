@@ -36,6 +36,19 @@ typedef struct		s_paths
 	struct s_paths	*next;
 }					t_paths;
 
+/*
+** Combine t_path, t_rlink, t_queues and t_paths to t_queue.
+*/
+
+typedef struct		s_queue
+{
+	void			*node;
+	size_t			node_size;
+	void			*next;
+	void			*prev;
+}					t_queue;
+
+
 typedef struct		s_llink
 {
 	char			*from;
@@ -54,6 +67,7 @@ typedef struct		s_room
 	int				ant;
 	t_llink			**links;
 	t_rlink			*linked_rooms;
+	t_queue			*linked_rooms_2;
 	struct s_room	*next;
 }					t_room;
 

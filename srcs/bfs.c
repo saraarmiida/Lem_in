@@ -62,7 +62,7 @@ int		level_rooms(t_lem *lem, t_room *current)
 }
 
 /* 
-** Recursive function, on each function call, we create a path from start to end,
+**Recursive function, on each function call, we create a path from start to end,
 ** we call the function again, if there still is a possibility to start a new path
 ** from start room (there is an unvisited room in start->linked rooms).
 ** To decide to which room to go next, we try to find an unvisited room with a higher

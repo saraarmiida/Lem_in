@@ -52,6 +52,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	room->linked_rooms = NULL;
 	room->level = 0;
 	room->visited = 0;
+	room->ant = 0;
 	lem->i = i + ft_intlen(room->y) + 1;
 	return (room);
 }

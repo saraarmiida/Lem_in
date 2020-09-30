@@ -48,7 +48,7 @@ void		print_paths(t_lem *lem)
 	{
 		j = 0;
 		room = path->path;
-		ft_printf("Path %d:\n", i + 1);
+		ft_printf("Path %d, length %d:\n", i + 1, path->length);
 		while (room != NULL)
 		{
 			ft_printf("	Room %s (level: %d)\n", room->room->c_name, room->room->level);

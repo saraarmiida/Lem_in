@@ -34,6 +34,7 @@ typedef struct		s_queues
 typedef struct		s_paths
 {
 	struct s_path	*path;
+	int				length;
 	struct s_paths	*next;
 }					t_paths;
 
@@ -81,6 +82,7 @@ typedef struct	s_lem
 	t_room			*current;
 	t_queues		**queues;
 	t_paths			*paths;
+	int				path_length;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
 	int				link_amount;

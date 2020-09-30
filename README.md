@@ -1,5 +1,11 @@
-# Lem_in
-Getting deeper into algorithms.
+# Hive Helsinki: Lem_in
+C — Getting deeper into algorithms.
+
+## Challenge
+Lem_in is essentially a graph and flow problem. Move x amount of "ants" Through a graph consisting of connected nodes. 
+
+## Solution
+This is WIP but so far we're implementing something similar to Edmonds-Karp algorithm
 
 ## Useful reading
 [Dinic algorithm in Wikipedia](https://en.wikipedia.org/wiki/Dinic%27s_algorithm)\

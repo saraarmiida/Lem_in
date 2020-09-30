@@ -78,7 +78,7 @@ int		main(int argc, char **argv)
 	lem->visu_info = 1;
 	read_input(lem);
 	bfs(lem);
-	print_debug_info(lem);
+	//print_debug_info(lem);
 	send_ants(lem);
 	return (0);
 }

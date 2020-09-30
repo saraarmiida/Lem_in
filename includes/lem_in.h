@@ -15,6 +15,7 @@ typedef struct		s_path
 	struct s_room	*room;
 	struct s_path	*next;
 	struct s_path	*prev;
+	int				length;
 }					t_path;
 
 typedef struct		s_rlink

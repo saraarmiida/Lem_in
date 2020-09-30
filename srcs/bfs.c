@@ -28,6 +28,8 @@ int		level_rooms(t_lem *lem, t_room *current)
 
 	level = !level ? 1 : level;
 	current_child = current->linked_rooms;
+	if (!temp_prevq)
+		temp_prevq = NULL;
 	newq = init_newq(temp_prevq, current);
 	while (current_child)
 	{
@@ -35,8 +37,8 @@ int		level_rooms(t_lem *lem, t_room *current)
 			current_child->room->level = current->level + 1;
 		if (current_child->next)
 		{
-			if (lem->visu_info == 1)
-				ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
+			//if (lem->visu_info == 1)
+			//	ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
 			current_child = current_child->next;
 		}
 		else
@@ -86,6 +88,7 @@ t_path	*find_next_room(t_path *current)
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
+			ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, current->room->linked_rooms->room->x, current->room->linked_rooms->room->y);
 			current->next->prev = current;
 			current->next->room = current->room->linked_rooms->room;
 			current->next->next = NULL;

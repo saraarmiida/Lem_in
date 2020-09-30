@@ -108,24 +108,37 @@ t_path	*find_next_room(t_path *current)
 ** from start to end room. Returns NULL if path couldn't be found.
 */
 
-t_path	*find_path(t_room *path_start, t_room *start, t_room *end)
+t_path	*find_path(t_room *path_start, t_lem *lem)
 {
 	t_path	*current;
 	t_path	*head;
+	int		length;
 
 	if (!(head = (t_path*)malloc(sizeof(t_path))))
 	{
 		ft_printf("Malloc failed");
 		return(0);
 	}
-	head->room = path_start;
+	if (!(head->next = (t_path*)malloc(sizeof(t_path))))
+	{
+		ft_printf("Malloc failed");
+		return(0);
+	}
+	head->room = lem->start;
 	head->prev = NULL;
-	head->next = NULL;
-	current = head;
-	while (current->room != end && current->room != start)
+	head->next->room = path_start;
+	head->next->next = NULL;
+	head->next->prev = head;
+	current = head->next;
+	length = 1;
+	while (current->room != lem->end && current->room != lem->start)
+	{
 		current = find_next_room(current);
-	if (current->room == start)
+		length++;
+	}
+	if (current->room == lem->start)
 		return (NULL);
+	lem->path_length = length;
 	return (head);
 }
 
@@ -148,7 +161,7 @@ int		create_bucket(t_lem *lem)
 	{
 		if (start_room->room->visited == 0)
 		{
-			path = find_path(start_room->room, lem->start, lem->end);
+			path = find_path(start_room->room, lem);
 			if (path != NULL)
 			{
 				if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
@@ -157,6 +170,7 @@ int		create_bucket(t_lem *lem)
 					return(0);
 				}
 				bucket->path = path;
+				bucket->length = lem->path_length;
 				bucket->next = NULL;
 				if (temp_prev_path)
 					temp_prev_path->next = bucket;

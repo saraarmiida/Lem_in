@@ -79,6 +79,6 @@ int		main(int argc, char **argv)
 	read_input(lem);
 	bfs(lem);
 	print_debug_info(lem);
-	// send_ants(lem);
+	send_ants(lem);
 	return (0);
 }

@@ -8,6 +8,7 @@ typedef struct	s_node
 	int			x;
 	int			y;
 	int			name;
+	int			level;
 }				t_node;
 
 typedef struct	s_line
@@ -43,7 +44,6 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 255);
 		//SDL_Delay(5);
 		SDL_RenderDrawRect(renderer, &rect);
-		//SDL_Delay(5);
 		//SDL_Delay(5);
 		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
 		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
@@ -97,6 +97,7 @@ t_visu *init_visu_data()
 			visu->nodes[i].name = ft_atoi(line += 5);
 			visu->nodes[i].x = ft_atoi(line += 7) * 10 + 550;
 			visu->nodes[i].y = ft_atoi(line += 7) * 10 + 100;
+			visu->nodes[i].level = ft_atoi(line += 7);
 			i++;
 		}
 	}
@@ -104,9 +105,11 @@ t_visu *init_visu_data()
 }
 
 int main() {
-	t_visu 	*visu;
-	int		linesmax;
-
+	t_visu 		*visu;
+	int			linesmax;
+	//TTF_Font	*Mono;
+	
+	//Mono = TTF_OpenFont("../assets/.OverpassMono-Light.ttf", 24);
 	visu = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
 	{
@@ -141,7 +144,7 @@ int main() {
 				quit = 1;
 			}
 		}
-		SDL_Delay(3);
+		SDL_Delay(5);
 	}
 	printf("There was a window supposedly.\n");
 	SDL_DestroyWindow(win);

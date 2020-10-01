@@ -16,7 +16,7 @@ void		print_rooms(t_lem *lem)
 	{
 		r = lem->rooms[i];
 		j = 0;
-		ft_printf("Name: %d | X: %d | Y: %d | Next: %p | Level: %d\n", r->name, r->x, r->y, r->next, r->level);
+		ft_printf("Name: %d | X: %d | Y: %d | L: %p | Next: %d\n", r->name, r->x, r->y, r->level, r->next);
 		while (r->links[j]->from != NULL)
 		{
 			ft_printf("\tLink pointer: %p | from: %s | to: %s | visited: %d\n", r->links[j], r->links[j]->from, r->links[j]->to, r->links[j]->visited);

@@ -2,14 +2,11 @@
 
 int		send_new_ants(t_paths *path, int ant)
 {
-	int		ant_counter;
-
 	while (path != NULL)
 	{
 		ft_printf("L%d-%s ", ant, path->path->next->room->c_name);
 		path->path->next->room->ant = ant;
 		ant++;
-		ant_counter = path->length;
 		path = path->next;
 	}
 	return (ant);
@@ -41,7 +38,6 @@ void	send_ants(t_lem *lem)
 	int		ant_counter;
 	t_paths	*path;
 	t_paths	*start;
-	int		loop_ant;
 
 	ft_printf("%s\n\n", lem->input); // add ignoring comments
 	ant = 1;
@@ -50,8 +46,7 @@ void	send_ants(t_lem *lem)
 	while (ant_counter > 0 || ant_counter == -1)
 	{
 		path = start;
-		loop_ant = ant;
-		while (path != NULL && loop_ant > 0)
+		while (path != NULL)
 		{
 			move_ants(path->path->next, lem->end);
 			path = path->next;

@@ -52,7 +52,7 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 	}
 	while (j < visu->link_amount)
 	{
-		ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
 		SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
 		//SDL_Delay(5);
 		j++;
@@ -104,6 +104,7 @@ t_visu *init_visu_data()
 
 int main() {
 	t_visu 	*visu;
+	int		linesmax;
 
 	visu = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
@@ -122,6 +123,8 @@ int main() {
 		return (0);
 	}
 	visu = init_visu_data();
+	linesmax = visu->link_amount;
+	visu->link_amount = 0;
 	SDL_RenderClear(renderer);
 	while (quit == 0){
 		drawvisu(renderer, visu);
@@ -129,14 +132,14 @@ int main() {
 			if (e.type == SDL_QUIT){
 				quit = 1;
 			}
-			if (e.type == SDL_KEYDOWN){
-				quit = 1;
+			if (e.type == SDL_KEYDOWN && visu->link_amount <= linesmax){
+				visu->link_amount++;
 			}
 			if (e.type == SDL_MOUSEBUTTONDOWN){
 				quit = 1;
 			}
 		}
-		SDL_Delay(10);
+		SDL_Delay(1);
 	}
 	printf("There was a window supposedly.\n");
 	SDL_DestroyWindow(win);

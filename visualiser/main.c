@@ -22,6 +22,8 @@ typedef struct	s_visu
 {
 	t_line		*lines;
 	t_node		*nodes;
+	int			room_amount;
+	int			link_amount;
 }				t_visu;
 
 int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
@@ -30,7 +32,8 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 	int j;
 
 	i = 0;
-	while (i < 8)
+	j = 0;
+	while (i < visu->room_amount)
 	{
 		SDL_Rect rect;
 		rect.x = visu->nodes[i].x;
@@ -38,22 +41,21 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 		rect.w = 10;
 		rect.h = 10;
 		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 255);
-		SDL_Delay(5);
+		//SDL_Delay(5);
 		SDL_RenderDrawRect(renderer, &rect);
-		SDL_Delay(5);
+		//SDL_Delay(5);
 		SDL_RenderPresent(renderer);
-		SDL_Delay(5);
+		//SDL_Delay(5);
 		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
 		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
-		j = 0;
-		while (j < 8)
-		{
-			ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
-			SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
-			SDL_Delay(1);
-			j++;
-		}
 		i++;
+	}
+	while (j < visu->link_amount)
+	{
+		ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+		SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+		//SDL_Delay(5);
+		j++;
 	}
 	return (0);
 }
@@ -69,12 +71,18 @@ t_visu *init_visu_data()
 	j = 0;
 	if (!(visu = (t_visu*)malloc(sizeof(t_visu))))
 		return (0);
-	if (!(visu->nodes = (t_node*)malloc(sizeof(t_node) * 8)))
-		return (0);
-	if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * 8)))
-		return (0);
+	visu->room_amount = 0;
 	while (get_next_line(0, &line) == 1)
 	{
+		if (ft_strncmp(line, "Rooms", 4) == 0 && visu->room_amount == 0)
+		{
+			visu->room_amount = ft_atoi(line += 6);
+			visu->link_amount = ft_atoi(line += 9);
+			if (!(visu->nodes = (t_node*)malloc(sizeof(t_node) * visu->room_amount)))
+				return (0);
+			if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * visu->link_amount)))
+				return (0);
+		}
 		if (ft_strncmp(line, "Curr", 3) == 0)
 		{
 			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 555; 
@@ -106,7 +114,6 @@ int main() {
 	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, 0);
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
-	SDL_RenderClear(renderer);
 	SDL_Event e;
 	int quit = 0;
 	if (!win)
@@ -115,7 +122,9 @@ int main() {
 		return (0);
 	}
 	visu = init_visu_data();
+	SDL_RenderClear(renderer);
 	while (quit == 0){
+		drawvisu(renderer, visu);
 		while (SDL_PollEvent(&e)){
 			if (e.type == SDL_QUIT){
 				quit = 1;
@@ -127,8 +136,7 @@ int main() {
 				quit = 1;
 			}
 		}
-		drawvisu(renderer, visu);
-		//SDL_Delay(100);
+		SDL_Delay(10);
 	}
 	printf("There was a window supposedly.\n");
 	SDL_DestroyWindow(win);

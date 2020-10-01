@@ -44,7 +44,6 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 		//SDL_Delay(5);
 		SDL_RenderDrawRect(renderer, &rect);
 		//SDL_Delay(5);
-		SDL_RenderPresent(renderer);
 		//SDL_Delay(5);
 		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
 		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
@@ -53,10 +52,12 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 	while (j < visu->link_amount)
 	{
 		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
+		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 255);
 		SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
 		//SDL_Delay(5);
 		j++;
 	}
+	SDL_RenderPresent(renderer);
 	return (0);
 }
 
@@ -125,8 +126,9 @@ int main() {
 	visu = init_visu_data();
 	linesmax = visu->link_amount;
 	visu->link_amount = 0;
-	SDL_RenderClear(renderer);
 	while (quit == 0){
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
 		drawvisu(renderer, visu);
 		while (SDL_PollEvent(&e)){
 			if (e.type == SDL_QUIT){
@@ -139,7 +141,7 @@ int main() {
 				quit = 1;
 			}
 		}
-		SDL_Delay(1);
+		SDL_Delay(3);
 	}
 	printf("There was a window supposedly.\n");
 	SDL_DestroyWindow(win);

@@ -126,7 +126,7 @@ t_path	*find_path(t_lem *lem)
 	head->prev = NULL;
 	head->next = NULL;
 	current = head;
-	length = 1;
+	length = 0;
 	while (current->room != lem->end)
 	{
 		current = find_next_room(current);

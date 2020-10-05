@@ -13,13 +13,11 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 	lol = lem->ants;
 	while (path != NULL && ant < lem->ants)
 	{
-		if (path->next != NULL && path->next->length + (lem->ants - ant) <= path->length)
-			path = path->next;
 		ft_printf("L%d-%s ", ant, path->path->next->room->c_name);
 		path->path->next->room->ant = ant;
 		lem->path_length = path->length > lem->path_length ? path->length : lem->path_length;
 		if (path->next != NULL && path->length + (lem->ants - ant) <= path->next->length)
-			return (ant);
+			return (ant + 1);
 		ant++;
 		path = path->next;
 	}
@@ -46,6 +44,34 @@ void	move_ants(t_path *room, t_room *end)
 	}
 }
 
+void	sort_paths(t_lem *lem)
+{
+	int		temp_length;
+	t_path	*temp_path;
+	t_paths	*current;
+	t_paths	*next;
+
+	current = lem->paths;
+	while (current->next != NULL)
+	{
+		next = current->next;
+		while (next != NULL)
+		{
+			if (current->length > next->length)
+			{
+				temp_length = current->length;
+				temp_path = current->path;
+				current->path = next->path;
+				current->length = next->length;
+				next->path = temp_path;
+				next->length = temp_length;
+			}
+			next = next->next;
+		}
+		current = current->next;
+	}
+}
+
 void	send_ants(t_lem *lem)
 {
 	int		ant;
@@ -54,9 +80,10 @@ void	send_ants(t_lem *lem)
 
 	ft_printf("%s\n\n", lem->input); // add ignoring comments
 	ant = 1;
+	sort_paths(lem);
 	lem->path_length = lem->paths->length;
 	start = lem->paths;
-	while (lem->path_length > 1)
+	while (lem->path_length > 0)
 	{
 		path = start;
 		while (path != NULL)

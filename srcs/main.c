@@ -62,7 +62,7 @@ void		print_paths(t_lem *lem)
 
 void		print_debug_info(t_lem *lem)
 {
-	print_rooms(lem);
+	// print_rooms(lem);
 	print_paths(lem);
 }
 

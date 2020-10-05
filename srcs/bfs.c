@@ -10,7 +10,6 @@ t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 		return (0);
 	}
 	newq->nextq = NULL;
-	newq->prevq = NULL;
 	newq->prevq = temp_prevq;
 	newq->linked_rooms = current->linked_rooms;
 	if (temp_prevq)
@@ -44,11 +43,11 @@ int		level_rooms(t_lem *lem, t_room *current)
 		else
 			current_child = NULL;
 	}
-	if (level == 1 || currentq->linked_rooms->next == NULL)
+	if (level == 1)
+		currentq = newq;
+	else if (currentq->linked_rooms->next == NULL)
 	{
-		if (level == 1)
-			currentq = newq;
-		else if (currentq->nextq != NULL)
+		if (currentq->nextq != NULL)
 			currentq = currentq->nextq;
 		else
 			return (1);
@@ -64,41 +63,40 @@ int		level_rooms(t_lem *lem, t_room *current)
 }
 
 /* 
-**Recursive function, on each function call, we create a path from start to end,
+** Recursive function, on each function call, we create a path from start to end,
 ** we call the function again, if there still is a possibility to start a new path
 ** from start room (there is an unvisited room in start->linked rooms).
-** To decide to which room to go next, we try to find an unvisited room with a higher
-** level than the current room has. If can't continue the path, we traverse back until
+** To decide to which room to go next, we try to find an unvisited room (with a higher
+** level than the current room has). If can't continue the path, we traverse back until
 ** we can continue (and mark traversed rooms unvisited)
 ** We save the path to a bucket of paths if it leads to end room.
 */
 
 t_path	*find_next_room(t_path *current)
 {
-	t_rlink	*saved_linked_rooms;
+	t_rlink	*linked_rooms;
 	
 	current->room->visited = 1;
-	saved_linked_rooms = current->room->linked_rooms;
-	while (current->room->linked_rooms)
+	linked_rooms = current->room->linked_rooms;
+	while (linked_rooms)
 	{
-		if (current->room->linked_rooms->room->visited == 0)
+		if (linked_rooms->room->visited == 0)
 		{
 			if (!(current->next = (t_path*)malloc(sizeof(t_path))))
 			{
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
-			ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, current->room->linked_rooms->room->x, current->room->linked_rooms->room->y);
+			ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, linked_rooms->room->x, linked_rooms->room->y);
 			current->next->prev = current;
-			current->next->room = current->room->linked_rooms->room;
+			current->next->room = linked_rooms->room;
 			current->next->next = NULL;
-			current->room->linked_rooms = saved_linked_rooms;
 			break ;
 		}
 		else
 		{
-			if (current->room->linked_rooms->next != NULL)
-				current->room->linked_rooms = current->room->linked_rooms->next;
+			if (linked_rooms->next != NULL)
+				linked_rooms = linked_rooms->next;
 			else
 				current = find_next_room(current->prev);
 		}
@@ -155,29 +153,25 @@ int		create_bucket(t_lem *lem)
 	start_room = lem->start->linked_rooms;
 	while (start_room != NULL)
 	{
-		if (start_room->room->visited == 0)
+		path = find_path(lem);
+		if (path != NULL)
 		{
-			path = find_path(lem);
-			if (path != NULL)
+			if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
 			{
-				if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
-				{
-					ft_printf("Malloc failed");
-					return(0);
-				}
-				bucket->path = path;
-				bucket->length = lem->path_length;
-				bucket->next = NULL;
-				if (temp_prev_path)
-					temp_prev_path->next = bucket;
-				temp_prev_path = bucket;
-				if (!lem->paths)
-					lem->paths = bucket;
+				ft_printf("Malloc failed");
+				return(0);
 			}
+			bucket->path = path;
+			bucket->length = lem->path_length;
+			bucket->next = NULL;
+			if (temp_prev_path)
+				temp_prev_path->next = bucket;
+			temp_prev_path = bucket;
+			if (!lem->paths)
+				lem->paths = bucket;
 		}
 		start_room = start_room->next;
 	}
-
 	return (1);
 }
 

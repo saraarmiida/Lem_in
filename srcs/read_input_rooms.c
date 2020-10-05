@@ -38,7 +38,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 		return (0);
 	room->c_name = name;
 	room->name = ft_atoi(name);
-	i += ft_intlen(room->name) + 1;
+	i += ft_strlen(room->c_name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);

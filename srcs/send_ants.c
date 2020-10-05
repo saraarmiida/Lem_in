@@ -1,15 +1,23 @@
 #include "../includes/lem_in.h"
 
+/*
+** send_new_ants sends a new ant to each path that makes sense to send an ant in.
+** if paths length is less than other paths length + remaining ants, it makes sense
+** to send an ant to that path.
+*/
+
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 {
 	int	lol;
 
 	lol = lem->ants;
-	while (path != NULL)
+	while (path != NULL && ant < lem->ants)
 	{
+		if (path->next != NULL && path->next->length + (lem->ants - ant) <= path->length)
+			path = path->next;
 		ft_printf("L%d-%s ", ant, path->path->next->room->c_name);
 		path->path->next->room->ant = ant;
-		lem->path_length = path->length;
+		lem->path_length = path->length > lem->path_length ? path->length : lem->path_length;
 		if (path->next != NULL && path->length + (lem->ants - ant) <= path->next->length)
 			return (ant);
 		ant++;
@@ -48,7 +56,7 @@ void	send_ants(t_lem *lem)
 	ant = 1;
 	lem->path_length = lem->paths->length;
 	start = lem->paths;
-	while (lem->path_length > 0)
+	while (lem->path_length > 1)
 	{
 		path = start;
 		while (path != NULL)

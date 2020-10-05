@@ -8,15 +8,16 @@
 
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 {
-	int	lol;
+	int	length;
 
-	lol = lem->ants;
+	length = 0;
 	while (path != NULL && ant < lem->ants)
 	{
 		ft_printf("L%d-%s ", ant, path->path->next->room->c_name);
 		path->path->next->room->ant = ant;
 		lem->path_length = path->length > lem->path_length ? path->length : lem->path_length;
-		if (path->next != NULL && path->length + (lem->ants - ant) <= path->next->length)
+		length += path->length;
+		if (path->next != NULL && length + (lem->ants - ant) <= path->next->length)
 			return (ant + 1);
 		ant++;
 		path = path->next;

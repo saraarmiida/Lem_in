@@ -4,7 +4,7 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	draw_nodes(renderer, visu);
 	draw_lines(renderer, visu);
-	//draw_text(renderer, visu);
+	draw_text(renderer, visu);
 	SDL_RenderPresent(renderer);
 	return (0);
 }
@@ -52,7 +52,8 @@ t_visu *init_visu_data()
 	return(visu);
 }
 
-int main() {
+int main()
+{
 	t_visu 		*visu;
 	int			linesmax;
 	
@@ -63,6 +64,7 @@ int main() {
 		return (1);
 	}
 
+	TTF_Init();
 	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, 0);
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
@@ -96,6 +98,7 @@ int main() {
 	}
 	printf("There was a window supposedly.\n");
 	SDL_DestroyWindow(win);
+	TTF_Quit();
 	SDL_Quit();
 	return (0);
 }

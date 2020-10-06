@@ -1,7 +1,7 @@
 NAME = visu
 FILES = main.c
 LIB = ../libft/libft.a
-INCLUDE = ../libft/includes
+INCLUDE = ../libft/ft_printf/includes
 .PHONY: clean fclean re all
 
 all: $(NAME)

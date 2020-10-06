@@ -30,6 +30,7 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	int i;
 	int j;
+	TTF_Font	*Mono;
 
 	i = 0;
 	j = 0;
@@ -56,7 +57,23 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 		//SDL_Delay(5);
 		j++;
 	}
+
+	TTF_Init();
+	Mono = TTF_OpenFont("../assets/OverpassMono-Light.ttf", 24);
+	SDL_Color White = {255, 255, 255, 255}; 
+	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Mono, "Hello world", White);
+	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); 
+	SDL_Rect Message_rect; //create a rect
+	Message_rect.x = 0;  //controls the rect's x coordinate 
+	Message_rect.y = 0; // controls the rect's y coordinte
+	Message_rect.w = 300; // controls the width of the rect
+	Message_rect.h = 100; // controls the height of the rect
+
+	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
 	SDL_RenderPresent(renderer);
+
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(Message);
 	return (0);
 }
 
@@ -106,18 +123,18 @@ t_visu *init_visu_data()
 int main() {
 	t_visu 		*visu;
 	int			linesmax;
-	//TTF_Font	*Mono;
 	
-	//Mono = TTF_OpenFont("../assets/.OverpassMono-Light.ttf", 24);
 	visu = NULL;
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER) != 0)
 	{
 		printf("NO SDL\n");
 		return (1);
 	}
+
 	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, 0);
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+
 	SDL_Event e;
 	int quit = 0;
 	if (!win)

@@ -4,7 +4,7 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	draw_nodes(renderer, visu);
 	draw_lines(renderer, visu);
-	draw_text(renderer, visu);
+	//draw_text(renderer, visu);
 	SDL_RenderPresent(renderer);
 	return (0);
 }

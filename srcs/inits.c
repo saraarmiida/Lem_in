@@ -10,6 +10,7 @@ void	init_lem(t_lem *lem)
 	lem->input = NULL;
 	lem->j = 0;
 	lem->visu_info = 0;
+	lem->paths =  NULL;
 }
 
 /*

@@ -4,7 +4,7 @@ int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	draw_nodes(renderer, visu);
 	draw_lines(renderer, visu);
-	//draw_text(renderer, visu);
+	draw_text(renderer, visu);
 	SDL_RenderPresent(renderer);
 	return (0);
 }
@@ -64,7 +64,6 @@ int main()
 		return (1);
 	}
 
-	TTF_Init();
 	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, 0);
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
@@ -77,6 +76,8 @@ int main()
 		return (0);
 	}
 	visu = init_visu_data();
+	TTF_Init();
+	visu->font = TTF_OpenFont("../assets/OverpassMono-Light.ttf", 12);
 	linesmax = visu->link_amount;
 	visu->link_amount = 0;
 	while (quit == 0){

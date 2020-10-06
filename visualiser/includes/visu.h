@@ -26,6 +26,7 @@ typedef struct	s_visu
 	t_node		*nodes;
 	int			room_amount;
 	int			link_amount;
+	TTF_Font	*font;
 }				t_visu;
 
 int	draw_nodes(SDL_Renderer *renderer, t_visu *visu);

@@ -5,9 +5,9 @@ void			*init_table(t_lem *lem)
 	int			i;
 	t_room		**rooms;
 
-	rooms = (t_room**)malloc(sizeof(t_room) * lem->room_amount);
+	rooms = (t_room**)malloc(sizeof(t_room) * (lem->tablesize + 5));
 	i = 0;
-	while (i < lem->room_amount)
+	while (i < lem->tablesize)
 	{
 		rooms[i] = NULL;
 		i++;

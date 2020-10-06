@@ -10,7 +10,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "SDL2/SDL.h"
-# include "SDL2_ttf/SDL_ttf.h"
+// # include "SDL2_ttf/SDL_ttf.h"
 
 typedef struct		s_path
 {
@@ -85,6 +85,7 @@ typedef struct	s_lem
 	int				path_length;
 	int				ants;		/*make unsigned long*/
 	int				room_amount;
+	int				tablesize;
 	int				link_amount;
 	int				fd;
 	char			*input;

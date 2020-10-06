@@ -71,18 +71,22 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 		lem->j = j + 1;
 		return (lem->i);
 	}
-	while (room != NULL)
+	else
 	{
-		if (ft_strcmp(room->c_name, name) == 0)
+		while (room != NULL)
 		{
-			lem->j = j;
-			//ft_printf("Found a duplicate\n");
-			return (skip_line(lem->input, i));
+			if (ft_strcmp(room->c_name, name) == 0)
+			{
+				lem->j = j;
+				//ft_printf("Found a duplicate\n");
+				return (skip_line(lem->input, i));
+			}
+			prev = room;
+			room = room->next;
 		}
-		prev = room;
-		room = prev->next;
+		lem->rooms[slot] = get_room_info(lem, name, i, start_or_end);
+		lem->rooms[slot]->next = prev;
 	}
-	prev->next = get_room_info(lem, name, i, start_or_end);
 	lem->j = j + 1;
 	return (lem->i);
 }
@@ -107,9 +111,6 @@ int		get_start_and_end(t_lem *lem)
 
 /*
 ** validates room syntax
-** - no rooms with same name
-** - no rooms with same coordinate
-** - add error message
 */
 
 int		check_room(t_lem *lem, int i)
@@ -141,16 +142,6 @@ int		check_room(t_lem *lem, int i)
 	return (i + 1);
 }
 
-/*
-** first count how many rooms and then save rooms to struct
-** - error in case of wrongly formatted or duplicate room
-** - save first linked list and afterwards reassign to t_room** when amount known?
-** - save hash values instead of room names
-** - chop shorter
-** - save start and end rooms somehow
-** - chop
-*/
-
 int		get_rooms(t_lem *lem)
 {
 	int	i;
@@ -172,6 +163,7 @@ int		get_rooms(t_lem *lem)
 			}
 		}
 	}
+	lem->tablesize = lem->room_amount * 1.5;
 	lem->rooms = init_table(lem);
 	get_start_and_end(lem);
 	i = ft_intlen(lem->ants) + 1;

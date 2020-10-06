@@ -1,29 +1,21 @@
 NAME = visu
-
-SRCS = 	main.c \
-
-OBJS = 	main.o
-
-CFLAGS = -g -Wall -Wextra -Werror
-
-LIB = -L ../libft -lft
-
-SDL2 = -L lib -l SDL2-2.0.0
+FILES = main.c
+LIB = ../libft/libft.a
+INCLUDE = ../libft/includes
+.PHONY: clean fclean re all
 
 all: $(NAME)
 
 $(NAME):
-	gcc $(CFLAGS) -c $(SRCS)
-	gcc $(CFLAGS) $(OBJS) $(SDL2) $(LIB) -o $(NAME)
-
-debug:
-
-.PHONY: clean fclean re all
+	@make -C ../libft
+	gcc -g -Wall -Wextra -Werror -framework SDL2 -framework SDL2_ttf -F ./ $(FILES) $(LIB) -I $(INCLUDE) -o $(NAME) -rpath @executable_path
 
 clean:
-	rm -f $(OBJS)
+	@make clean -C ../libft
 
 fclean: clean
 	rm -f $(NAME)
+	@make fclean -C ../libft
 
-re: fclean all
+re: fclean
+	make all

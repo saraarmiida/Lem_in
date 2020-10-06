@@ -1,5 +1,4 @@
 #include "../includes/lem_in.h"
-#include "includes/SDL.h"
 #include <stdio.h>
 
 

@@ -42,8 +42,6 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
-	if (init_links(room) == 0)
-		return (NULL);
 	if (start_or_end == 1)
 		lem->start = room;
 	if (start_or_end == 2)

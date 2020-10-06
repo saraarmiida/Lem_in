@@ -1,50 +1,20 @@
 #include "../includes/lem_in.h"
 
-void	add_room_to_rooms_linked_rooms(t_lem *lem, t_room *room, char *linkto)
+void	add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 {
 	t_rlink	*link;
 
-	link = room->linked_rooms;
-	while (link != NULL)
-		link = link->next;
 	if (!(link = (t_rlink*)malloc(sizeof(t_rlink))))
 	{
 		ft_printf("Malloc error\n");
 		return ;
 	}
-	link->room = lem->rooms[hash(linkto, lem->room_amount)];
+	link->room = room2;
 	link->next = NULL;
 	//if (room->linked_rooms != NULL && room->linked_rooms->room != lem->start)
 	if (room->linked_rooms)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
-}
-
-/*
-** Add link to room
-*/
-
-int		add_link_to_room(t_room *room, char *linkfrom, char *linkto)
-{
-	int		i;
-
-	i = 0;
-	if (room == NULL)
-		return (0);
-	while (i < BAD_MAGIC_NUMBER_LINKS)
-	{
-		if ((room->links[i]->from == linkfrom && room->links[i]->to == linkto) ||
-		(room->links[i]->from == linkto && room->links[i]->to == linkfrom)) // Check for doubles
-			return (0);
-		else if (room->links[i]->from == NULL)
-		{
-			room->links[i]->from = linkfrom;
-			room->links[i]->to = linkto;
-			return (1);
-		}
-		i++;
-	}
-	return (0);
 }
 
 /*
@@ -90,19 +60,8 @@ int		save_link(t_lem *lem, int i, int j)
 	room = lem->rooms[hash(link->from, lem->room_amount)];
 	room2 = lem->rooms[hash(link->to, lem->room_amount)];
 	lem->links[j] = link;
-	if (add_link_to_room(room, link->from, link->to) == 0)
-	{
-		ft_printf("Failed to add link to room.\n");
-		return (0);
-	}
-	/* remove if double saving of links is not wanted */
-	if (add_link_to_room(room2, link->from, link->to) == 0)
-	{
-		ft_printf("Failed to add link to room.\n");
-		return (0);
-	}
-	add_room_to_rooms_linked_rooms(lem, room, link->to);
-	add_room_to_rooms_linked_rooms(lem, room2, link->from);
+	add_room_to_rooms_linked_rooms(room, room2);
+	add_room_to_rooms_linked_rooms(room2, room);
 	return (i + ft_strlen(link->to) + 1);
 }
 

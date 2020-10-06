@@ -69,9 +69,7 @@ typedef struct		s_room
 	int				level;
 	int				visited;
 	int				ant;
-	t_llink			**links;
 	t_rlink			*linked_rooms;
-	t_queue			*linked_rooms_2;
 	struct s_room	*next;
 }					t_room;
 

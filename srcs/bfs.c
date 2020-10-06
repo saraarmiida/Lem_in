@@ -1,5 +1,10 @@
 #include "../includes/lem_in.h"
 
+/*
+** Initializes a new queue, linking the possible previous queue to
+** it and adding the children rooms of the current parent room to the queue
+*/
+
 t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 {
 	t_queues	*newq;
@@ -17,6 +22,16 @@ t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 	return (newq);
 }
 
+/*
+** Goes through all rooms, giving all of them levels based on how far they
+** are from the start room. We go through all of the child rooms of a room
+** (parameter current) and give them one higher level than the parent room has.
+** We also save the child rooms as a queue to newq, so that later we can
+** check all of their child rooms, until we reach the end room. We save the queues
+** in a queue, and always first check if there still are child rooms left in our
+** current queue, if not we go to the next queue if there is one.
+*/
+
 int		level_rooms(t_lem *lem, t_room *current)
 {
 	t_rlink			*current_child;
@@ -25,35 +40,27 @@ int		level_rooms(t_lem *lem, t_room *current)
 	static t_queues *temp_prevq;
 	static t_queues	*currentq;
 
-	level = !level ? 1 : level;
-	current_child = current->linked_rooms;
+	if (!level)
+		level = 1;
 	if (!temp_prevq)
 		temp_prevq = NULL;
+	current_child = current->linked_rooms;
 	newq = init_newq(temp_prevq, current);
 	while (current_child)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
 			current_child->room->level = current->level + 1;
-		if (current_child->next)
-		{
-			//if (lem->visu_info == 1)
-			//	ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
-			current_child = current_child->next;
-		}
-		else
-			current_child = NULL;
+		// ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
+		current_child = current_child->next;
 	}
 	if (level == 1)
 		currentq = newq;
-	else if (currentq->linked_rooms->next == NULL)
-	{
-		if (currentq->nextq != NULL)
-			currentq = currentq->nextq;
-		else
-			return (1);
-	}
-	else
+	else if (currentq->linked_rooms->next != NULL)
 		currentq->linked_rooms = currentq->linked_rooms->next;
+	else if (currentq->nextq != NULL)
+		currentq = currentq->nextq;
+	else
+		return (1);
 	current = currentq->linked_rooms->room;
 	level++;
 	temp_prevq = newq;
@@ -62,14 +69,11 @@ int		level_rooms(t_lem *lem, t_room *current)
 	return(1);
 }
 
-/* 
-** Recursive function, on each function call, we create a path from start to end,
-** we call the function again, if there still is a possibility to start a new path
-** from start room (there is an unvisited room in start->linked rooms).
-** To decide to which room to go next, we try to find an unvisited room (with a higher
-** level than the current room has). If can't continue the path, we traverse back until
-** we can continue (and mark traversed rooms unvisited)
-** We save the path to a bucket of paths if it leads to end room.
+/*
+** We try all child rooms of the current room until we find an unvisited room
+** to be the next room of the path. (Should maybe add that room level should
+** be always higher than the current rooms level)
+** If we don't find an unvisited room, we try to find another route from the previous room.
 */
 
 t_path	*find_next_room(t_path *current)

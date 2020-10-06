@@ -45,6 +45,10 @@ void	move_ants(t_path *room, t_room *end)
 	}
 }
 
+/*
+** sorts paths from shortest to longest
+*/
+
 void	sort_paths(t_lem *lem)
 {
 	int		temp_length;
@@ -72,6 +76,13 @@ void	sort_paths(t_lem *lem)
 		current = current->next;
 	}
 }
+
+/*
+** Keeps track of how many rounds are still needed to get the recently sent
+** ant to end room (lem->path_length) and while it is > 0, we move all ants that
+** are currently on paths and if there are still ants in the start room, we
+** send new ants to paths.
+*/
 
 void	send_ants(t_lem *lem)
 {

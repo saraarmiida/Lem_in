@@ -1,79 +1,11 @@
-#include "../includes/lem_in.h"
-#include <stdio.h>
-
-
-typedef struct	s_node
-{
-	int			x;
-	int			y;
-	int			name;
-	int			level;
-}				t_node;
-
-typedef struct	s_line
-{
-	int			fromx;
-	int			fromy;
-	int			tox;
-	int			toy;
-}				t_line;
-
-typedef struct	s_visu
-{
-	t_line		*lines;
-	t_node		*nodes;
-	int			room_amount;
-	int			link_amount;
-}				t_visu;
+#include "includes/visu.h"
 
 int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
-	int i;
-	int j;
-	TTF_Font	*Mono;
-
-	i = 0;
-	j = 0;
-	while (i < visu->room_amount)
-	{
-		SDL_Rect rect;
-		rect.x = visu->nodes[i].x;
-		rect.y = visu->nodes[i].y;
-		rect.w = 10;
-		rect.h = 10;
-		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 255);
-		//SDL_Delay(5);
-		SDL_RenderDrawRect(renderer, &rect);
-		//SDL_Delay(5);
-		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
-		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
-		i++;
-	}
-	while (j < visu->link_amount)
-	{
-		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
-		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 255);
-		SDL_RenderDrawLine(renderer, visu->lines[j].fromx, visu->lines[j].fromy, visu->lines[j].tox, visu->lines[j].toy);
-		//SDL_Delay(5);
-		j++;
-	}
-
-	TTF_Init();
-	Mono = TTF_OpenFont("../assets/OverpassMono-Light.ttf", 24);
-	SDL_Color White = {255, 255, 255, 255}; 
-	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Mono, "Hello world", White);
-	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); 
-	SDL_Rect Message_rect; //create a rect
-	Message_rect.x = 0;  //controls the rect's x coordinate 
-	Message_rect.y = 0; // controls the rect's y coordinte
-	Message_rect.w = 300; // controls the width of the rect
-	Message_rect.h = 100; // controls the height of the rect
-
-	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+	draw_nodes(renderer, visu);
+	draw_lines(renderer, visu);
+	//draw_text(renderer, visu);
 	SDL_RenderPresent(renderer);
-
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
 	return (0);
 }
 

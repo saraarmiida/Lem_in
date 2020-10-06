@@ -1,5 +1,5 @@
 NAME = visu
-FILES = main.c
+FILES = main.c draw_nodes.c draw_lines.c draw_text.c
 LIB = ../libft/libft.a
 INCLUDE = ../libft/ft_printf/includes
 .PHONY: clean fclean re all

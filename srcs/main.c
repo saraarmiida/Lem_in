@@ -28,7 +28,7 @@ void		print_rooms(t_lem *lem)
 			while (r->next != NULL)
 			{
 				r = r->next;
-				ft_printf("Name: %s | X: %d | Y: %d | L: %d | Next: %d\n", r->c_name, r->x, r->y, r->level, r->next);
+				//ft_printf("Name: %s | X: %d | Y: %d | L: %d | Next: %d\n", r->c_name, r->x, r->y, r->level, r->next);
 				rl = r->linked_rooms;
 				ft_printf("\tLinked rooms: ");
 				while (rl != NULL)
@@ -106,7 +106,6 @@ int		main(int argc, char **argv)
 	lem->visu_info = 1;
 	read_input(lem);
 	print_hashtable(lem);
-	print_rooms(lem);
 	bfs(lem);
 	print_debug_info(lem);
 	send_ants(lem);

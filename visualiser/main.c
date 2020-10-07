@@ -2,8 +2,8 @@
 
 int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
-	draw_nodes(renderer, visu);
 	draw_lines(renderer, visu);
+	draw_nodes(renderer, visu);
 	draw_text(renderer, visu);
 	SDL_RenderPresent(renderer);
 	return (0);
@@ -34,17 +34,17 @@ t_visu *init_visu_data()
 		}
 		if (ft_strncmp(line, "Curr", 3) == 0)
 		{
-			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 555; 
-			visu->lines[j].fromy = ft_atoi(line += 4) * 10 + 105;
-			visu->lines[j].tox = ft_atoi(line += 4) * 10 + 555; 
-			visu->lines[j].toy = ft_atoi(line += 4) * 10 + 105;
+			visu->lines[j].fromx = ft_atoi(line += 5) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[j].fromy = ft_atoi(line += 4) * PADDING + OFFSETY + NODESIZE / 2;
+			visu->lines[j].tox = ft_atoi(line += 4) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[j].toy = ft_atoi(line += 4) * PADDING + OFFSETY + NODESIZE / 2;
 			j++;
 		}
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{
 			visu->nodes[i].name = ft_atoi(line += 5);
-			visu->nodes[i].x = ft_atoi(line += 7) * 10 + 550;
-			visu->nodes[i].y = ft_atoi(line += 7) * 10 + 100;
+			visu->nodes[i].x = ft_atoi(line += 7) * PADDING + OFFSETX;
+			visu->nodes[i].y = ft_atoi(line += 7) * PADDING + OFFSETY;
 			visu->nodes[i].level = ft_atoi(line += 7);
 			i++;
 		}

@@ -82,7 +82,7 @@ t_path	*find_next_room(t_path *current)
 	
 	current->room->visited = 1;
 	linked_rooms = current->room->linked_rooms;
-	while (linked_rooms)
+	while (linked_rooms != NULL)
 	{
 		if (linked_rooms->room->visited == 0)
 		{
@@ -91,21 +91,15 @@ t_path	*find_next_room(t_path *current)
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
-			ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, linked_rooms->room->x, linked_rooms->room->y);
+			// ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, linked_rooms->room->x, linked_rooms->room->y);
 			current->next->prev = current;
 			current->next->room = linked_rooms->room;
 			current->next->next = NULL;
-			break ;
+			return (current->next);
 		}
-		else
-		{
-			if (linked_rooms->next != NULL)
-				linked_rooms = linked_rooms->next;
-			else
-				current = find_next_room(current->prev);
-		}
+		linked_rooms = linked_rooms->next;
 	}
-	return (current->next);
+	return (NULL);
 }
 
 /*
@@ -116,6 +110,7 @@ t_path	*find_next_room(t_path *current)
 t_path	*find_path(t_lem *lem)
 {
 	t_path	*current;
+	t_path	*newroom;
 	t_path	*head;
 	int		length;
 
@@ -131,11 +126,19 @@ t_path	*find_path(t_lem *lem)
 	length = 0;
 	while (current->room != lem->end)
 	{
-		current = find_next_room(current);
-		length++;
+		newroom = find_next_room(current);
+		if (newroom == NULL)
+		{
+			current = current->prev;
+			if (current->room == lem->start)
+				return (NULL);
+		}
+		else
+		{
+			current = newroom;
+			length++;
+		}
 	}
-	if (current->room == lem->start)
-		return (NULL);
 	lem->path_length = length;
 	return (head);
 }

@@ -25,13 +25,17 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 	return (ant);
 }
 
+/*
+** Goes through all rooms in a path, and if there is an ant in a room, it
+** moves the ant to the next room.
+*/
+
 void	move_ants(t_path *room, t_room *end)
 {
-	int			temp_ant;
-	static int	running_ant;
+	int	temp_ant;
+	int	running_ant;
 
-	if (!running_ant)
-		running_ant = 0;
+	running_ant = 0;
 	while (room->room != end)
 	{
 		if (room->room->ant != 0)
@@ -78,7 +82,7 @@ void	sort_paths(t_lem *lem)
 }
 
 /*
-** Keeps track of how many rounds are still needed to get the recently sent
+** Keeps track of how many rounds are still needed to get the latest sent
 ** ant to end room (lem->path_length) and while it is > 0, we move all ants that
 ** are currently on paths and if there are still ants in the start room, we
 ** send new ants to paths.

@@ -17,12 +17,6 @@ void	add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	room->linked_rooms = link;
 }
 
-/*
-** check correct syntax of link
-** - validate room names
-** - one or more links
-*/
-
 int		check_link(t_lem *lem, int i)
 {
 	while (ft_isprint(lem->input[i]) && lem->input[i] != '-')
@@ -38,12 +32,6 @@ int		check_link(t_lem *lem, int i)
 	return (i + 1);
 }
 
-/*
-** Create a link. Currently only supports rooms with
-** integers as names and all must be unique.
-** - save hash values instead of room names
-*/
-
 int		save_link(t_lem *lem, int i, int j)
 {
 	t_llink	*link;
@@ -57,8 +45,6 @@ int		save_link(t_lem *lem, int i, int j)
 	link->from = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(link->from) + 1;
 	link->to = ft_strcdup(&lem->input[i], '\n');
-	// room = lem->rooms[hash(link->from, lem->room_amount)];
-	// room2 = lem->rooms[hash(link->to, lem->room_amount)];
 	room = get_hashed_room(lem, link->from);
 	room2 = get_hashed_room(lem, link->to);
 	lem->links[j] = link;
@@ -66,16 +52,6 @@ int		save_link(t_lem *lem, int i, int j)
 	add_room_to_rooms_linked_rooms(room2, room);
 	return (i + ft_strlen(link->to) + 1);
 }
-
-/*
-** first count how many links and then save links to struct
-** to do:
-** - ignore duplicate links
-** - error message in case of syntax error etc
-** - save to linked list?
-** - save hash values instead of room names
-** - chop shorter
-*/
 
 int		get_links(t_lem *lem)
 {

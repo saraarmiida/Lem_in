@@ -15,6 +15,10 @@ void			*init_table(t_lem *lem)
 	return (rooms);
 }
 
+/*
+** Attempts to make a unique hash value to key
+*/
+
 unsigned int	hash(char *key, int tablesize)
 {
 	unsigned long int	value;
@@ -32,6 +36,10 @@ unsigned int	hash(char *key, int tablesize)
 	value = value % tablesize;
 	return (value);
 }
+
+/*
+** Tries to find the room the the name "key" from the hashtable
+*/
 
 t_room 			*get_hashed_room(t_lem *lem, char *key)
 {

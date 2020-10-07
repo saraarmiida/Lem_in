@@ -11,7 +11,6 @@ void	add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	}
 	link->room = room2;
 	link->next = NULL;
-	//if (room->linked_rooms != NULL && room->linked_rooms->room != lem->start)
 	if (room->linked_rooms)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
@@ -34,23 +33,22 @@ int		check_link(t_lem *lem, int i)
 
 int		save_link(t_lem *lem, int i, int j)
 {
-	t_llink	*link;
 	t_room	*room;
 	t_room	*room2;
+	char	*from;
+	char	*to;
 	int		k;
 
 	k = 0;
-	if (!(link = (t_llink*)malloc(sizeof(t_llink))))
-		return (1);
-	link->from = ft_strcdup(&lem->input[i], '-');
-	i += ft_strlen(link->from) + 1;
-	link->to = ft_strcdup(&lem->input[i], '\n');
-	room = get_hashed_room(lem, link->from);
-	room2 = get_hashed_room(lem, link->to);
-	lem->links[j] = link;
+	from = ft_strcdup(&lem->input[i], '-');
+	i += ft_strlen(from) + 1;
+	to = ft_strcdup(&lem->input[i], '\n');
+	room = get_hashed_room(lem, from);
+	room2 = get_hashed_room(lem, to);
+	j = 0;
 	add_room_to_rooms_linked_rooms(room, room2);
 	add_room_to_rooms_linked_rooms(room2, room);
-	return (i + ft_strlen(link->to) + 1);
+	return (i + ft_strlen(to) + 1);
 }
 
 int		get_links(t_lem *lem)
@@ -70,8 +68,6 @@ int		get_links(t_lem *lem)
 		}
 	}
 	ft_printf("Got %d links\n", lem->link_amount);
-	if (!(lem->links = (t_llink**)malloc(sizeof(t_llink) * lem->link_amount)))
-		return (1);
 	i = lem->i;
 	j = 0;
 	while (j < lem->link_amount)

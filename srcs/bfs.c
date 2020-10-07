@@ -73,7 +73,7 @@ int		level_rooms(t_lem *lem, t_room *current)
 ** We try all child rooms of the current room until we find an unvisited room
 ** to be the next room of the path. (Should maybe add that room level should
 ** be always higher than the current rooms level)
-** If we don't find an unvisited room, we try to find another route from the previous room.
+** If we don't find an unvisited room, return NULL.
 */
 
 t_path	*find_next_room(t_path *current)
@@ -105,6 +105,7 @@ t_path	*find_next_room(t_path *current)
 /*
 ** Creates a single path. Makes a linked list of rooms that lead
 ** from start to end room. Returns NULL if path couldn't be found.
+** 
 */
 
 t_path	*find_path(t_lem *lem)

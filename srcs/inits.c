@@ -4,7 +4,6 @@ void	init_lem(t_lem *lem)
 {
 	lem->fd = 3;
 	lem->ants = 0;
-	lem->links = 0;
 	lem->room_amount = 0;
 	lem->link_amount = 0;
 	lem->path_length = 0;

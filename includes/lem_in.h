@@ -76,7 +76,6 @@ typedef struct		s_room
 typedef struct	s_lem
 {
 	t_room			**rooms;
-	t_llink			**links;
 	t_room			*start;
 	t_room			*end;
 	t_room			*current;

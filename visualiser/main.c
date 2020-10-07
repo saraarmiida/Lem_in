@@ -2,8 +2,8 @@
 
 int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
-	draw_nodes(renderer, visu);
 	draw_lines(renderer, visu);
+	draw_nodes(renderer, visu);
 	draw_text(renderer, visu);
 	SDL_RenderPresent(renderer);
 	return (0);
@@ -34,17 +34,17 @@ t_visu *init_visu_data()
 		}
 		if (ft_strncmp(line, "Curr", 3) == 0)
 		{
-			visu->lines[j].fromx = ft_atoi(line += 5) * 10 + 555; 
-			visu->lines[j].fromy = ft_atoi(line += 4) * 10 + 105;
-			visu->lines[j].tox = ft_atoi(line += 4) * 10 + 555; 
-			visu->lines[j].toy = ft_atoi(line += 4) * 10 + 105;
+			visu->lines[j].fromx = ft_atoi(line += 5) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[j].fromy = ft_atoi(line += 4) * PADDING + OFFSETY + NODESIZE / 2;
+			visu->lines[j].tox = ft_atoi(line += 4) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[j].toy = ft_atoi(line += 4) * PADDING + OFFSETY + NODESIZE / 2;
 			j++;
 		}
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{
 			visu->nodes[i].name = ft_atoi(line += 5);
-			visu->nodes[i].x = ft_atoi(line += 7) * 10 + 550;
-			visu->nodes[i].y = ft_atoi(line += 7) * 10 + 100;
+			visu->nodes[i].x = ft_atoi(line += 7) * PADDING + OFFSETX;
+			visu->nodes[i].y = ft_atoi(line += 7) * PADDING + OFFSETY;
 			visu->nodes[i].level = ft_atoi(line += 7);
 			i++;
 		}
@@ -64,7 +64,7 @@ int main()
 		return (1);
 	}
 
-	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, 0);
+	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, SDL_WINDOW_ALLOW_HIGHDPI);
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
 

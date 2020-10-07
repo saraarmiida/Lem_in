@@ -109,6 +109,7 @@ int					get_links(t_lem *lem);
 /* hash.c */
 unsigned int		hash(char *key, int tablesize);
 void				*init_table(t_lem *lem);
+t_room 				*get_hashed_room(t_lem *lem, char *key);
 
 /* inits.c */
 int					init_links(t_room *room);

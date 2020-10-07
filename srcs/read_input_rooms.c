@@ -63,7 +63,7 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 	unsigned int	slot;
 
 	name = ft_strcdup(&lem->input[i], ' ');
-	slot = hash(name, lem->room_amount);
+	slot = hash(name, lem->tablesize);
 	room = lem->rooms[slot];
 	if (room == NULL)
 	{

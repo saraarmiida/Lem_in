@@ -5,7 +5,7 @@ void			*init_table(t_lem *lem)
 	int			i;
 	t_room		**rooms;
 
-	rooms = (t_room**)malloc(sizeof(t_room) * (lem->tablesize + 5));
+	rooms = (t_room**)malloc(sizeof(t_room) * (lem->tablesize));
 	i = 0;
 	while (i < lem->tablesize)
 	{
@@ -31,4 +31,22 @@ unsigned int	hash(char *key, int tablesize)
 	}
 	value = value % tablesize;
 	return (value);
+}
+
+t_room 			*get_hashed_room(t_lem *lem, char *key)
+{
+    unsigned int	slot;
+	t_room			*room;
+	
+	slot = hash(key, lem->tablesize);
+	room = lem->rooms[slot];
+    if (room == NULL)
+        return (NULL);
+    while (room != NULL)
+	{
+        if (ft_strcmp(room->c_name, key) == 0)
+            return (room);
+        room = room->next;
+    }
+    return (NULL);
 }

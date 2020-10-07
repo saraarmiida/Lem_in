@@ -57,8 +57,10 @@ int		save_link(t_lem *lem, int i, int j)
 	link->from = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(link->from) + 1;
 	link->to = ft_strcdup(&lem->input[i], '\n');
-	room = lem->rooms[hash(link->from, lem->room_amount)];
-	room2 = lem->rooms[hash(link->to, lem->room_amount)];
+	// room = lem->rooms[hash(link->from, lem->room_amount)];
+	// room2 = lem->rooms[hash(link->to, lem->room_amount)];
+	room = get_hashed_room(lem, link->from);
+	room2 = get_hashed_room(lem, link->to);
 	lem->links[j] = link;
 	add_room_to_rooms_linked_rooms(room, room2);
 	add_room_to_rooms_linked_rooms(room2, room);

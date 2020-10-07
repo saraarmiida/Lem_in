@@ -188,7 +188,7 @@ void	bfs(t_lem *lem)
 	if (lem->visu_info == 1)
 		ft_printf("Rooms: %d Links: %d", lem->room_amount, lem->link_amount);
 	if (lem->start)
-		ft_printf("We have a start\n");
+		ft_printf("\nWe have a start\n");
 	if (level_rooms(lem, lem->start) == 1)
 		ft_printf("Rooms leveled.\n");
 	else

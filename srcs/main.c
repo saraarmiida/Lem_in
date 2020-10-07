@@ -16,7 +16,7 @@ void		print_rooms(t_lem *lem)
 		r = lem->rooms[i];
 		if (r != NULL)
 		{
-			ft_printf("Name: %s | X: %d | Y: %d | L: %d | Next: %d\n", r->c_name, r->x, r->y, r->level, r->next);
+			ft_printf("Name: %s | X: %d | Y: %d | L: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->next);
 			rl = r->linked_rooms;
 			ft_printf("\tLinked rooms: ");
 			while (rl != NULL)
@@ -72,26 +72,36 @@ void		print_paths(t_lem *lem)
 void		print_hashtable(t_lem *lem)
 {
 	int	i;
+	int j;
+	t_room	*room;
 
 	i = 0;
+	j = 0;
 	while (i < lem->tablesize)
 	{
 		if (lem->rooms[i] != NULL)
 		{
+			room = lem->rooms[i];
 			ft_printf("slot [%d]:\n", i);
 			ft_printf("	name: %s\n", lem->rooms[i]->c_name);
-			if (lem->rooms[i]->next != NULL)
-				ft_printf("	name: %s\n", lem->rooms[i]->next->c_name);
+			j++;
+			while (room->next != NULL)
+			{
+				ft_printf("	name: %s\n", room->next->c_name);
+				room = room->next;
+				j++;
+			}
 		}
 		i++;
 	}
-	ft_printf("\n\n");
+	ft_printf("room amount: %d printed: %d\n\n", lem->room_amount, j);
 }
 
 void		print_debug_info(t_lem *lem)
 {
+	print_hashtable(lem);
 	print_rooms(lem);
-	print_paths(lem);
+	// print_paths(lem);
 }
 
 int		main(int argc, char **argv)
@@ -105,7 +115,6 @@ int		main(int argc, char **argv)
 	init_lem(lem);
 	lem->visu_info = 1;
 	read_input(lem);
-	print_hashtable(lem);
 	bfs(lem);
 	print_debug_info(lem);
 	send_ants(lem);

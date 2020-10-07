@@ -49,5 +49,6 @@ int		read_input(t_lem *lem)
 	get_ants(lem);
 	get_rooms(lem);
 	get_links(lem);
+	print_debug_info(lem);
 	return (0);
 }

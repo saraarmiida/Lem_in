@@ -1,9 +1,9 @@
 #ifndef VISU_H
 # define VISU_H
 
-# define NODESIZE	20
-# define PADDING	14
-# define OFFSETX	550
+# define NODESIZE	30
+# define PADDING	20
+# define OFFSETX	1100
 # define OFFSETY	100
 #include <stdio.h>
 #include "../../includes/lem_in.h"

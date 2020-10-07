@@ -11,7 +11,7 @@ int	draw_text(SDL_Renderer *renderer, t_visu *visu)
 	SDL_Color Gray = {255, 255, 255, 90};  
 	while (i < visu->room_amount)
 	{
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(visu->font, ft_itoa(visu->nodes[i].name), White);
+		SDL_Surface* surfaceMessage = TTF_RenderText_Blended(visu->font, ft_itoa(visu->nodes[i].name), White);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); 
 		SDL_Rect Message_rect; //create a rect
 		Message_rect.x = visu->nodes[i].x + NODESIZE / 3;  //controls the rect's x coordinate 
@@ -25,7 +25,7 @@ int	draw_text(SDL_Renderer *renderer, t_visu *visu)
 	}
 	while (j < visu->link_amount)
 	{
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(visu->font, ft_itoa(visu->lines[j].fromx), Gray);
+		SDL_Surface* surfaceMessage = TTF_RenderText_Blended(visu->font, ft_itoa(visu->lines[j].fromx), Gray);
 		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); 
 		SDL_Rect Message_rect; //create a rect
 		Message_rect.x = visu->lines[j].fromx - 10;  //controls the rect's x coordinate 

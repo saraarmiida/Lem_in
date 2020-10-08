@@ -38,9 +38,10 @@ int		level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	t_queues		*newq;
 	static t_queues	*currentq;
 
+	// ft_printf("current: %s\n", current->c_name);
 	current_child = current->linked_rooms;
 	newq = init_newq(temp_prevq, current);
-	while (current_child)
+	while (current_child != NULL)
 	{
 		if (current_child->room->level == 0 && lem->start != current_child->room)
 			current_child->room->level = current->level + 1;

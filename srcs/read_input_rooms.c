@@ -49,7 +49,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	room->next = NULL;
 	room->linked_rooms = NULL;
 	room->level = 0;
-	room->visited = 0;
+	room->visited = 1;
 	room->ant = 0;
 	lem->i = i + ft_intlen(room->y) + 1;
 	// ft_printf("%d: %s %p\n", j, name, room);
@@ -69,7 +69,6 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 	if (room == NULL)
 	{
 		lem->rooms[slot] = get_room_info(lem, name, i, start_or_end);
-		// ft_printf("%3d: %3d %s %p\n", j, slot, lem->rooms[slot]->c_name, lem->rooms[slot]);
 		lem->j = j + 1;
 		return (lem->i);
 	}
@@ -87,7 +86,6 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 			room = prev->next;
 		}
 		prev->next = get_room_info(lem, name, i, start_or_end);
-		// ft_printf("%3d: %3d %s %p\n", j, slot, prev->next->c_name, prev->next);
 		lem->j = j + 1;
 	}
 	return (lem->i);

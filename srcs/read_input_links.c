@@ -31,21 +31,18 @@ int		check_link(t_lem *lem, int i)
 	return (i + 1);
 }
 
-int		save_link(t_lem *lem, int i, int j)
+int		save_link(t_lem *lem, int i)
 {
 	t_room	*room;
 	t_room	*room2;
 	char	*from;
 	char	*to;
-	int		k;
 
-	k = 0;
 	from = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(from) + 1;
 	to = ft_strcdup(&lem->input[i], '\n');
 	room = get_hashed_room(lem, from);
 	room2 = get_hashed_room(lem, to);
-	j = 0;
 	add_room_to_rooms_linked_rooms(room, room2);
 	add_room_to_rooms_linked_rooms(room2, room);
 	return (i + ft_strlen(to) + 1);
@@ -76,7 +73,7 @@ int		get_links(t_lem *lem)
 			i = skip_line(lem->input, i);
 		else
 		{
-			i = save_link(lem, i, j);
+			i = save_link(lem, i);
 			j++;
 		}
 	}

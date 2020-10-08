@@ -16,7 +16,7 @@ void		print_rooms(t_lem *lem)
 		r = lem->rooms[i];
 		if (r != NULL)
 		{
-			ft_printf("Name: %s | X: %d | Y: %d | L: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->next);
+			ft_printf("Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
 			rl = r->linked_rooms;
 			ft_printf("\tLinked rooms: ");
 			while (rl != NULL)
@@ -28,7 +28,7 @@ void		print_rooms(t_lem *lem)
 			while (r->next != NULL)
 			{
 				r = r->next;
-				//ft_printf("Name: %s | X: %d | Y: %d | L: %d | Next: %d\n", r->c_name, r->x, r->y, r->level, r->next);
+				ft_printf("Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
 				rl = r->linked_rooms;
 				ft_printf("\tLinked rooms: ");
 				while (rl != NULL)

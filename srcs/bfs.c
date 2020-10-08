@@ -32,18 +32,12 @@ t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 ** current queue, if not we go to the next queue if there is one.
 */
 
-int		level_rooms(t_lem *lem, t_room *current)
+int		level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 {
 	t_rlink			*current_child;
 	t_queues		*newq;
-	static int		level;
-	static t_queues *temp_prevq;
 	static t_queues	*currentq;
 
-	if (!level)
-		level = 1;
-	if (!temp_prevq)
-		temp_prevq = NULL;
 	current_child = current->linked_rooms;
 	newq = init_newq(temp_prevq, current);
 	while (current_child)
@@ -53,7 +47,7 @@ int		level_rooms(t_lem *lem, t_room *current)
 		// ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
 		current_child = current_child->next;
 	}
-	if (level == 1)
+	if (!currentq)
 		currentq = newq;
 	else if (currentq->linked_rooms->next != NULL)
 		currentq->linked_rooms = currentq->linked_rooms->next;
@@ -62,10 +56,8 @@ int		level_rooms(t_lem *lem, t_room *current)
 	else
 		return (1);
 	current = currentq->linked_rooms->room;
-	level++;
-	temp_prevq = newq;
 	if (current != lem->end)
-		level_rooms(lem, current);
+		level_rooms(lem, current, newq);
 	return(1);
 }
 
@@ -189,7 +181,7 @@ void	bfs(t_lem *lem)
 		ft_printf("Rooms: %d Links: %d", lem->room_amount, lem->link_amount);
 	if (lem->start)
 		ft_printf("\nWe have a start\n");
-	if (level_rooms(lem, lem->start) == 1)
+	if (level_rooms(lem, lem->start, NULL) == 1)
 		ft_printf("Rooms leveled.\n");
 	else
 		ft_printf("BFS did not complete.\n\nDebug info:\n");

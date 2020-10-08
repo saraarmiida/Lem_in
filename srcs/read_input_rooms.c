@@ -33,10 +33,7 @@ int		ft_strmatchlen(char const *s, char const *s2)
 t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 {
 	t_room	*room;
-	static int j;
 
-	if (!j)
-		j = 0;
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	room->c_name = name;
@@ -55,7 +52,6 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	room->visited = 0;
 	room->ant = 0;
 	lem->i = i + ft_intlen(room->y) + 1;
-	j++;
 	// ft_printf("%d: %s %p\n", j, name, room);
 	return (room);
 }

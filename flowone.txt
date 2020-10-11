@@ -1,7 +1,7 @@
 1
 #Here is the number of lines required: 28
 ##start
-H_s9 2 2
+H_s9 0 0
 ##end
 Sy_7 4 4
 Bku2 7 7

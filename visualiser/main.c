@@ -1,5 +1,26 @@
 #include "includes/visu.h"
 
+// Remember to make all functions static
+
+int skip_to_number(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (ft_isdigit(*str) == 1)
+	{
+		str++;
+		i++;
+	}
+	while (ft_isdigit(*str) == 0)
+	{
+		ft_printf("Skipped %c\n", *str);
+		str++;
+		i++;
+	}
+	return (i);
+} 
+
 int	drawvisu(SDL_Renderer *renderer, t_visu *visu)
 {
 	draw_lines(renderer, visu);
@@ -26,7 +47,7 @@ t_visu *init_visu_data()
 		if (ft_strncmp(line, "Rooms", 4) == 0 && visu->room_amount == 0)
 		{
 			visu->room_amount = ft_atoi(line += 6);
-			visu->link_amount = ft_atoi(line += 9);
+			visu->link_amount = ft_atoi(line += 8 + ft_intlen(visu->room_amount));
 			if (!(visu->nodes = (t_node*)malloc(sizeof(t_node) * visu->room_amount)))
 				return (0);
 			if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * visu->link_amount)))
@@ -34,18 +55,18 @@ t_visu *init_visu_data()
 		}
 		if (ft_strncmp(line, "Curr", 3) == 0)
 		{
-			visu->lines[j].fromx = ft_atoi(line += 5) * PADDING + OFFSETX + NODESIZE / 2; 
-			visu->lines[j].fromy = ft_atoi(line += 4) * PADDING + OFFSETY + NODESIZE / 2;
-			visu->lines[j].tox = ft_atoi(line += 4) * PADDING + OFFSETX + NODESIZE / 2; 
-			visu->lines[j].toy = ft_atoi(line += 4) * PADDING + OFFSETY + NODESIZE / 2;
+			visu->lines[j].fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[j].fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			visu->lines[j].tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[j].toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
 			j++;
 		}
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{
-			visu->nodes[i].name = ft_atoi(line += 5);
-			visu->nodes[i].x = ft_atoi(line += 7) * PADDING + OFFSETX;
-			visu->nodes[i].y = ft_atoi(line += 7) * PADDING + OFFSETY;
-			visu->nodes[i].level = ft_atoi(line += 7);
+			visu->nodes[i].name = ft_atoi(line += skip_to_number(line));
+			visu->nodes[i].x = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX;
+			visu->nodes[i].y = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY;
+			visu->nodes[i].level = ft_atoi(line += skip_to_number(line));
 			i++;
 		}
 	}

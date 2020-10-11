@@ -47,7 +47,6 @@ int		level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		{
 			if (current_child->room->level == 0 && lem->start != current_child->room)
 				current_child->room->level = current->level + 1;
-			// ft_printf("Curr: %d | %d | %d | %d\n", current->x, current->y, current_child->room->x, current_child->room->y);
 			current_child = current_child->next;
 		}
 	}
@@ -91,7 +90,7 @@ t_path	*find_next_room(t_path *current)
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
-			// ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, linked_rooms->room->x, linked_rooms->room->y);
+			ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, linked_rooms->room->x, linked_rooms->room->y);
 			current->next->prev = current;
 			current->next->room = linked_rooms->room;
 			current->next->next = NULL;
@@ -192,8 +191,11 @@ void	bfs(t_lem *lem)
 	if (level_rooms(lem, lem->start, NULL) == 1)
 		ft_printf("Rooms leveled.\n");
 	else
+	{
 		ft_printf("BFS did not complete.\n\nDebug info:\n");
-	print_debug_info(lem);
+		if (lem->visu_info == 0)
+			print_debug_info(lem);
+	}
 	if (create_bucket(lem) == 1)
 		ft_printf("\nPaths found.\n\n\n");
 	else

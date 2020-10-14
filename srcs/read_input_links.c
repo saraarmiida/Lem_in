@@ -51,32 +51,23 @@ int		save_link(t_lem *lem, int i)
 int		get_links(t_lem *lem)
 {
 	int	i;
-	int	j;
 
 	i = lem->i;
 	while (lem->input[i])
 	{
 		if (lem->input[i] == '#')
 			i = skip_line(lem->input, i);
-		else if ((i = check_link(lem, i)) == -2)
+		else if ((check_link(lem, i)) != -2)
+		{
+			i = save_link(lem, i);
+		}
+		else
 		{
 			ft_printf("Links error\n");
 			return (1);
 		}
 	}
 	ft_printf("Got %d links\n", lem->link_amount);
-	i = lem->i;
-	j = 0;
-	while (j < lem->link_amount)
-	{
-		if (lem->input[i] == '#')
-			i = skip_line(lem->input, i);
-		else
-		{
-			i = save_link(lem, i);
-			j++;
-		}
-	}
 	lem->i = i;
 	return (0);
 }

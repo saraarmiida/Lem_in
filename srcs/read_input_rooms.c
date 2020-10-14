@@ -58,7 +58,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	return (room);
 }
 
-int		save_room(t_lem *lem, int i, int j, int start_or_end)
+int		save_room(t_lem *lem, int i, int start_or_end)
 {
 	t_room			*room;
 	t_room			*prev;
@@ -71,7 +71,7 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 	if (room == NULL)
 	{
 		lem->rooms[slot] = get_room_info(lem, name, i, start_or_end);
-		lem->j = j + 1;
+		lem->j += 1;
 		return (lem->i);
 	}
 	else
@@ -80,7 +80,6 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 		{
 			if (ft_strcmp(room->c_name, name) == 0)
 			{
-				lem->j = j;
 				//ft_printf("Found a duplicate\n");
 				return (skip_line(lem->input, i));
 			}
@@ -88,7 +87,7 @@ int		save_room(t_lem *lem, int i, int j, int start_or_end)
 			room = prev->next;
 		}
 		prev->next = get_room_info(lem, name, i, start_or_end);
-		lem->j = j + 1;
+		lem->j += 1;
 	}
 	return (lem->i);
 }
@@ -106,8 +105,8 @@ int		get_start_and_end(t_lem *lem)
 	end = ft_strmatchlen(lem->input, "##end\n");
 	if (start == -1 || end == -1)
 		return (0);
-	save_room(lem, start, 0, START_ROOM);
-	save_room(lem, end, 1, END_ROOM);
+	save_room(lem, start, START_ROOM);
+	save_room(lem, end, END_ROOM);
 	return (1);
 }
 
@@ -147,7 +146,6 @@ int		check_room(t_lem *lem, int i)
 int		get_rooms(t_lem *lem)
 {
 	int	i;
-	int	j;
 
 	i = lem->i;
 	while (lem->input[i])
@@ -167,18 +165,15 @@ int		get_rooms(t_lem *lem)
 	}
 	lem->tablesize = lem->room_amount * 1.5;
 	lem->rooms = init_table(lem);
+	lem->j = 0;
 	get_start_and_end(lem);
 	i = ft_intlen(lem->ants) + 1;
-	j = 2;
-	while (j < lem->room_amount)
+	while (lem->j < lem->room_amount)
 	{
 		if (lem->input[i] == '#')
 			i = skip_line(lem->input, i);
 		else
-		{
-			i = save_room(lem, i, j, 0);
-			j = lem->j;
-		}
+			i = save_room(lem, i, 0);
 	}
 	lem->i = i;
 	return (0);

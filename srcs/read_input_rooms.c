@@ -55,7 +55,6 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	room->level = 0;
 	room->ant = 0;
 	lem->i = i + ft_intlen(room->y) + 1;
-	// ft_printf("%d: %s %p\n", j, name, room);
 	return (room);
 }
 

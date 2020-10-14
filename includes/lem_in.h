@@ -10,7 +10,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "SDL2/SDL.h"
-# include "SDL2_ttf/SDL_ttf.h"
+# include "../visualiser/SDL2_ttf.framework/Headers/SDL_ttf.h"
 
 typedef struct		s_path
 {
@@ -52,7 +52,6 @@ typedef struct		s_queue
 	void			*prev;
 }					t_queue;
 
-
 typedef struct		s_llink
 {
 	char			*from;
@@ -73,7 +72,7 @@ typedef struct		s_room
 	struct s_room	*next;
 }					t_room;
 
-typedef struct	s_lem
+typedef struct		s_lem
 {
 	t_room			**rooms;
 	t_room			*start;
@@ -82,7 +81,7 @@ typedef struct	s_lem
 	t_queues		**queues;
 	t_paths			*paths;
 	int				path_length;
-	int				ants;		/*make unsigned long*/
+	int				ants; // make unsigned long
 	int				room_amount;
 	int				tablesize;
 	int				link_amount;
@@ -93,31 +92,51 @@ typedef struct	s_lem
 	int				visu_info;
 }					t_lem;
 
-
-/* read_input_basics.c */
+/*
+** read_input_basics.c
+*/
 int					read_input(t_lem *lem);
 int					skip_line(char *input, int i);
 
-/* read_input_rooms.c */
+/*
+** read_input_rooms.c
+*/
 int					get_rooms(t_lem *lem);
 int					get_start_and_end(t_lem *lem);
 
-/* read_input_links.c */
+/*
+** read_input_links.c
+*/
 int					get_links(t_lem *lem);
 
-/* hash.c */
+/*
+** hash.c
+*/
 unsigned int		hash(char *key, int tablesize);
 void				*init_table(t_lem *lem);
-t_room 				*get_hashed_room(t_lem *lem, char *key);
+t_room				*get_hashed_room(t_lem *lem, char *key);
 
-/* inits.c */
-int					init_links(t_room *room);
+/*
+** inits.c
+*/
 void				init_lem(t_lem *lem);
+t_queues			*init_newq(t_queues *temp_prevq, t_room *current);
+t_path				*init_new_path(t_lem *lem);
+void				*init_table(t_lem *lem);
 
-/* bfs.c */
+/*
+** bfs.c
+*/
 void				bfs(t_lem *lem);
 
-/* send_ants.c */
+/*
+** find_paths.c
+*/
+int					create_bucket(t_lem *lem);
+
+/*
+** send_ants.c
+*/
 void				send_ants(t_lem *lem);
 
 void				print_debug_info(t_lem *lem);

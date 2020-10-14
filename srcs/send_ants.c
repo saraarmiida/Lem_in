@@ -1,9 +1,9 @@
 #include "../includes/lem_in.h"
 
 /*
-** send_new_ants sends a new ant to each path that makes sense to send an ant in.
-** if paths length is less than other paths length + remaining ants, it makes sense
-** to send an ant to that path.
+** send_new_ants sends a new ant to each path that makes sense to send an
+** ant in. if paths length is less than other paths length + remaining ants,
+** it makes sense to send an ant to that path.
 */
 
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
@@ -18,10 +18,10 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
 		length += path->length;
-		if (path->next != NULL && length + (lem->ants - ant) <= path->next->length)
+		path = path->next;
+		if (path != NULL && length + (lem->ants - ant) <= path->length)
 			return (ant + 1);
 		ant++;
-		path = path->next;
 	}
 	return (ant);
 }

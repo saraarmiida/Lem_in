@@ -7,6 +7,7 @@ SRCS = 	srcs/main.c \
 		srcs/bfs.c \
 		srcs/hash.c \
 		srcs/send_ants.c \
+		srcs/find_paths.c \
 		srcs/inits.c 
 
 OBJS = 	main.o \
@@ -16,6 +17,7 @@ OBJS = 	main.o \
 		bfs.o \
 		hash.o \
 		send_ants.o \
+		find_paths.o \
 		inits.o
 
 INCS = -I ./srcs -I ./libft/includes/

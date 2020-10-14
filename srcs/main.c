@@ -120,8 +120,13 @@ int		main(int argc, char **argv)
 		}
 		tempvisu = 1;
 	}
-	if (argc == 2)
+	else if (argc == 2)
 		lem->fd = open(argv[1], O_RDONLY);
+	else
+	{
+		ft_putstr_fd("Usage: ./lem-in [map]\nWith visualiser: ./lem-in [map] -v | ./visualiser/visu\n", 2);
+		exit(0);
+	}
 	init_lem(lem);
 	lem->visu_info = tempvisu;
 	read_input(lem);

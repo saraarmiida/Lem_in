@@ -24,11 +24,21 @@ typedef struct	s_line
 	int			toy;
 }				t_line;
 
+typedef struct		s_edge
+{
+	int			fromx;
+	int			fromy;
+	int			tox;
+	int			toy;
+	struct s_edge	*next;
+}					t_edge;
+
 typedef struct	s_visu
 {
 	t_line		*lines;
 	t_line		*pathlines;
 	t_node		*nodes;
+	t_edge		*head;
 	int			room_amount;
 	int			link_amount;
 	int			drawxlinks;

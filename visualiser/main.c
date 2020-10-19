@@ -14,7 +14,7 @@ int skip_to_number(char *str)
 	}
 	while (ft_isdigit(*str) == 0)
 	{
-		ft_printf("Skipped %c\n", *str);
+		//ft_printf("Skipped %c\n", *str);
 		str++;
 		i++;
 	}
@@ -36,9 +36,11 @@ t_visu *init_visu_data()
 	char	*line;
 	int		i;
 	int		j;
+	int		k;
 
 	i = 0;
 	j = 0;
+	k = 0;
 	if (!(visu = (t_visu*)malloc(sizeof(t_visu))))
 		return (0);
 	visu->room_amount = 0;
@@ -49,17 +51,35 @@ t_visu *init_visu_data()
 			visu->room_amount = ft_atoi(line += 6);
 			visu->link_amount = ft_atoi(line += 8 + ft_intlen(visu->room_amount));
 			if (!(visu->nodes = (t_node*)malloc(sizeof(t_node) * visu->room_amount)))
+			{
+				ft_putstr_fd("Failed to malloc rooms.\n", 2);
 				return (0);
+			}
+			ft_putstr_fd("Malloced rooms.\n", 2);
+			if (!(visu->pathlines = (t_line*)malloc(sizeof(t_line) * visu->link_amount)))
+			{
+				ft_putstr_fd("Failed to malloc used paths.\n", 2);
+				return (0);
+			}
+			ft_putstr_fd("Malloced used paths.\n", 2);
 			if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * visu->link_amount)))
+			{
+				ft_putstr_fd("Failed to malloc all paths.\n", 2);
 				return (0);
+			}
+			ft_putstr_fd("Malloced all paths.\n", 2);
 		}
-		if (ft_strncmp(line, "Curr", 3) == 0)
+		if (ft_strncmp(line, "Edge", 3) == 0)
 		{
-			visu->lines[j].fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
-			visu->lines[j].fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
-			visu->lines[j].tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
-			visu->lines[j].toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
-			j++;
+			ft_putnbr_fd(visu->link_amount, 2);
+			ft_putstr_fd("\n", 2);
+			visu->lines[k].fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[k].fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			visu->lines[k].tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->lines[k].toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			ft_putnbr_fd(visu->lines[k].fromx, 2);
+			ft_putstr_fd(" ", 2);
+			k++;
 		}
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{
@@ -68,6 +88,14 @@ t_visu *init_visu_data()
 			visu->nodes[i].y = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY;
 			visu->nodes[i].level = ft_atoi(line += skip_to_number(line));
 			i++;
+		}
+		if (ft_strncmp(line, "Curr", 3) == 0)
+		{
+			visu->pathlines[j].fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->pathlines[j].fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			visu->pathlines[j].tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			visu->pathlines[j].toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			j++;
 		}
 	}
 	return(visu);
@@ -100,7 +128,7 @@ int main()
 	TTF_Init();
 	visu->font = TTF_OpenFont("../assets/OverpassMono-Light.ttf", 12);
 	linesmax = visu->link_amount;
-	visu->link_amount = 0;
+	visu->drawxlinks = 0;
 	while (quit == 0){
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
@@ -109,8 +137,8 @@ int main()
 			if (e.type == SDL_QUIT){
 				quit = 1;
 			}
-			if (e.type == SDL_KEYDOWN && visu->link_amount <= linesmax){
-				visu->link_amount++;
+			if (e.type == SDL_KEYDOWN && visu->drawxlinks <= linesmax){
+				visu->drawxlinks++;
 			}
 			if (e.type == SDL_MOUSEBUTTONDOWN){
 				quit = 1;

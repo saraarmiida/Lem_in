@@ -67,6 +67,7 @@ void		print_paths(t_lem *lem)
 		ft_printf("\n\n");
 		path = path->next;
 	}
+
 }
 
 void		print_hashtable(t_lem *lem)
@@ -130,6 +131,8 @@ int			main(int argc, char **argv)
 	init_lem(lem);
 	lem->visu_info = tempvisu;
 	read_input(lem);
+	if (lem->visu_info == 1)
+		ft_printf("Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
 	bfs(lem);
 	print_debug_info(lem);
 	send_ants(lem);

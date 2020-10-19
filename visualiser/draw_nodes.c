@@ -19,7 +19,7 @@ int	draw_nodes(SDL_Renderer *renderer, t_visu *visu)
 		SDL_RenderFillRect(renderer, &rect);
 		//SDL_Delay(5);
 		//ft_printf("Node name: %d | x: %d | y: %d\n", visu->nodes[i].name, visu->nodes[i].x, visu->nodes[i].y);
-		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
+		//ft_printf("Line | from x: %d | from y: %d | to x: %d | to y: %d\n", visu->pathlines[i].fromx, visu->pathlines[i].fromy, visu->pathlines[i].tox, visu->pathlines[i].toy);
 		i++;
 	}
 	return (0);

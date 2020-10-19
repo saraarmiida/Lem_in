@@ -27,9 +27,11 @@ typedef struct	s_line
 typedef struct	s_visu
 {
 	t_line		*lines;
+	t_line		*pathlines;
 	t_node		*nodes;
 	int			room_amount;
 	int			link_amount;
+	int			drawxlinks;
 	TTF_Font	*font;
 }				t_visu;
 

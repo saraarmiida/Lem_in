@@ -102,7 +102,7 @@ void		print_debug_info(t_lem *lem)
 {
 	print_hashtable(lem);
 	print_rooms(lem);
-	print_paths(lem);
+	// print_paths(lem);
 }
 
 int			main(int argc, char **argv)
@@ -134,7 +134,7 @@ int			main(int argc, char **argv)
 	if (lem->visu_info == 1)
 		ft_printf("Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
 	bfs(lem);
-	print_debug_info(lem);
+	// print_debug_info(lem);
 	send_ants(lem);
 	return (0);
 }

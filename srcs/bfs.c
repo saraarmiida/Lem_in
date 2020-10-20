@@ -27,7 +27,10 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 			{
 				child->room->level = current->level + 1;
 				if (lem->visu_info == 1)
+				{
 					ft_printf("Edge: %d | %d | %d | %d\n", current->x, current->y, child->room->x, child->room->y);
+					ft_printf("Name: %s | X: %d | Y: %d | L: %d\n", current->c_name, current->x, current->y, current->level);
+				}
 			}
 			child = child->next;
 		}

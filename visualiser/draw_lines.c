@@ -4,15 +4,17 @@ int	draw_lines(SDL_Renderer *renderer, t_visu *visu)
 {
 	int i;
 	int j;
+	t_edge	*edge;
 
 	i = 0;
 	j = 0;
-	while (i < visu->link_amount)
+	edge = visu->head;
+	while (edge != NULL)
 	{
 		SDL_SetRenderDrawColor(renderer, 55, 55, 55, 255);
-		SDL_RenderDrawLine(renderer, visu->lines[i].fromx, visu->lines[i].fromy, visu->lines[i].tox, visu->lines[i].toy);
+		SDL_RenderDrawLine(renderer, edge->fromx, edge->fromy, edge->tox, edge->toy);
 		//SDL_Delay(5);
-		i++;
+		edge = edge->next;
 	}
 	while (j < visu->drawxlinks)
 	{

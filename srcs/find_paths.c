@@ -52,8 +52,9 @@ t_path		*find_path(t_lem *lem)
 		newroom = find_next_room(current, lem->visu_info);
 		if (newroom == NULL)
 		{
-			current = current->prev;
-			if (current->room == lem->start)
+			if (current->prev != NULL)
+				current = current->prev;
+			if (current->room == lem->start) // where big.txt segfaults
 				return (NULL);
 		}
 		else

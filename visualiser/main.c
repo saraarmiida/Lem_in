@@ -34,18 +34,34 @@ t_visu *init_visu_data()
 {
 	t_visu	*visu;
 	char	*line;
+	t_edge	*edge;
+	t_edge	*prev;
 	int		i;
 	int		j;
-	int		k;
 
 	i = 0;
 	j = 0;
-	k = 0;
 	if (!(visu = (t_visu*)malloc(sizeof(t_visu))))
 		return (0);
 	visu->room_amount = 0;
+	visu->head = NULL;
 	while (get_next_line(0, &line) == 1)
 	{
+		if (ft_strncmp(line, "Edge", 3) == 0)
+		{
+			if (!(edge = (t_edge*)malloc(sizeof(t_edge))))
+				return (0);
+			edge->fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			edge->fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			edge->tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
+			edge->toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			edge->next = NULL;
+			if (visu->head == NULL)
+				visu->head = edge;
+			else
+				prev->next = edge;
+			prev = edge;
+		}
 		if (ft_strncmp(line, "Rooms", 4) == 0 && visu->room_amount == 0)
 		{
 			visu->room_amount = ft_atoi(line += 6);
@@ -68,18 +84,6 @@ t_visu *init_visu_data()
 				return (0);
 			}
 			ft_putstr_fd("Malloced all paths.\n", 2);
-		}
-		if (ft_strncmp(line, "Edge", 3) == 0)
-		{
-			ft_putnbr_fd(visu->link_amount, 2);
-			ft_putstr_fd("\n", 2);
-			visu->lines[k].fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
-			visu->lines[k].fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
-			visu->lines[k].tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
-			visu->lines[k].toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
-			ft_putnbr_fd(visu->lines[k].fromx, 2);
-			ft_putstr_fd(" ", 2);
-			k++;
 		}
 		if (ft_strncmp(line, "Name", 3) == 0)
 		{

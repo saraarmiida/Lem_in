@@ -67,7 +67,7 @@ void		bfs(t_lem *lem)
 		lem->lvl_flow = 1;
 		ft_printf("Rooms leveled.\n");
 		if (create_bucket(lem) == 1)
-			ft_printf("\nPaths found.\n\n\n");
+			ft_printf("\nPaths maybe found.\n\n\n");
 		else
 			ft_printf("Buckets not complete.\n\nDebug info:\n");
 	}

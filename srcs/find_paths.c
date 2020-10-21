@@ -11,11 +11,12 @@ t_path		*find_next_room(t_path *current, int visu_info)
 {
 	t_rlink	*edge;
 
-	current->room->visited = 1;
+	//current->room->visited = 1;
 	edge = current->room->linked_rooms;
-	while (edge != NULL && edge->flow == 1)
+	ft_printf("Finding next room. Right now at %d, checking if %d is ok.\n", current->room->name, edge->tgtroom->name);
+	while (edge != NULL)
 	{
-		if (edge->tgtroom->level > current->room->level)
+		if (edge->tgtroom->level > current->room->level && edge->flow == 1)
 		{
 			if (!(current->next = (t_path*)malloc(sizeof(t_path))))
 			{
@@ -44,6 +45,7 @@ t_path		*find_path(t_lem *lem)
 	t_path	*current;
 	t_path	*newroom;
 	t_path	*head;
+	t_rlink	*usededge;
 
 	head = init_new_path(lem);
 	current = head;
@@ -54,12 +56,17 @@ t_path		*find_path(t_lem *lem)
 		{
 			if (current->prev != NULL)
 				current = current->prev;
-			if (current->room == lem->start) // where big.txt segfaults
+			ft_printf("Backing down to: %d\n", current->room->name);
+			if (current->room == lem->start)
 				return (NULL);
 		}
 		else
-		{
-			current->room->linked_rooms->flow = 0;
+		{	
+			usededge = current->room->linked_rooms;
+			while (usededge->tgtroom != newroom->room)
+				usededge = usededge->next;
+			usededge->flow = 0;
+			ft_printf("Reduced edge from %d to %d with tgtroom %d\n", current->room->name, newroom->room->name, usededge->tgtroom->name);
 			current = newroom;
 			lem->path_length++;
 		}

@@ -9,13 +9,13 @@
 
 t_path		*find_next_room(t_path *current, int visu_info)
 {
-	t_rlink	*linked_rooms;
+	t_rlink	*edge;
 
 	current->room->visited = 1;
-	linked_rooms = current->room->linked_rooms;
-	while (linked_rooms != NULL)
+	edge = current->room->linked_rooms;
+	while (edge != NULL && edge->flow == 1)
 	{
-		if (linked_rooms->room->visited == 0)
+		if (edge->tgtroom->level > current->room->level)
 		{
 			if (!(current->next = (t_path*)malloc(sizeof(t_path))))
 			{
@@ -23,13 +23,13 @@ t_path		*find_next_room(t_path *current, int visu_info)
 				return (NULL);
 			}
 			if (visu_info == 1)
-				ft_printf("Curr: %d | %d | %d | %d\n", current->room->x, current->room->y, linked_rooms->room->x, linked_rooms->room->y);
+				ft_printf("Curr: %d | %d | %d | %d | Name: %d\n", current->room->x, current->room->y, edge->tgtroom->x, edge->tgtroom->y, current->room->name);
 			current->next->prev = current;
-			current->next->room = linked_rooms->room;
+			current->next->room = edge->tgtroom;
 			current->next->next = NULL;
 			return (current->next);
 		}
-		linked_rooms = linked_rooms->next;
+		edge = edge->next;
 	}
 	return (NULL);
 }
@@ -59,6 +59,7 @@ t_path		*find_path(t_lem *lem)
 		}
 		else
 		{
+			current->room->linked_rooms->flow = 0;
 			current = newroom;
 			lem->path_length++;
 		}

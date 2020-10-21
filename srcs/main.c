@@ -21,7 +21,7 @@ void		print_rooms(t_lem *lem)
 			ft_printf("\tLinked rooms: ");
 			while (rl != NULL)
 			{
-				ft_printf("%s -> ", rl->room->c_name);
+				ft_printf("%s -> ", rl->tgtroom->c_name);
 				rl = rl->next;
 			}
 			ft_printf("\n");
@@ -33,7 +33,7 @@ void		print_rooms(t_lem *lem)
 				ft_printf("\tLinked rooms: ");
 				while (rl != NULL)
 				{
-					ft_printf("%s -> ", rl->room->c_name);
+					ft_printf("%s -> ", rl->tgtroom->c_name);
 					rl = rl->next;
 				}
 				ft_printf("\n");
@@ -100,9 +100,9 @@ void		print_hashtable(t_lem *lem)
 
 void		print_debug_info(t_lem *lem)
 {
-	print_hashtable(lem);
+	//print_hashtable(lem);
 	print_rooms(lem);
-	// print_paths(lem);
+	print_paths(lem);
 }
 
 int			main(int argc, char **argv)
@@ -110,7 +110,7 @@ int			main(int argc, char **argv)
 	t_lem	*lem;
 	int		tempvisu;
 
-	tempvisu = 0;
+	tempvisu = 1;
 	if (!(lem = (t_lem*)malloc(sizeof(t_lem))))
 		return (1);
 	if (argc == 3)
@@ -136,6 +136,6 @@ int			main(int argc, char **argv)
 	bfs(lem);
 	if (lem->visu_info == 1)
 		print_debug_info(lem);
-	send_ants(lem);
+	//send_ants(lem);
 	return (0);
 }

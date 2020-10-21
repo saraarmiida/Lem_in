@@ -22,9 +22,9 @@ typedef struct		s_path
 
 typedef struct		s_rlink
 {
-	struct s_room	*room;
+	struct s_room	*tgtroom;
 	struct s_rlink	*next;
-	int				visited;
+	int				flow;
 }					t_rlink;
 
 typedef struct		s_queues

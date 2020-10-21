@@ -16,6 +16,12 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	t_queues		*newq;
 	static t_queues	*currentq;
 
+	while (current->linked_rooms != NULL && current->linked_rooms->flow == 0)
+	{
+		current->linked_rooms = current->linked_rooms->next;
+	}
+	if (current->linked_rooms ==  NULL)
+		return (0);
 	if (current->visited == 1)
 	{
 		current->visited = 0;
@@ -23,11 +29,15 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		newq = init_newq(temp_prevq, current);
 		while (child)
 		{
-			if (lem->lvl_flow == 1 && child->visited == 1)
-				child = child->next;
-			if (child->room->level == 0 && lem->start != child->room)
+			if (lem->lvl_flow == 1 && child->flow == 0)
 			{
-				child->room->level = current->level + 1;
+				ft_putstr_fd("This edge is at max capacity", 2);
+				child = child->next;
+				break ;
+			}
+			if (child->tgtroom->level == 0 && lem->start != child->tgtroom)
+			{
+				child->tgtroom->level = current->level + 1;
 			}
 			child = child->next;
 		}
@@ -41,8 +51,8 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	else if (currentq->nextq != NULL)
 		currentq = currentq->nextq;
 	else
-		return (1);
-	current = currentq->linked_rooms->room;
+		return (0);
+	current = currentq->linked_rooms->tgtroom;
 	if (current != lem->end)
 		level_rooms(lem, current, newq);
 	return (1);
@@ -52,19 +62,15 @@ void		bfs(t_lem *lem)
 {
 	if (lem->start)
 		ft_printf("\nWe have a start\n");
-	if (level_rooms(lem, lem->start, NULL) == 1)
+	while (level_rooms(lem, lem->start, NULL) == 1)
 	{
 		lem->lvl_flow = 1;
 		ft_printf("Rooms leveled.\n");
+		if (create_bucket(lem) == 1)
+			ft_printf("\nPaths found.\n\n\n");
+		else
+			ft_printf("Buckets not complete.\n\nDebug info:\n");
 	}
-	else
-	{
-		ft_printf("BFS did not complete.\n\nDebug info:\n");
-		if (lem->visu_info == 0)
-			print_debug_info(lem);
-	}
-	if (create_bucket(lem) == 1)
-		ft_printf("\nPaths found.\n\n\n");
-	else
-		ft_printf("BFS did not complete.\n\nDebug info:\n");
+	if (lem->visu_info == 0)
+		print_debug_info(lem);
 }

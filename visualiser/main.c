@@ -56,6 +56,7 @@ t_visu *init_visu_data()
 			edge->tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
 			edge->toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
 			edge->next = NULL;
+			ft_putstr_fd("Added edge", 2);
 			if (visu->head == NULL)
 				visu->head = edge;
 			else
@@ -78,7 +79,7 @@ t_visu *init_visu_data()
 				return (0);
 			}
 			ft_putstr_fd("Malloced used paths.\n", 2);
-			if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * visu->link_amount)))
+			if (!(visu->lines = (t_line*)malloc(sizeof(t_line) * visu->link_amount * 2)))
 			{
 				ft_putstr_fd("Failed to malloc all paths.\n", 2);
 				return (0);
@@ -120,6 +121,7 @@ int main()
 	SDL_Window *win =  SDL_CreateWindow("Henlo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 700, SDL_WINDOW_ALLOW_HIGHDPI);
 	SDL_Renderer *renderer = NULL;
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
 	SDL_Event e;
 	int quit = 0;
@@ -132,7 +134,8 @@ int main()
 	TTF_Init();
 	visu->font = TTF_OpenFont("../assets/OverpassMono-Light.ttf", 12);
 	linesmax = visu->link_amount;
-	visu->drawxlinks = 0;
+	visu->drawxpaths = 0;
+	visu->drawxedges = 0;
 	while (quit == 0){
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
@@ -141,8 +144,17 @@ int main()
 			if (e.type == SDL_QUIT){
 				quit = 1;
 			}
-			if (e.type == SDL_KEYDOWN && visu->drawxlinks <= linesmax){
-				visu->drawxlinks++;
+			if (e.type == SDL_KEYDOWN){
+				switch( e.key.keysym.sym ){
+                    case SDLK_RIGHT:
+                        visu->drawxpaths++;
+                        break;
+                    case SDLK_UP:
+                        visu->drawxedges++;
+                        break;
+                    default:
+                        break;
+                }
 			}
 			if (e.type == SDL_MOUSEBUTTONDOWN){
 				quit = 1;

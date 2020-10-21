@@ -48,6 +48,7 @@ int		save_link(t_lem *lem, int i)
 	add_room_to_rooms_linked_rooms(room2, room);
 	if (lem->visu_info == 1)
 		ft_printf("Edge: %d | %d | %d | %d\n", room->x, room->y, room2->x, room2->y);
+		ft_printf("Edge: %d | %d | %d | %d\n", room2->x, room2->y, room->x, room->y);
 	return (i + ft_strlen(to) + 1);
 }
 

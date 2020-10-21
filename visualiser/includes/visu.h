@@ -41,7 +41,8 @@ typedef struct	s_visu
 	t_edge		*head;
 	int			room_amount;
 	int			link_amount;
-	int			drawxlinks;
+	int			drawxpaths;
+	int			drawxedges;
 	TTF_Font	*font;
 }				t_visu;
 

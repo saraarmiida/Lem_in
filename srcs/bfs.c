@@ -23,6 +23,8 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		newq = init_newq(temp_prevq, current);
 		while (child)
 		{
+			if (lem->lvl_flow == 1 && child->visited == 1)
+				child = child->next;
 			if (child->room->level == 0 && lem->start != child->room)
 			{
 				child->room->level = current->level + 1;
@@ -51,7 +53,10 @@ void		bfs(t_lem *lem)
 	if (lem->start)
 		ft_printf("\nWe have a start\n");
 	if (level_rooms(lem, lem->start, NULL) == 1)
+	{
+		lem->lvl_flow = 1;
 		ft_printf("Rooms leveled.\n");
+	}
 	else
 	{
 		ft_printf("BFS did not complete.\n\nDebug info:\n");

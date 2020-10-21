@@ -24,6 +24,7 @@ typedef struct		s_rlink
 {
 	struct s_room	*room;
 	struct s_rlink	*next;
+	int				visited;
 }					t_rlink;
 
 typedef struct		s_queues
@@ -51,13 +52,6 @@ typedef struct		s_queue
 	void			*next;
 	void			*prev;
 }					t_queue;
-
-typedef struct		s_llink
-{
-	char			*from;
-	char			*to;
-	int				visited;
-}					t_llink;
 
 typedef struct		s_room
 {
@@ -90,6 +84,7 @@ typedef struct		s_lem
 	int				i;
 	int				j;
 	int				visu_info;
+	int				lvl_flow;
 }					t_lem;
 
 /*

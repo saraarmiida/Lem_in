@@ -14,6 +14,7 @@ void	add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	if (room->linked_rooms)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
+	link->visited = 0;
 }
 
 int		check_link(t_lem *lem, int i)

@@ -66,4 +66,5 @@ void		init_lem(t_lem *lem)
 	lem->i = 0;
 	lem->visu_info = 0;
 	lem->paths = NULL;
+	lem->lvl_flow = 0;
 }

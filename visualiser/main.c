@@ -55,6 +55,22 @@ t_visu *init_visu_data()
 			edge->fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
 			edge->tox = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
 			edge->toy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;
+			if (edge->fromx > edge->tox)
+			{
+				edge->tox += (edge->fromx - edge->tox) / 2;
+			}
+			else if (edge->fromx < edge->tox)
+			{
+				edge->tox -= (edge->tox - edge->fromx) / 2;
+			}
+			if (edge->fromy > edge->toy)
+			{
+				edge->toy += (edge->fromy - edge->toy) / 2;
+			}
+			else if (edge->fromy < edge->toy)
+			{
+				edge->toy -= (edge->toy - edge->fromy) / 2;
+			}
 			edge->next = NULL;
 			ft_putstr_fd("Added edge", 2);
 			if (visu->head == NULL)

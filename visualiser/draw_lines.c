@@ -11,7 +11,7 @@ int	draw_lines(SDL_Renderer *renderer, t_visu *visu)
 	edge = visu->head;
 	while (edge != NULL && i < visu->drawxedges)
 	{
-		SDL_SetRenderDrawColor(renderer, 255, 255, 0, 120);
+		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 200);
 		SDL_RenderDrawLine(renderer, edge->fromx, edge->fromy, edge->tox, edge->toy);
 		//SDL_Delay(5);
 		edge = edge->next;

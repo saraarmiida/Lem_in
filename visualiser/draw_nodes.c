@@ -14,7 +14,7 @@ int	draw_nodes(SDL_Renderer *renderer, t_visu *visu)
 		rect.h = NODESIZE;
 		SDL_SetRenderDrawColor(renderer, 40, 40, 40, 255);
 		SDL_RenderFillRect(renderer, &rect);
-		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 120);
+		SDL_SetRenderDrawColor(renderer, 55, 255, 255, 80);
 		SDL_RenderDrawRect(renderer, &rect);
 		//SDL_Delay(5);
 		//SDL_Delay(5);

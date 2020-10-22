@@ -29,17 +29,22 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		newq = init_newq(temp_prevq, current);
 		while (child)
 		{
+			ft_printf("Leveling at %d. ", current->name);
 			if (lem->lvl_flow == 1 && child->flow == 0)
 			{
-				ft_putstr_fd("This edge is at max capacity", 2);
+				ft_printf("Egde to %d is at max. Tgt level is at %d.\n", child->tgtroom->name, child->tgtroom->level);
 				child = child->next;
-				break ;
 			}
-			if (child->tgtroom->level == 0 && lem->start != child->tgtroom)
+			else if (child->tgtroom->level == 0 && lem->start != child->tgtroom)
 			{
+				ft_printf("Leveling room %d: %d.\n", child->tgtroom->name, current->level + 1);
 				child->tgtroom->level = current->level + 1;
 			}
-			child = child->next;
+			else
+			{
+				ft_printf("Fail at %d.\n", current->name);
+				child = child->next; // no good?
+			}
 		}
 	}
 	else
@@ -52,7 +57,7 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		currentq = currentq->nextq;
 	else
 		return (0);
-	current = currentq->linked_rooms->tgtroom;
+	current = currentq->linked_rooms->tgtroom; // Good or no good?
 	if (current != lem->end)
 		level_rooms(lem, current, newq);
 	return (1);
@@ -65,7 +70,7 @@ void		bfs(t_lem *lem)
 	while (level_rooms(lem, lem->start, NULL) == 1)
 	{
 		lem->lvl_flow = 1;
-		ft_printf("Rooms leveled.\n");
+		ft_printf("Ruums leveled.\n");
 		if (create_bucket(lem) == 1)
 			ft_printf("\nPaths maybe found.\n\n\n");
 		else

@@ -10,6 +10,7 @@ void		print_rooms(t_lem *lem)
 	t_room	*r;
 	t_rlink	*rl;
 
+	ft_printf("Huoneet:\n");
 	i = 0;
 	while (i < lem->tablesize)
 	{

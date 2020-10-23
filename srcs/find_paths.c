@@ -49,7 +49,7 @@ t_path		*find_next_room(t_path *current, int visu_info)
 	t_rlink	*edge;
 
 	edge = current->room->linked_rooms;
-	ft_printf("Finding next room. Right now at %d, checking if %d is ok.\n", current->room->name, edge->tgtroom->name);
+	ft_printf("Finding next room. Right now at %d, checking if %d is ok. Visited there: %d\n", current->room->name, edge->tgtroom->name, edge->tgtroom->visited);
 	while (edge != NULL)
 	{
 		if (edge->tgtroom->level > current->room->level && edge->flow == 1 && edge->tgtroom->visited == 0)
@@ -105,6 +105,7 @@ t_path		*find_path(t_lem *lem)
 			lem->path_length++;
 		}
 	}
+	ft_printf("Returning a path starting at: %d\n", head->room->name);
 	return (head);
 }
 

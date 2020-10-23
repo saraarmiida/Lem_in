@@ -106,10 +106,10 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	else
 		return (0);
 	current = currentq->linked_rooms->tgtroom;
-
 	if (current != lem->end)
 		level_rooms(lem, current, newq);
 	currentq =  NULL;
+	lem->end->visited = 0;
 	return (1);
 }
 

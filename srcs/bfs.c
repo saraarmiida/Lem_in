@@ -126,6 +126,6 @@ void		bfs(t_lem *lem)
 		else
 			ft_printf("Buckets not complete.\n\nDebug info:\n");
 	}
-	if (lem->visu_info == 0)
+	if (lem->visu_info == 1)
 		print_debug_info(lem);
 }

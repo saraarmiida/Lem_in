@@ -7,22 +7,49 @@
 ** If we don't find an unvisited room, return NULL.
 */
 
-static void	update_edges_and_reset(t_path *path, t_lem *lem)
+static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 {
-	t_rlink	*usededge;
+	t_room	*r;
+	t_rlink	*templink;
+	int		i;
+
+	i = 0;
+	templink = NULL;
+	while (i < lem->tablesize)
+	{
+		r = lem->rooms[i];
+		if (r != NULL)
+		{
+			templink = r->linked_rooms;
+			ft_printf("CURRENT IS %d.\n", r->name);
+			while (templink != NULL && templink != edge1 && templink != edge2)
+			{
+				ft_printf("		Updated edge from %d to %d to 1.\n", r->name, templink->tgtroom->name);
+				templink->flow = 1;
+				templink = templink->next;
+			}
+			while (r->next != NULL)
+			{
+				r = r->next;
+				templink = r->linked_rooms;
+				while (templink != NULL && templink != edge1 && templink != edge2)
+				{
+					ft_printf("		Updated edge from %d to %d to 1.\n", lem->rooms[i]->name, templink->tgtroom->name);
+					templink->flow = 1;
+					templink = templink->next;
+				}
+			}
+		}
+		i++;
+	}
+}
+
+static void reset_levels_and_visited(t_lem *lem)
+{
 	t_room	*r;
 	int		i;
 
 	i = 0;
-	while (path->next != NULL)
-	{
-		usededge = path->room->linked_rooms;
-		while (usededge->tgtroom != path->next->room)
-			usededge = usededge->next;
-		usededge->flow = 0;
-		ft_printf("Updated egde from %d to %d. Now %d.\n", path->room->name, usededge->tgtroom->name, usededge->flow);
-		path = path->next;
-	}
 	while (i < lem->tablesize)
 	{
 		r = lem->rooms[i];
@@ -42,6 +69,41 @@ static void	update_edges_and_reset(t_path *path, t_lem *lem)
 		i++;
 	}
 	lem->start->visited = 1;
+}
+
+static void	update_edges_and_reset(t_path *path, t_lem *lem)
+{
+	t_rlink	*usededge;
+	t_rlink *tempedge;
+	t_rlink *edge1;
+	t_rlink *edge2;
+
+	edge1 = NULL;
+	edge2 = NULL;
+	tempedge = NULL;
+	while (path->next != NULL)
+	{
+		usededge = path->room->linked_rooms;
+		while (usededge->tgtroom != path->next->room)
+			usededge = usededge->next;
+		usededge->flow = 0;
+		tempedge = usededge->tgtroom->linked_rooms;
+		while (tempedge != NULL)
+		{
+			if (tempedge->tgtroom == path->room && tempedge->flow == 0)
+			{
+				ft_printf("\n\nPATH USED BOTH WAYS!!\n\n");
+				edge1 = usededge;
+				edge2 = tempedge;
+			}
+			tempedge = tempedge->next;
+		}
+		ft_printf("Updated egde from %d to %d. Now %d.\n", path->room->name, usededge->tgtroom->name, usededge->flow);
+		path = path->next;
+	}
+	if (edge1 != NULL)
+		reset_edges(lem, edge1, edge2);
+	reset_levels_and_visited(lem);
 }
 
 t_path		*find_next_room(t_path *current, int visu_info)

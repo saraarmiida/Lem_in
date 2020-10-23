@@ -103,7 +103,7 @@ void		print_debug_info(t_lem *lem)
 {
 	//print_hashtable(lem);
 	print_rooms(lem);
-	print_paths(lem);
+	//print_paths(lem);
 }
 
 int			main(int argc, char **argv)

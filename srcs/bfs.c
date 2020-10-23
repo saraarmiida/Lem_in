@@ -10,40 +10,88 @@
 ** left in our current queue, if not we go to the next queue if there is one.
 */
 
+/*
+int			level_rooms2(t_lem *lem, t_room *current, t_rlink *edge)
+{
+	t_rlink	*templink;
+
+	templink = NULL;
+	while (current->linked_rooms != NULL && current->linked_rooms->flow == 0)
+	{
+		ft_printf("Edgge from %d to %d used. Switching to %d to %d.\n", current->name, current->linked_rooms->tgtroom->name, current->name, current->linked_rooms->next->tgtroom->name);
+		current->linked_rooms = current->linked_rooms->next;
+	}
+	if (current->linked_rooms == NULL) // Would this ever happen
+	{
+		ft_printf("Ruum %d did not have edges.\n", current->name);
+		return (0);
+	}
+	if (edge == NULL)
+		edge = current->linked_rooms;
+	while (edge != NULL && edge->flow == 1)
+	{
+		ft_printf("Leveling at %d. ", current->name);
+		if (edge->tgtroom->level == 0 && edge->tgtroom != lem->start)
+		{
+			ft_printf("Leveling room %d: %d.\n", edge->tgtroom->name, current->level + 1);
+			edge->tgtroom->level = current->level + 1;
+		}
+		edge = current->linked_rooms->next;
+	}
+	templink = current->linked_rooms;
+	while (lem->start != current && templink->tgtroom->level >= current->level)
+		templink = templink->next;
+	current = templink->tgtroom;
+	if (current != lem->end)
+		level_rooms2(lem, templink->tgtroom, edge);
+	return (1);	
+}
+*/
+
 int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 {
-	t_rlink			*child;
+	t_rlink			*edge;
 	t_queues		*newq;
 	static t_queues	*currentq;
 
-	while (current->linked_rooms != NULL && current->linked_rooms->flow == 0)
-	{
-		current->linked_rooms = current->linked_rooms->next;
-	}
+	ft_printf("CURRENT IS %d.\n", current->name);
+	edge = NULL;
 	if (current->linked_rooms ==  NULL)
+	{
+		ft_printf("Ruum has no edges. Returning 0.\n");
 		return (0);
+	}
 	if (current->visited == 1)
 	{
 		current->visited = 0;
-		child = current->linked_rooms;
+		edge = current->linked_rooms;
+		while (edge->flow == 0)
+			edge = edge->next;
 		newq = init_newq(temp_prevq, current);
-		while (child)
+		ft_printf("Et: %d | Ef: %d\n", edge->tgtroom->name, edge->flow);
+		while (edge != NULL && edge->flow == 1)
 		{
-			ft_printf("Leveling at %d. ", current->name);
-			if (lem->lvl_flow == 1 && child->flow == 0)
+			if (lem->lvl_flow == 1 && edge->flow == 0)
 			{
-				ft_printf("Egde to %d is at max. Tgt level is at %d.\n", child->tgtroom->name, child->tgtroom->level);
-				child = child->next;
+				ft_printf("Egde to %d is at max. Tgt level is at %d.\n", edge->tgtroom->name, edge->tgtroom->level);
+				edge = current->linked_rooms;
 			}
-			else if (child->tgtroom->level == 0 && lem->start != child->tgtroom)
+			else if (edge->tgtroom->level == 0 && lem->start != edge->tgtroom && edge->flow == 1)
 			{
-				ft_printf("Leveling room %d: %d.\n", child->tgtroom->name, current->level + 1);
-				child->tgtroom->level = current->level + 1;
+				ft_printf("		Leveling room %d: %d.\n", edge->tgtroom->name, current->level + 1);
+				edge->tgtroom->level = current->level + 1;
+				if (current->linked_rooms->next->flow == 1)
+				{
+					ft_printf("Egde now from %d: %d.\n", current->name, current->linked_rooms->next->tgtroom->name);
+					edge = current->linked_rooms->next;
+				}
+				else	
+					edge = NULL;
 			}
 			else
 			{
-				ft_printf("Fail at %d.\n", current->name);
-				child = child->next; // no good?
+				ft_printf("Tried room %d. Fail. \n", current->name, edge->tgtroom->name);
+				edge = edge->next;
 			}
 		}
 	}
@@ -51,15 +99,17 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		newq = temp_prevq;
 	if (!currentq)
 		currentq = newq;
-	else if (currentq->linked_rooms->next != NULL)
-		currentq->linked_rooms = currentq->linked_rooms->next;
+	else if (currentq->linked_rooms->next != NULL && currentq->linked_rooms->next->flow == 1)
+		currentq->linked_rooms = currentq->linked_rooms->next; // This links 1 to the queue even with the if above
 	else if (currentq->nextq != NULL)
 		currentq = currentq->nextq;
 	else
 		return (0);
-	current = currentq->linked_rooms->tgtroom; // Good or no good?
+	current = currentq->linked_rooms->tgtroom;
+
 	if (current != lem->end)
 		level_rooms(lem, current, newq);
+	currentq =  NULL;
 	return (1);
 }
 

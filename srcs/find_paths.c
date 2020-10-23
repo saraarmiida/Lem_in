@@ -28,12 +28,14 @@ static void	update_edges_and_reset(t_path *path, t_lem *lem)
 		r = lem->rooms[i];
 		if (r != NULL)
 		{
-			r->level = 0; 
+			r->level = 0;
+			r->visited = 1; 
 			ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
 			while (r->next != NULL)
 			{
 				r = r->next;
 				r->level = 0; 
+				r->visited = 1;
 				ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
 			}
 		}

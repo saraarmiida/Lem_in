@@ -8,6 +8,7 @@
 t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 {
 	t_queues	*newq;
+	t_rlink		*templink;
 
 	if (!(newq = (t_queues*)malloc(sizeof(t_queues))))
 	{
@@ -16,7 +17,10 @@ t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
 	}
 	newq->nextq = NULL;
 	newq->prevq = temp_prevq;
-	newq->linked_rooms = current->linked_rooms;
+	templink = current->linked_rooms;
+	while (templink->flow == 0)
+		templink = templink->next;
+	newq->linked_rooms = templink;
 	if (temp_prevq)
 		temp_prevq->nextq = newq;
 	return (newq);
@@ -64,6 +68,7 @@ void		init_lem(t_lem *lem)
 	lem->input = NULL;
 	lem->j = 0;
 	lem->i = 0;
-	lem->visu_info = 0;
+	lem->info = 0;
 	lem->paths = NULL;
+	lem->lvl_flow = 0;
 }

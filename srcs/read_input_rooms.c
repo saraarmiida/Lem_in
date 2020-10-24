@@ -158,7 +158,7 @@ int		get_rooms(t_lem *lem)
 				break ;
 			else if (i == -2)
 			{
-				ft_printf("Rooms error\n");
+				ft_printf("Ruums error\n");
 				return (1);
 			}
 		}

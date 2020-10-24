@@ -95,7 +95,7 @@ void	send_ants(t_lem *lem)
 	t_paths	*path;
 	t_paths	*start;
 
-	ft_printf("%s\n\n", lem->input); // add ignoring comments
+	//ft_printf("%s\n\n", lem->input); // add ignoring comments
 	ant = 1;
 	sort_paths(lem);
 	lem->path_length = lem->paths->length;

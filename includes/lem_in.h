@@ -22,8 +22,9 @@ typedef struct		s_path
 
 typedef struct		s_rlink
 {
-	struct s_room	*room;
+	struct s_room	*tgtroom;
 	struct s_rlink	*next;
+	int				flow;
 }					t_rlink;
 
 typedef struct		s_queues
@@ -51,13 +52,6 @@ typedef struct		s_queue
 	void			*next;
 	void			*prev;
 }					t_queue;
-
-typedef struct		s_llink
-{
-	char			*from;
-	char			*to;
-	int				visited;
-}					t_llink;
 
 typedef struct		s_room
 {
@@ -89,7 +83,8 @@ typedef struct		s_lem
 	char			*input;
 	int				i;
 	int				j;
-	int				visu_info;
+	int				info;
+	int				lvl_flow;
 }					t_lem;
 
 /*
@@ -140,5 +135,6 @@ int					create_bucket(t_lem *lem);
 void				send_ants(t_lem *lem);
 
 void				print_debug_info(t_lem *lem);
+void				print_onepath(t_path *path_in);
 
 #endif

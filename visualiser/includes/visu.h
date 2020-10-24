@@ -2,8 +2,8 @@
 # define VISU_H
 
 # define NODESIZE	30
-# define PADDING	20
-# define OFFSETX	1100
+# define PADDING	24
+# define OFFSETX	700
 # define OFFSETY	100
 #include <stdio.h>
 #include "../../includes/lem_in.h"
@@ -41,7 +41,8 @@ typedef struct	s_visu
 	t_edge		*head;
 	int			room_amount;
 	int			link_amount;
-	int			drawxlinks;
+	int			drawxpaths;
+	int			drawxedges;
 	TTF_Font	*font;
 }				t_visu;
 

@@ -54,31 +54,31 @@ void		print_onepath(t_path *path_in)
 		path_in = path_in->next;
 	}
 	ft_printf("	Room %s (level: %d)\n", path_in->room->c_name, path_in->room->level);
-	ft_printf("\n\n");
+	ft_printf("\n");
 }
 
 void		print_paths(t_lem *lem)
 {
-	t_paths	*path;
-	t_path	*room;
-	int		i;
-	int		j;
+	t_paths		*paths;
+	t_path		*room;
+	int			i;
+	int			j;
 
-	path = lem->paths;
+	paths = lem->paths;
 	i = 0;
-	while (path != NULL)
+	while (paths->path != NULL)
 	{
 		j = 0;
-		room = path->path;
-		ft_printf("Path %d, length %d:\n", i + 1, path->length);
+		room = paths->path;
+		ft_printf("Path %d, length %d:\n", i + 1, paths->total_length);
 		while (room != NULL)
 		{
 			ft_printf("	Room %s (level: %d)\n", room->room->c_name, room->room->level);
-			room = room->next;
+			room = paths->path->next;
 		}
 		i++;
 		ft_printf("\n\n");
-		path = path->next;
+		paths->path = paths->next_path;
 	}
 
 }
@@ -149,6 +149,6 @@ int			main(int argc, char **argv)
 	bfs(lem);
 	if (lem->info == 1)
 		print_debug_info(lem);
-	send_ants(lem);
+	//send_ants(lem);
 	return (0);
 }

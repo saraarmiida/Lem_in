@@ -37,8 +37,10 @@ typedef struct		s_queues
 typedef struct		s_paths
 {
 	struct s_path	*path;
-	int				length;
-	struct s_paths	*next;
+	struct s_path	*next_path;
+	int				total_length;
+	struct s_paths	*paths;
+	struct s_paths	*next_set;
 }					t_paths;
 
 /*

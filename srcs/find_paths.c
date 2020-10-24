@@ -178,34 +178,64 @@ t_path		*find_path(t_lem *lem)
 
 int			create_bucket(t_lem *lem)
 {
-	t_paths			*bucket;
-	t_paths			*temp_prev_path;
-	t_path			*path;
-	t_rlink			*start_room;
+	t_paths		*bucket;
+	t_paths		*temp_bucket;
+	t_path		*temp_path;
+	t_path		*path;
+	t_rlink		*start_room;
 
-	temp_prev_path = NULL;
+	temp_bucket = NULL;
+	temp_path = NULL;
 	start_room = lem->start->linked_rooms;
+	if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
+	{
+		ft_printf("Malloc failed");
+		return (0);
+	}
+	bucket->paths = NULL;
+	if (lem->paths == NULL)
+		lem->paths = bucket;
+	else
+	{
+		temp_bucket = lem->paths;
+		while(temp_bucket->next_set != NULL)
+			temp_bucket = temp_bucket->next_set;
+		temp_bucket->next_set = bucket;
+	}
 	while (start_room != NULL)
 	{
 		path = find_path(lem);
 		if (path != NULL)
 		{
 			print_onepath(path);
-			if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
+			if (bucket->paths ==  NULL)
 			{
-				ft_printf("Malloc failed");
-				return (0);
+				if (!(bucket->paths = (t_paths*)malloc(sizeof(t_paths))))
+				{
+					ft_printf("Malloc failed");
+					return (0);
+				}
+				bucket->paths->path = NULL;
+				bucket->paths->next_path = NULL;
+				bucket->paths->next_set = NULL;
 			}
-			bucket->path = path;
-			bucket->length = lem->path_length;
-			bucket->next = NULL;
-			if (temp_prev_path)
-				temp_prev_path->next = bucket;
-			temp_prev_path = bucket;
-			if (!lem->paths)
-				lem->paths = bucket;
+			if (bucket->paths->path == NULL)
+				bucket->paths->path = path;
+			else
+			{
+				while (bucket->paths->next_path != NULL)
+				{
+					//ft_printf("Looping much? ");
+					//ft_printf("What's inside: %d", bucket->paths->next_path->length);
+					bucket->paths->path = bucket->paths->next_path;
+				}
+				bucket->paths->next_path = path;
+			}
+			bucket->total_length += lem->path_length; // Change to count
+			bucket->next_path = NULL;
 			update_edges_and_reset(path, lem);
 		}
+		bucket->next_set = NULL;
 		start_room = start_room->next;
 	}
 	return (1);

@@ -83,7 +83,7 @@ typedef struct		s_lem
 	char			*input;
 	int				i;
 	int				j;
-	int				visu_info;
+	int				info;
 	int				lvl_flow;
 }					t_lem;
 
@@ -135,5 +135,6 @@ int					create_bucket(t_lem *lem);
 void				send_ants(t_lem *lem);
 
 void				print_debug_info(t_lem *lem);
+void				print_onepath(t_path *path_in);
 
 #endif

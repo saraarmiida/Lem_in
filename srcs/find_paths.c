@@ -21,10 +21,9 @@ static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 		if (r != NULL)
 		{
 			templink = r->linked_rooms;
-			ft_printf("CURRENT IS %d.\n", r->name);
 			while (templink != NULL && templink != edge1 && templink != edge2)
 			{
-				ft_printf("		Updated edge from %d to %d to 1.\n", r->name, templink->tgtroom->name);
+				//ft_printf("		Updated edge from %d to %d to 1.\n", r->name, templink->tgtroom->name);
 				templink->flow = 1;
 				templink = templink->next;
 			}
@@ -34,7 +33,7 @@ static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 				templink = r->linked_rooms;
 				while (templink != NULL && templink != edge1 && templink != edge2)
 				{
-					ft_printf("		Updated edge from %d to %d to 1.\n", lem->rooms[i]->name, templink->tgtroom->name);
+					//ft_printf("		Updated edge from %d to %d to 1.\n", lem->rooms[i]->name, templink->tgtroom->name);
 					templink->flow = 1;
 					templink = templink->next;
 				}
@@ -57,13 +56,13 @@ static void reset_levels_and_visited(t_lem *lem)
 		{
 			r->level = 0;
 			r->visited = 1; 
-			ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
+			//ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
 			while (r->next != NULL)
 			{
 				r = r->next;
 				r->level = 0; 
 				r->visited = 1;
-				ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
+				//ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
 			}
 		}
 		i++;
@@ -92,13 +91,13 @@ static void	update_edges_and_reset(t_path *path, t_lem *lem)
 		{
 			if (tempedge->tgtroom == path->room && tempedge->flow == 0)
 			{
-				ft_printf("\n\nPATH USED BOTH WAYS!!\n\n");
+				//ft_printf("\n\nPATH USED BOTH WAYS!!\n\n");
 				edge1 = usededge;
 				edge2 = tempedge;
 			}
 			tempedge = tempedge->next;
 		}
-		ft_printf("Updated egde from %d to %d. Now %d.\n", path->room->name, usededge->tgtroom->name, usededge->flow);
+		//ft_printf("Updated egde from %d to %d. Now %d.\n", path->room->name, usededge->tgtroom->name, usededge->flow);
 		path = path->next;
 	}
 	if (edge1 != NULL)
@@ -106,12 +105,12 @@ static void	update_edges_and_reset(t_path *path, t_lem *lem)
 	reset_levels_and_visited(lem);
 }
 
-t_path		*find_next_room(t_path *current, int visu_info)
+t_path		*find_next_room(t_path *current, int info)
 {
 	t_rlink	*edge;
 
 	edge = current->room->linked_rooms;
-	ft_printf("Finding next room. Right now at %d, checking if %d is ok. Visited there: %d\n", current->room->name, edge->tgtroom->name, edge->tgtroom->visited);
+	//ft_printf("Finding next room. Right now at %d, checking if %d is ok. Visited there: %d\n", current->room->name, edge->tgtroom->name, edge->tgtroom->visited);
 	while (edge != NULL)
 	{
 		if (edge->tgtroom->level > current->room->level && edge->flow == 1 && edge->tgtroom->visited == 0)
@@ -122,8 +121,8 @@ t_path		*find_next_room(t_path *current, int visu_info)
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
-			if (visu_info == 1)
-				ft_printf("Curr: %d | %d | %d | %d | Nimi: %d\n", current->room->x, current->room->y, edge->tgtroom->x, edge->tgtroom->y, current->room->name);
+			if (info == 1)
+				ft_printf("|-\t-|Curr: %d | %d | %d | %d | Nimi: %d\n", current->room->x, current->room->y, edge->tgtroom->x, edge->tgtroom->y, current->room->name);
 			current->next->prev = current;
 			current->next->room = edge->tgtroom;
 			current->next->next = NULL;
@@ -149,25 +148,25 @@ t_path		*find_path(t_lem *lem)
 	current = head;
 	while (current->room != lem->end)
 	{
-		newroom = find_next_room(current, lem->visu_info);
+		newroom = find_next_room(current, lem->info);
 		if (newroom == NULL)
 		{
 			if (current->prev != NULL)
 			{
 				current = current->prev;
 			}
-			ft_printf("Backing down to: %d\n", current->room->name);
+			//ft_printf("Backing down to: %d\n", current->room->name);
 			if (current->room == lem->start)
 				return (NULL);
 		}
 		else
 		{	
-			ft_printf("Moved from %d to %d.\n", current->room->name, newroom->room->name);
+			//ft_printf("Moved from %d to %d.\n", current->room->name, newroom->room->name);
 			current = newroom;
 			lem->path_length++;
 		}
 	}
-	ft_printf("Returning a path starting at: %d\n", head->room->name);
+	//ft_printf("Returning a path starting at: %d\n", head->room->name);
 	return (head);
 }
 
@@ -191,6 +190,7 @@ int			create_bucket(t_lem *lem)
 		path = find_path(lem);
 		if (path != NULL)
 		{
+			print_onepath(path);
 			if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
 			{
 				ft_printf("Malloc failed");

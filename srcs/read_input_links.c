@@ -46,10 +46,10 @@ int		save_link(t_lem *lem, int i)
 	room2 = get_hashed_room(lem, to);
 	add_room_to_rooms_linked_rooms(room, room2);
 	add_room_to_rooms_linked_rooms(room2, room);
-	if (lem->visu_info == 1)
+	if (lem->info == 1)
 	{
-		ft_printf("Edge: %d | %d | %d | %d | from: %d to %d\n", room->x, room->y, room2->x, room2->y, room->name, room2->name);
-		ft_printf("Edge: %d | %d | %d | %d | from: %d to %d\n", room2->x, room2->y, room->x, room->y, room2->name, room->name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room->x, room->y, room2->x, room2->y, room->name, room2->name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room2->x, room2->y, room->x, room->y, room2->name, room->name);
 	}
 	return (i + ft_strlen(to) + 1);
 }

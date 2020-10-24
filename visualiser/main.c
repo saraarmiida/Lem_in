@@ -70,7 +70,7 @@ t_visu *init_visu_data()
 				prev->next = edge;
 			prev = edge;
 		}
-		if (ft_strncmp(line, "Rooms", 4) == 0 && visu->room_amount == 0)
+		if (ft_strncmp(line, "|Rooms", 5) == 0 && visu->room_amount == 0)
 		{
 			visu->room_amount = ft_atoi(line += 6);
 			visu->link_amount = ft_atoi(line += 8 + ft_intlen(visu->room_amount));
@@ -93,7 +93,7 @@ t_visu *init_visu_data()
 			}
 			ft_putstr_fd("Malloced all paths.\n", 2);
 		}
-		if (ft_strncmp(line, "Name", 3) == 0)
+		if (ft_strncmp(line, "|Name", 4) == 0)
 		{
 			visu->nodes[i].name = ft_atoi(line += skip_to_number(line));
 			visu->nodes[i].x = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX;
@@ -101,7 +101,7 @@ t_visu *init_visu_data()
 			visu->nodes[i].level = ft_atoi(line += skip_to_number(line));
 			i++;
 		}
-		if (ft_strncmp(line, "Curr", 3) == 0)
+		if (ft_strncmp(line, "|Curr", 4) == 0)
 		{
 			visu->pathlines[j].fromx = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETX + NODESIZE / 2; 
 			visu->pathlines[j].fromy = ft_atoi(line += skip_to_number(line)) * PADDING + OFFSETY + NODESIZE / 2;

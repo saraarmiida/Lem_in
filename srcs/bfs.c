@@ -10,56 +10,37 @@
 ** left in our current queue, if not we go to the next queue if there is one.
 */
 
-/*
-int			level_rooms2(t_lem *lem, t_room *current, t_rlink *edge)
-{
-	t_rlink	*templink;
-
-	templink = NULL;
-	while (current->linked_rooms != NULL && current->linked_rooms->flow == 0)
-	{
-		ft_printf("Edgge from %d to %d used. Switching to %d to %d.\n", current->name, current->linked_rooms->tgtroom->name, current->name, current->linked_rooms->next->tgtroom->name);
-		current->linked_rooms = current->linked_rooms->next;
-	}
-	if (current->linked_rooms == NULL) // Would this ever happen
-	{
-		ft_printf("Ruum %d did not have edges.\n", current->name);
-		return (0);
-	}
-	if (edge == NULL)
-		edge = current->linked_rooms;
-	while (edge != NULL && edge->flow == 1)
-	{
-		ft_printf("Leveling at %d. ", current->name);
-		if (edge->tgtroom->level == 0 && edge->tgtroom != lem->start)
-		{
-			ft_printf("Leveling room %d: %d.\n", edge->tgtroom->name, current->level + 1);
-			edge->tgtroom->level = current->level + 1;
-		}
-		edge = current->linked_rooms->next;
-	}
-	templink = current->linked_rooms;
-	while (lem->start != current && templink->tgtroom->level >= current->level)
-		templink = templink->next;
-	current = templink->tgtroom;
-	if (current != lem->end)
-		level_rooms2(lem, templink->tgtroom, edge);
-	return (1);	
-}
-*/
-
 int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 {
 	t_rlink			*edge;
 	t_queues		*newq;
+	t_rlink			*temp;
+	int				i;
+	int				j;
 	static t_queues	*currentq;
 
-	ft_printf("CURRENT IS %d.\n", current->name);
+	//ft_printf("CURRENT IS %d.\n", current->name);
 	edge = NULL;
+	temp = NULL;
+	i = 0;
+	j = 0;
 	if (current->linked_rooms ==  NULL)
 	{
-		ft_printf("Ruum has no edges. Returning 0.\n");
+		//ft_printf("Ruum has no edges. Returning 0.\n");
 		return (0);
+	}
+	if (current == lem->start)
+	{
+		temp = current->linked_rooms;
+		while (temp != NULL)
+		{
+			if (temp->flow == 0)
+				j++;
+			i++;
+			temp = temp->next;
+		}
+		if (i == j)
+			return (0);
 	}
 	if (current->visited == 1)
 	{
@@ -68,21 +49,21 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		while (edge->flow == 0)
 			edge = edge->next;
 		newq = init_newq(temp_prevq, current);
-		ft_printf("Et: %d | Ef: %d\n", edge->tgtroom->name, edge->flow);
+		//ft_printf("Et: %d | Ef: %d\n", edge->tgtroom->name, edge->flow);
 		while (edge != NULL && edge->flow == 1)
 		{
 			if (lem->lvl_flow == 1 && edge->flow == 0)
 			{
-				ft_printf("Egde to %d is at max. Tgt level is at %d.\n", edge->tgtroom->name, edge->tgtroom->level);
+				//ft_printf("Egde to %d is at max. Tgt level is at %d.\n", edge->tgtroom->name, edge->tgtroom->level);
 				edge = current->linked_rooms;
 			}
 			else if (edge->tgtroom->level == 0 && lem->start != edge->tgtroom && edge->flow == 1)
 			{
-				ft_printf("		Leveling room %d: %d.\n", edge->tgtroom->name, current->level + 1);
+				//ft_printf("		Leveling room %d: %d.\n", edge->tgtroom->name, current->level + 1);
 				edge->tgtroom->level = current->level + 1;
 				if (current->linked_rooms->next->flow == 1)
 				{
-					ft_printf("Egde now from %d: %d.\n", current->name, current->linked_rooms->next->tgtroom->name);
+					//ft_printf("Egde now from %d: %d.\n", current->name, current->linked_rooms->next->tgtroom->name);
 					edge = current->linked_rooms->next;
 				}
 				else	
@@ -90,7 +71,7 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 			}
 			else
 			{
-				ft_printf("Tried room %d. Fail. \n", current->name, edge->tgtroom->name);
+				//ft_printf("Tried room %d. Fail. \n", current->name, edge->tgtroom->name);
 				edge = edge->next;
 			}
 		}
@@ -100,7 +81,7 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	if (!currentq)
 		currentq = newq;
 	else if (currentq->linked_rooms->next != NULL && currentq->linked_rooms->next->flow == 1)
-		currentq->linked_rooms = currentq->linked_rooms->next; // This links 1 to the queue even with the if above
+		currentq->linked_rooms = currentq->linked_rooms->next;
 	else if (currentq->nextq != NULL)
 		currentq = currentq->nextq;
 	else
@@ -115,17 +96,12 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 
 void		bfs(t_lem *lem)
 {
-	if (lem->start)
-		ft_printf("\nWe have a start\n");
 	while (level_rooms(lem, lem->start, NULL) == 1)
 	{
 		lem->lvl_flow = 1;
-		ft_printf("Ruums leveled.\n");
-		if (create_bucket(lem) == 1)
-			ft_printf("\nPaths maybe found.\n\n\n");
-		else
-			ft_printf("Buckets not complete.\n\nDebug info:\n");
+		//ft_printf("Rooms leveled.\n");
+		create_bucket(lem);
 	}
-	if (lem->visu_info == 1)
-		print_debug_info(lem);
+	//if (lem->info == 1)
+	//	print_debug_info(lem);
 }

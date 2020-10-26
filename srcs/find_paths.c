@@ -6,6 +6,17 @@
 ** be always higher than the current rooms level)
 ** If we don't find an unvisited room, return NULL.
 */
+/*
+static void delete_paths(t_lem *lem)
+{
+	t_path	*temp_path;
+	while (lem->paths->path->next != NULL)
+	{
+		temp_path = lem->paths->path->next;
+		lem->paths->path = NULL;
+	}
+}
+*/
 
 static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 {
@@ -26,6 +37,7 @@ static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 				//ft_printf("		Updated edge from %d to %d to 1.\n", r->name, templink->tgtroom->name);
 				templink->flow = 1;
 				templink = templink->next;
+				//delete_paths(lem);
 			}
 			while (r->next != NULL)
 			{
@@ -178,65 +190,34 @@ t_path		*find_path(t_lem *lem)
 
 int			create_bucket(t_lem *lem)
 {
-	t_paths		*bucket;
-	t_paths		*temp_bucket;
-	t_path		*temp_path;
-	t_path		*path;
-	t_rlink		*start_room;
+	t_paths			*bucket;
+	t_rlink			*start_room;
+	t_paths			*temp_prev_path;
+	t_path			*path;
 
-	temp_bucket = NULL;
-	temp_path = NULL;
 	start_room = lem->start->linked_rooms;
-	if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
-	{
-		ft_printf("Malloc failed");
-		return (0);
-	}
-	bucket->paths = NULL;
-	if (lem->paths == NULL)
-		lem->paths = bucket;
-	else
-	{
-		temp_bucket = lem->paths;
-		while(temp_bucket->next_set != NULL)
-			temp_bucket = temp_bucket->next_set;
-		temp_bucket->next_set = bucket;
-	}
+	temp_prev_path = NULL;
 	while (start_room != NULL)
 	{
 		path = find_path(lem);
 		if (path != NULL)
 		{
-			print_onepath(path);
-			if (bucket->paths ==  NULL)
+			if (!(bucket = (t_paths*)malloc(sizeof(t_paths))))
 			{
-				if (!(bucket->paths = (t_paths*)malloc(sizeof(t_paths))))
-				{
-					ft_printf("Malloc failed");
-					return (0);
-				}
-				bucket->paths->path = NULL;
-				bucket->paths->next_path = NULL;
-				bucket->paths->next_set = NULL;
+				ft_printf("Malloc failed");
+				return (0);
 			}
-			if (bucket->paths->path == NULL)
-				bucket->paths->path = path;
-			else
-			{
-				while (bucket->paths->next_path != NULL)
-				{
-					//ft_printf("Looping much? ");
-					//ft_printf("What's inside: %d", bucket->paths->next_path->length);
-					bucket->paths->path = bucket->paths->next_path;
-				}
-				bucket->paths->next_path = path;
-			}
-			bucket->total_length += lem->path_length; // Change to count
-			bucket->next_path = NULL;
+			bucket->path = path;
+			bucket->length = lem->path_length;
+			bucket->next = NULL;
+			if (temp_prev_path)
+				temp_prev_path->next = bucket;
+			temp_prev_path = bucket;
+			if (!lem->paths)
+				lem->paths = bucket;
 			update_edges_and_reset(path, lem);
 		}
-		bucket->next_set = NULL;
 		start_room = start_room->next;
-	}
+	}	
 	return (1);
 }

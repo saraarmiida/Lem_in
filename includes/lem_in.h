@@ -37,10 +37,8 @@ typedef struct		s_queues
 typedef struct		s_paths
 {
 	struct s_path	*path;
-	struct s_path	*next_path;
-	int				total_length;
-	struct s_paths	*paths;
-	struct s_paths	*next_set;
+	int				length;
+	struct s_paths	*next;
 }					t_paths;
 
 /*
@@ -137,6 +135,6 @@ int					create_bucket(t_lem *lem);
 void				send_ants(t_lem *lem);
 
 void				print_debug_info(t_lem *lem);
-void				print_onepath(t_path *path_in);
+void				print_paths(t_lem *lem);
 
 #endif

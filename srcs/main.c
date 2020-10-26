@@ -45,40 +45,28 @@ void		print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-void		print_onepath(t_path *path_in)
-{
-	ft_printf("Path: \n");
-	while (path_in->next != NULL)
-	{
-		ft_printf("	Room %s (level: %d)\n", path_in->room->c_name, path_in->room->level);
-		path_in = path_in->next;
-	}
-	ft_printf("	Room %s (level: %d)\n", path_in->room->c_name, path_in->room->level);
-	ft_printf("\n");
-}
-
 void		print_paths(t_lem *lem)
 {
-	t_paths		*paths;
-	t_path		*room;
-	int			i;
-	int			j;
+	t_paths	*path;
+	t_path	*room;
+	int		i;
+	int		j;
 
-	paths = lem->paths;
+	path = lem->paths;
 	i = 0;
-	while (paths->path != NULL)
+	while (path != NULL)
 	{
 		j = 0;
-		room = paths->path;
-		//ft_printf("Path %d, length %d:\n", i + 1, paths->total_length);
+		room = path->path;
+		ft_printf("Path %d, length %d:\n", i + 1, path->length);
 		while (room != NULL)
 		{
 			ft_printf("	Room %s (level: %d)\n", room->room->c_name, room->room->level);
-			room = paths->path->next;
+			room = room->next;
 		}
 		i++;
 		ft_printf("\n\n");
-		paths->path = paths->next_path;
+		path = path->next;
 	}
 
 }
@@ -114,8 +102,8 @@ void		print_hashtable(t_lem *lem)
 void		print_debug_info(t_lem *lem)
 {
 	//print_hashtable(lem);
-	print_rooms(lem);
-	//print_paths(lem);
+	//print_rooms(lem);
+	print_paths(lem);
 }
 
 int			main(int argc, char **argv)

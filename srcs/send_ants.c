@@ -1,12 +1,6 @@
+
 #include "../includes/lem_in.h"
 
-/*
-** send_new_ants sends a new ant to each path that makes sense to send an
-** ant in. if paths length is less than other paths length + remaining ants,
-** it makes sense to send an ant to that path.
-*/
-
-/*
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 {
 	int	length;
@@ -26,7 +20,6 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 	}
 	return (ant);
 }
-*/
 
 /*
 ** Goes through all rooms in a path, and if there is an ant in a room, it
@@ -56,7 +49,7 @@ void	move_ants(t_path *room, t_room *end)
 ** sorts paths from shortest to longest
 */
 
-void	sort_buckets(t_lem *lem)
+void	sort_paths(t_lem *lem)
 {
 	int		temp_length;
 	t_path	*temp_path;
@@ -64,23 +57,23 @@ void	sort_buckets(t_lem *lem)
 	t_paths	*next;
 
 	current = lem->paths;
-	while (current->paths != NULL)
+	while (current->next != NULL)
 	{
-		next = current->paths;
+		next = current->next;
 		while (next != NULL)
 		{
-			if (current->total_length > next->total_length)
+			if (current->length > next->length)
 			{
-				temp_length = current->total_length;
+				temp_length = current->length;
 				temp_path = current->path;
 				current->path = next->path;
-				current->total_length = next->total_length;
+				current->length = next->length;
 				next->path = temp_path;
-				next->total_length = temp_length;
+				next->length = temp_length;
 			}
-			next = current->paths;
+			next = next->next;
 		}
-		current = current->paths;
+		current = current->next;
 	}
 }
 
@@ -91,32 +84,30 @@ void	sort_buckets(t_lem *lem)
 ** send new ants to paths.
 */
 
-/*
 void	send_ants(t_lem *lem)
 {
 	int		ant;
-	t_paths	*paths;
+	t_paths	*path;
 	t_paths	*start;
 
-	//ft_printf("%s\n\n", lem->input); // add ignoring comments
+	ft_printf("%s\n\n", lem->input); // add ignoring comments
 	ant = 1;
-	//lem->paths = sort_buckets(lem); // All fucked up for now
-	lem->path_length = lem->paths->total_length;
+	sort_paths(lem);
+	lem->path_length = lem->paths->length;
 	start = lem->paths;
 	while (lem->path_length > 0)
 	{
-		paths->path->room = start;
-		while (paths->path != NULL)
+		path = start;
+		while (path != NULL)
 		{
-			move_ants(paths->path->next, lem->end);
-			paths = paths->paths;
+			move_ants(path->path->next, lem->end);
+			path = path->next;
 		}
 		if (ant <= lem->ants)
 		{
 			ant = send_new_ants(start, ant, lem);
 		}
-		lem->paths->total_length--;
+		lem->path_length--;
 		ft_printf("\n");
 	}
 }
-*/

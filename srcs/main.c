@@ -45,33 +45,34 @@ void		print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-/*
 void		print_paths(t_lem *lem)
 {
-	t_paths	*path;
-	t_path	*room;
-	int		i;
-	int		j;
+	t_bucket	*bucket;
+	t_room		*room;
+	int			i;
 
-	path = lem->paths;
-	i = 0;
-	while (path != NULL)
+	i = 1;
+	bucket = lem->bucketlist;
+	while (bucket != NULL)
 	{
-		j = 0;
-		room = path->path;
-		ft_printf("Path %d, length %d:\n", i + 1, path->length);
-		while (room != NULL)
+		ft_printf("\nBucket %d:\n", i);
+		while (bucket->paths->path != NULL)
 		{
-			ft_printf("	Room %s (level: %d)\n", room->room->c_name, room->room->level);
-			room = room->next;
+			ft_printf("Path:\n");
+			room = bucket->paths->path->room;
+			while (bucket->paths->path->room != NULL)
+			{
+				ft_printf("	Room %s (level: %d)\n", room->c_name, room->level);
+				room = room->next;
+			}
+			bucket->paths = bucket->paths->next_path;
 		}
 		i++;
 		ft_printf("\n\n");
-		path = path->next;
+		bucket = bucket->next_bucket;
 	}
 
 }
-*/
 
 void		print_hashtable(t_lem *lem)
 {
@@ -106,7 +107,7 @@ void		print_debug_info(t_lem *lem)
 {
 	//print_hashtable(lem);
 	print_rooms(lem);
-	//print_paths(lem);
+	print_paths(lem);
 }
 
 

@@ -101,12 +101,18 @@ int		create_bucket(t_lem *lem)
 	t_rlink			*start_room;
 
 	start_room = lem->start->linked_rooms;
+	temp_bucket = NULL;
 	if (!(temp_bucket = (t_bucket*)malloc(sizeof(t_bucket))))
 	{
 		ft_printf("Bucket malloc failed");
 		return (0);
 	}
-	temp_bucket = NULL;
+	temp_bucket->paths = NULL;
+	if (!(temp_bucket->paths = (t_paths*)malloc(sizeof(t_paths))))
+	{
+		ft_printf("Paths malloc failed");
+		return (0);
+	}
 	if (lem->bucketlist == NULL)
 		lem->bucketlist = temp_bucket;
 	if (level_rooms(lem, lem->start, NULL) == 1)

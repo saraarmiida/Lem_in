@@ -94,14 +94,38 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	return (1);
 }
 
-void		bfs(t_lem *lem)
+int		create_bucket(t_lem *lem)
 {
-	while (level_rooms(lem, lem->start, NULL) == 1)
+	t_bucket		*temp_bucket;
+	t_paths			*pathlist;
+	t_rlink			*start_room;
+
+	start_room = lem->start->linked_rooms;
+	if (!(temp_bucket = (t_bucket*)malloc(sizeof(t_bucket))))
 	{
-		lem->lvl_flow = 1;
-		//ft_printf("Rooms leveled.\n");
-		create_bucket(lem);
+		ft_printf("Bucket malloc failed");
+		return (0);
 	}
-	//if (lem->info == 1)
-	//	print_debug_info(lem);
+	temp_bucket = NULL;
+	if (lem->bucketlist == NULL)
+		lem->bucketlist = temp_bucket;
+	if (level_rooms(lem, lem->start, NULL) == 1)
+	{
+		while (start_room != NULL)
+		{
+			if (!(pathlist = (t_paths*)malloc(sizeof(t_paths))))
+			{
+				ft_printf("Malloc failed");
+				return (0);
+			}
+			if (temp_bucket)
+				temp_bucket->paths->next_path = pathlist;
+			temp_bucket->paths = pathlist;
+			pathlist = add_paths_to_pathlist(lem, pathlist);
+			start_room = start_room->next;
+		}
+	}
+	else
+		return (0);
+	return (1);
 }

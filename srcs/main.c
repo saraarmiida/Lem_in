@@ -45,6 +45,7 @@ void		print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
+/*
 void		print_paths(t_lem *lem)
 {
 	t_paths	*path;
@@ -70,6 +71,7 @@ void		print_paths(t_lem *lem)
 	}
 
 }
+*/
 
 void		print_hashtable(t_lem *lem)
 {
@@ -99,12 +101,14 @@ void		print_hashtable(t_lem *lem)
 	ft_printf("room amount: %d printed: %d\n\n", lem->room_amount, j);
 }
 
+
 void		print_debug_info(t_lem *lem)
 {
 	//print_hashtable(lem);
-	//print_rooms(lem);
-	print_paths(lem);
+	print_rooms(lem);
+	//print_paths(lem);
 }
+
 
 int			main(int argc, char **argv)
 {
@@ -134,7 +138,9 @@ int			main(int argc, char **argv)
 	read_input(lem);
 	if (lem->info == 1)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
-	bfs(lem);
+	while (create_bucket(lem) == 1) {
+		ft_printf("Made a bucket");
+	}
 	if (lem->info == 1)
 		print_debug_info(lem);
 	//send_ants(lem);

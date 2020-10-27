@@ -191,41 +191,43 @@ t_path		*find_path(t_lem *lem)
 t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 {
 	t_path		*path;
-	t_bucket	*temp_bucket;
+	t_paths		*temp_paths;
 
 	if (!bucket)
 		return (NULL);
 	path = find_path(lem);
 	if (path != NULL)
 	{
-		temp_bucket = bucket;
-		if (temp_bucket->paths == NULL)
+		if (bucket->paths == NULL)
 		{
-			if (!(temp_bucket->paths = (t_paths*)malloc(sizeof(t_paths))))
+			if (!(temp_paths = (t_paths*)malloc(sizeof(t_paths))))
 			{
 				ft_printf("Malloc failed");
 				return (NULL);
 			}
-			temp_bucket->paths->path = NULL;
-			temp_bucket->paths->next_path = NULL;
-			temp_bucket->paths->length = 0;
+			temp_paths->path = NULL;
+			temp_paths->path = path;
+			temp_paths->next_path = NULL;
+			temp_paths->length = 0;
+			bucket->paths = temp_paths;
 		}
-		while (temp_bucket->paths->next_path != NULL)
-			temp_bucket->paths = temp_bucket->paths->next_path;
-		temp_bucket->paths->path = path;
-		temp_bucket->length += lem->path_length;
-		//temp_bucket->next_path = NULL;
-		/*
-		if (!(temp_bucket->paths->next_path = (t_paths*)malloc(sizeof(t_paths))))
+		else
 		{
-			ft_printf("Malloc failed");
-			return (NULL);
+			temp_paths = bucket->paths;
+			while (temp_paths->next_path != NULL)
+				temp_paths = temp_paths->next_path;
+			if (!(temp_paths->next_path = (t_paths*)malloc(sizeof(t_paths))))
+			{
+				ft_printf("Bucket malloc failed");
+				return (0);
+			}
+			temp_paths = temp_paths->next_path;
+			temp_paths->path = NULL;
+			temp_paths->path = path;
+			temp_paths->next_path = NULL;
+			temp_paths->length = 0;
 		}
-		temp_bucket->paths = temp_bucket->paths->next_path;
-		temp_bucket->paths->path = NULL;
-		temp_bucket->paths->next_path = NULL;
-		temp_bucket->paths->length = 0;
-		*/
+		//temp_paths->length += lem->path_length;
 		update_edges_and_reset(path, lem);
 	}
 	ft_printf("Path %p returned. Length is %d\n", path, lem->path_length);

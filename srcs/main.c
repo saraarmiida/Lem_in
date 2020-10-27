@@ -48,6 +48,7 @@ void		print_rooms(t_lem *lem)
 void		print_paths(t_lem *lem)
 {
 	t_bucket	*bucket;
+	t_paths		*temp_paths;
 	t_path		*temp_path;
 	int			i;
 
@@ -56,16 +57,17 @@ void		print_paths(t_lem *lem)
 	while (bucket->next_bucket != NULL)
 	{
 		ft_printf("\nBucket %d:\n", i);
-		while (bucket->paths != NULL)
+		temp_paths = bucket->paths;
+		while (temp_paths != NULL)
 		{
+			temp_path = temp_paths->path;
 			ft_printf("Path:\n");
-			temp_path = bucket->paths->path;
 			while (temp_path != NULL)
 			{
 				ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
 				temp_path = temp_path->next;
 			}
-			bucket->paths = bucket->paths->next_path;
+			temp_paths = temp_paths->next_path;
 		}
 		i++;
 		ft_printf("\n\n");

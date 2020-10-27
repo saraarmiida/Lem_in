@@ -69,6 +69,6 @@ void		init_lem(t_lem *lem)
 	lem->j = 0;
 	lem->i = 0;
 	lem->info = 0;
-	lem->paths = NULL;
+	lem->bucketlist = NULL;
 	lem->lvl_flow = 0;
 }

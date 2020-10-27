@@ -37,11 +37,17 @@ typedef struct		s_queues
 typedef struct		s_paths
 {
 	struct s_path	*path;
-	struct s_path	*next_path;
-	int				total_length;
-	struct s_paths	*paths;
-	struct s_paths	*next_set;
+	int				length;
+	struct s_paths	*next_path;
 }					t_paths;
+
+typedef struct		s_bucket
+{
+	struct s_path	*path;
+	struct s_path	*next_path;
+	int				length;
+	struct s_bucket	*next_bucket;
+}					t_bucket;
 
 /*
 ** Combine t_path, t_rlink, t_queues and t_paths to t_queue.
@@ -75,7 +81,7 @@ typedef struct		s_lem
 	t_room			*end;
 	t_room			*current;
 	t_queues		**queues;
-	t_paths			*paths;
+	t_bucket		*bucketlist;
 	int				path_length;
 	int				ants; // make unsigned long
 	int				room_amount;
@@ -124,12 +130,12 @@ void				*init_table(t_lem *lem);
 /*
 ** bfs.c
 */
-void				bfs(t_lem *lem);
+int					create_bucket(t_lem *lem);
 
 /*
 ** find_paths.c
 */
-int					create_bucket(t_lem *lem);
+t_path			*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
 
 /*
 ** send_ants.c
@@ -137,6 +143,6 @@ int					create_bucket(t_lem *lem);
 void				send_ants(t_lem *lem);
 
 void				print_debug_info(t_lem *lem);
-void				print_onepath(t_path *path_in);
+void				print_paths(t_lem *lem);
 
 #endif

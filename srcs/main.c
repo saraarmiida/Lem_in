@@ -45,42 +45,32 @@ void		print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-void		print_onepath(t_path *path_in)
-{
-	ft_printf("Path: \n");
-	while (path_in->next != NULL)
-	{
-		ft_printf("	Room %s (level: %d)\n", path_in->room->c_name, path_in->room->level);
-		path_in = path_in->next;
-	}
-	ft_printf("	Room %s (level: %d)\n", path_in->room->c_name, path_in->room->level);
-	ft_printf("\n");
-}
-
 void		print_paths(t_lem *lem)
 {
-	t_paths		*paths;
-	t_path		*room;
+	t_bucket	*bucket;
+	t_path		*temp_path;
 	int			i;
-	int			j;
 
-	paths = lem->paths;
-	i = 0;
-	while (paths->path != NULL)
+	i = 1;
+	bucket = lem->bucketlist;
+	while (bucket->next_bucket != NULL)
 	{
-		j = 0;
-		room = paths->path;
-		//ft_printf("Path %d, length %d:\n", i + 1, paths->total_length);
-		while (room != NULL)
+		ft_printf("\nBucket %d:\n", i);
+		while (bucket->path != NULL)
 		{
-			ft_printf("	Room %s (level: %d)\n", room->room->c_name, room->room->level);
-			room = paths->path->next;
+			ft_printf("Path:\n");
+			temp_path = bucket->path;
+			while (temp_path != NULL)
+			{
+				ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
+				temp_path = temp_path->next;
+			}
+			bucket->path = bucket->next_path;
 		}
 		i++;
 		ft_printf("\n\n");
-		paths->path = paths->next_path;
+		bucket = bucket->next_bucket;
 	}
-
 }
 
 void		print_hashtable(t_lem *lem)
@@ -111,12 +101,14 @@ void		print_hashtable(t_lem *lem)
 	ft_printf("room amount: %d printed: %d\n\n", lem->room_amount, j);
 }
 
+
 void		print_debug_info(t_lem *lem)
 {
 	//print_hashtable(lem);
 	print_rooms(lem);
-	//print_paths(lem);
+	print_paths(lem);
 }
+
 
 int			main(int argc, char **argv)
 {
@@ -146,7 +138,9 @@ int			main(int argc, char **argv)
 	read_input(lem);
 	if (lem->info == 1)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
-	bfs(lem);
+	while (create_bucket(lem) == 1) {
+		ft_printf("Made a bucket");
+	}
 	if (lem->info == 1)
 		print_debug_info(lem);
 	//send_ants(lem);

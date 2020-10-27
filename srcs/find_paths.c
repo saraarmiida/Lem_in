@@ -175,7 +175,7 @@ t_path		*find_path(t_lem *lem)
 		{	
 			//ft_printf("Moved from %d to %d.\n", current->room->name, newroom->room->name);
 			current = newroom;
-			lem->path_length++;
+			current->length++;
 		}
 	}
 	//ft_printf("Returning a path starting at: %d\n", head->room->name);
@@ -202,9 +202,10 @@ t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 		while (temp_bucket->next_path != NULL)
 			temp_bucket->path = temp_bucket->next_path;
 		temp_bucket->path = path;
+		temp_bucket->length += path->length;
 		temp_bucket->next_path = NULL;
 		update_edges_and_reset(path, lem);
 	}
-	ft_printf("Path %p returned.\n", path);
+	ft_printf("Path %p returned. Length is %d\n", path, path->length);
 	return (path);
 }

@@ -175,7 +175,7 @@ t_path		*find_path(t_lem *lem)
 		{	
 			//ft_printf("Moved from %d to %d.\n", current->room->name, newroom->room->name);
 			current = newroom;
-			current->length++;
+			lem->path_length++; // Not accurate. Includes the failed paths to the sum
 		}
 	}
 	//ft_printf("Returning a path starting at: %d\n", head->room->name);
@@ -199,13 +199,35 @@ t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 	if (path != NULL)
 	{
 		temp_bucket = bucket;
-		while (temp_bucket->next_path != NULL)
-			temp_bucket->path = temp_bucket->next_path;
-		temp_bucket->path = path;
-		temp_bucket->length += path->length;
-		temp_bucket->next_path = NULL;
+		if (temp_bucket->paths == NULL)
+		{
+			if (!(temp_bucket->paths = (t_paths*)malloc(sizeof(t_paths))))
+			{
+				ft_printf("Malloc failed");
+				return (NULL);
+			}
+			temp_bucket->paths->path = NULL;
+			temp_bucket->paths->next_path = NULL;
+			temp_bucket->paths->length = 0;
+		}
+		while (temp_bucket->paths->next_path != NULL)
+			temp_bucket->paths = temp_bucket->paths->next_path;
+		temp_bucket->paths->path = path;
+		temp_bucket->length += lem->path_length;
+		//temp_bucket->next_path = NULL;
+		/*
+		if (!(temp_bucket->paths->next_path = (t_paths*)malloc(sizeof(t_paths))))
+		{
+			ft_printf("Malloc failed");
+			return (NULL);
+		}
+		temp_bucket->paths = temp_bucket->paths->next_path;
+		temp_bucket->paths->path = NULL;
+		temp_bucket->paths->next_path = NULL;
+		temp_bucket->paths->length = 0;
+		*/
 		update_edges_and_reset(path, lem);
 	}
-	ft_printf("Path %p returned. Length is %d\n", path, path->length);
+	ft_printf("Path %p returned. Length is %d\n", path, lem->path_length);
 	return (path);
 }

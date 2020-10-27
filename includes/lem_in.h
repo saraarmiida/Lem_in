@@ -43,8 +43,8 @@ typedef struct		s_paths
 
 typedef struct		s_bucket
 {
+	struct s_paths	*paths;
 	struct s_path	*path;
-	struct s_path	*next_path;
 	int				length;
 	struct s_bucket	*next_bucket;
 }					t_bucket;

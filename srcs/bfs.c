@@ -111,7 +111,7 @@ int		create_bucket(t_lem *lem)
 			return (0);
 		}
 		bucket->path = NULL;
-		bucket->next_path = NULL;
+		bucket->paths = NULL;
 		bucket->next_bucket = NULL;
 		bucket->length = 0;
 		lem->bucketlist = bucket;
@@ -128,23 +128,28 @@ int		create_bucket(t_lem *lem)
 		}
 		bucket = bucket->next_bucket;
 		bucket->path = NULL;
-		bucket->next_path = NULL;
+		bucket->paths = NULL;
 		bucket->next_bucket = NULL;
 		bucket->length = 0;
 	}
-	if (level_rooms(lem, lem->start, NULL) == 1)
+	while (i < 2)
 	{
-		while (start_room != NULL)
+		if (level_rooms(lem, lem->start, NULL) == 1)
 		{
-			ft_printf("\nstart_room is %d\n", start_room->tgtroom->name);
-			if ((add_path_to_bucket(lem, bucket)) != NULL)
-				ft_printf("Added path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
-			else
-				ft_printf("Added null path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
-			start_room = start_room->next;
+			while (start_room != NULL)
+			{
+				ft_printf("\nstart_room is %d\n", start_room->tgtroom->name);
+				if ((add_path_to_bucket(lem, bucket)) != NULL)
+					ft_printf("Added path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
+				else
+					ft_printf("Added null path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
+				start_room = start_room->next;
+			}
+			start_room = lem->start->linked_rooms;
 		}
+		else
+			return (0);
+		i++;
 	}
-	else
-		return (0);
 	return (1);
 }

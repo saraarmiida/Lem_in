@@ -123,10 +123,10 @@ int		create_bucket(t_lem *lem)
 			ft_printf("Bucket malloc failed");
 			return (0);
 		}
+		bucket = bucket->next_bucket;
 		bucket->path = NULL;
 		bucket->next_path = NULL;
 		bucket->next_bucket = NULL;
-		bucket = bucket->next_bucket;
 	}
 	if (level_rooms(lem, lem->start, NULL) == 1)
 	{

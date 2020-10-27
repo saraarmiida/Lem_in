@@ -132,7 +132,7 @@ int		create_bucket(t_lem *lem)
 		bucket->next_bucket = NULL;
 		bucket->length = 0;
 	}
-	while (i < 2)
+	while (i < 2) // HORRIBLE
 	{
 		if (level_rooms(lem, lem->start, NULL) == 1)
 		{

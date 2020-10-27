@@ -96,9 +96,11 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 
 int		create_bucket(t_lem *lem)
 {
-	t_bucket		*bucket;
-	t_rlink			*start_room;
+	t_bucket	*bucket;
+	t_rlink		*start_room;
+	int			i;
 
+	i = 0;
 	start_room = lem->start->linked_rooms;
 	bucket =  NULL;
 	if (lem->bucketlist == NULL)
@@ -132,7 +134,11 @@ int		create_bucket(t_lem *lem)
 	{
 		while (start_room != NULL)
 		{
-			add_path_to_bucket(lem, bucket);
+			ft_printf("\nstart_room is %d\n", start_room->tgtroom->name);
+			if ((add_path_to_bucket(lem, bucket)) != NULL)
+				ft_printf("Added path to bucket %p.\n", bucket);
+			else
+				ft_printf("Added null path to bucket %p.\n", bucket);
 			start_room = start_room->next;
 		}
 	}

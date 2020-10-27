@@ -188,7 +188,7 @@ t_path		*find_path(t_lem *lem)
 ** paths that are found.
 */
 
-t_bucket		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
+t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 {
 	t_path		*path;
 	t_bucket	*temp_bucket;
@@ -205,5 +205,6 @@ t_bucket		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 		temp_bucket->next_path = NULL;
 		update_edges_and_reset(path, lem);
 	}
-	return (bucket);
+	ft_printf("Path %p returned.\n", path);
+	return (path);
 }

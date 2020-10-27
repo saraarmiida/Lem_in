@@ -135,7 +135,7 @@ int					create_bucket(t_lem *lem);
 /*
 ** find_paths.c
 */
-t_bucket			*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
+t_path			*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
 
 /*
 ** send_ants.c

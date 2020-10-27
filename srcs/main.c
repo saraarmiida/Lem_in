@@ -60,7 +60,7 @@ void		print_paths(t_lem *lem)
 		{
 			ft_printf("Path:\n");
 			temp_path = bucket->path;
-			while (temp_path->next != NULL)
+			while (temp_path != NULL)
 			{
 				ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
 				temp_path = temp_path->next;

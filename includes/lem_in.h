@@ -43,7 +43,8 @@ typedef struct		s_paths
 
 typedef struct		s_bucket
 {
-	struct s_paths	*paths;
+	struct s_path	*path;
+	struct s_path	*next_path;
 	int				length;
 	struct s_bucket	*next_bucket;
 }					t_bucket;
@@ -134,7 +135,7 @@ int					create_bucket(t_lem *lem);
 /*
 ** find_paths.c
 */
-t_paths				*add_paths_to_pathlist(t_lem *lem, t_paths *temp_paths);
+t_bucket			*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
 
 /*
 ** send_ants.c

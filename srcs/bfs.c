@@ -96,46 +96,47 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 
 int		create_bucket(t_lem *lem)
 {
-	t_bucket		*temp_bucket;
-	t_paths			*pathlist;
+	t_bucket		*bucket;
 	t_rlink			*start_room;
 
 	start_room = lem->start->linked_rooms;
-	temp_bucket = NULL;
-	if (!(temp_bucket = (t_bucket*)malloc(sizeof(t_bucket))))
-	{
-		ft_printf("Bucket malloc failed");
-		return (0);
-	}
-	temp_bucket->paths = NULL;
-	if (!(temp_bucket->paths = (t_paths*)malloc(sizeof(t_paths))))
-	{
-		ft_printf("Paths malloc failed");
-		return (0);
-	}
+	bucket =  NULL;
 	if (lem->bucketlist == NULL)
-		lem->bucketlist = temp_bucket;
+	{
+		if (!(bucket = (t_bucket*)malloc(sizeof(t_bucket))))
+		{
+			ft_printf("Bucket malloc failed");
+			return (0);
+		}
+		bucket->path = NULL;
+		bucket->next_path = NULL;
+		bucket->next_bucket = NULL;
+		lem->bucketlist = bucket;
+	}
+	else
+	{
+		bucket = lem->bucketlist;
+		while (bucket->next_bucket != NULL)
+			bucket = bucket->next_bucket;
+		if (!(bucket->next_bucket = (t_bucket*)malloc(sizeof(t_bucket))))
+		{
+			ft_printf("Bucket malloc failed");
+			return (0);
+		}
+		bucket->path = NULL;
+		bucket->next_path = NULL;
+		bucket->next_bucket = NULL;
+		bucket = bucket->next_bucket;
+	}
 	if (level_rooms(lem, lem->start, NULL) == 1)
 	{
-		if (temp_bucket->paths->path != NULL)
-			temp_bucket->paths = temp_bucket->paths->next_path;
 		while (start_room != NULL)
 		{
-			if (!(pathlist = (t_paths*)malloc(sizeof(t_paths))))
-			{
-				ft_printf("Malloc failed");
-				return (0);
-			}
-			temp_bucket->paths = pathlist;
-			pathlist = add_paths_to_pathlist(lem, pathlist);
+			add_path_to_bucket(lem, bucket);
 			start_room = start_room->next;
 		}
 	}
 	else
-	{
-		temp_bucket->next_bucket = NULL;
 		return (0);
-	}
-	
 	return (1);
 }

@@ -188,25 +188,22 @@ t_path		*find_path(t_lem *lem)
 ** paths that are found.
 */
 
-t_paths		*add_paths_to_pathlist(t_lem *lem, t_paths *temp_paths)
+t_bucket		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 {
-	t_paths			*paths;
-	t_path			*path;
+	t_path		*path;
+	t_bucket	*temp_bucket;
 
+	if (!bucket)
+		return (NULL);
 	path = find_path(lem);
 	if (path != NULL)
 	{
-		if (!(paths = (t_paths*)malloc(sizeof(t_paths))))
-		{
-			ft_printf("Malloc failed");
-			return (NULL);
-		}
-		paths->path = path;
-		paths->next_path = NULL;
-		if (temp_paths)
-			temp_paths->next_path = paths;
-		temp_paths = paths;
+		temp_bucket = bucket;
+		while (temp_bucket->next_path != NULL)
+			temp_bucket->path = temp_bucket->next_path;
+		temp_bucket->path = path;
+		temp_bucket->next_path = NULL;
 		update_edges_and_reset(path, lem);
 	}
-	return (temp_paths);
+	return (bucket);
 }

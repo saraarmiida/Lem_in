@@ -208,7 +208,5 @@ t_paths		*add_paths_to_pathlist(t_lem *lem, t_paths *temp_paths)
 		temp_paths = paths;
 		update_edges_and_reset(path, lem);
 	}
-	else
-		return (NULL);
 	return (temp_paths);
 }

@@ -24,6 +24,7 @@ typedef struct		s_rlink
 {
 	struct s_room	*tgtroom;
 	struct s_rlink	*next;
+	struct s_rlink	*opposite;
 	int				flow;
 }					t_rlink;
 

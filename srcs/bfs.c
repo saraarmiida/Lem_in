@@ -79,13 +79,10 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 	return (1);
 }
 
-int		create_bucket(t_lem *lem)
+t_bucket	*init_bucket(t_lem *lem)
 {
-	t_bucket	*bucket;
-	t_rlink		*start_room;
-	int			i;
+	t_bucket *bucket;
 
-	i = 0;
 	bucket =  NULL;
 	if (lem->bucketlist == NULL)
 	{
@@ -116,6 +113,17 @@ int		create_bucket(t_lem *lem)
 		bucket->next_bucket = NULL;
 		bucket->length = 0;
 	}
+	return (bucket);
+}
+
+int		create_bucket(t_lem *lem)
+{
+	t_bucket	*bucket;
+	t_rlink		*start_room;
+	int			i;
+
+	i = 0;
+	bucket = init_bucket(lem);
 	start_room = lem->start->linked_rooms;
 	while (start_room != NULL)
 	{

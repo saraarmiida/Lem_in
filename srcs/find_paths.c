@@ -6,17 +6,7 @@
 ** be always higher than the current rooms level)
 ** If we don't find an unvisited room, return NULL.
 */
-/*
-static void delete_paths(t_lem *lem)
-{
-	t_path	*temp_path;
-	while (lem->paths->path->next != NULL)
-	{
-		temp_path = lem->paths->path->next;
-		lem->paths->path = NULL;
-	}
-}
-*/
+
 
 static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 {
@@ -34,10 +24,8 @@ static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 			templink = r->linked_rooms;
 			while (templink != NULL && templink != edge1 && templink != edge2)
 			{
-				//ft_printf("		Updated edge from %d to %d to 1.\n", r->name, templink->tgtroom->name);
 				templink->flow = 1;
 				templink = templink->next;
-				//delete_paths(lem);
 			}
 			while (r->next != NULL)
 			{
@@ -45,7 +33,6 @@ static void reset_edges(t_lem *lem, t_rlink *edge1, t_rlink *edge2)
 				templink = r->linked_rooms;
 				while (templink != NULL && templink != edge1 && templink != edge2)
 				{
-					//ft_printf("		Updated edge from %d to %d to 1.\n", lem->rooms[i]->name, templink->tgtroom->name);
 					templink->flow = 1;
 					templink = templink->next;
 				}
@@ -68,13 +55,11 @@ static void reset_levels_and_visited(t_lem *lem)
 		{
 			r->level = 0;
 			r->visited = 1; 
-			//ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
 			while (r->next != NULL)
 			{
 				r = r->next;
 				r->level = 0; 
 				r->visited = 1;
-				//ft_printf("Leveled room %d to 0.\n", lem->rooms[i]->name);
 			}
 		}
 		i++;
@@ -109,7 +94,6 @@ static void	update_edges_and_reset(t_path *path, t_lem *lem)
 			}
 			tempedge = tempedge->next;
 		}
-		//ft_printf("Updated egde from %d to %d. Now %d.\n", path->room->name, usededge->tgtroom->name, usededge->flow);
 		path = path->next;
 	}
 	if (edge1 != NULL)
@@ -122,7 +106,6 @@ t_path		*find_next_room(t_path *current, int info)
 	t_rlink	*edge;
 
 	edge = current->room->linked_rooms;
-	//ft_printf("Finding next room. Right now at %d, checking if %d is ok. Visited there: %d\n", current->room->name, edge->tgtroom->name, edge->tgtroom->visited);
 	while (edge != NULL)
 	{
 		if (edge->tgtroom->level > current->room->level && edge->flow == 1 && edge->tgtroom->visited == 0)
@@ -167,18 +150,15 @@ t_path		*find_path(t_lem *lem)
 			{
 				current = current->prev;
 			}
-			//ft_printf("Backing down to: %d\n", current->room->name);
 			if (current->room == lem->start)
 				return (NULL);
 		}
 		else
 		{	
-			//ft_printf("Moved from %d to %d.\n", current->room->name, newroom->room->name);
 			current = newroom;
 			lem->path_length++; // Not accurate. Includes the failed paths to the sum
 		}
 	}
-	//ft_printf("Returning a path starting at: %d\n", head->room->name);
 	return (head);
 }
 
@@ -190,13 +170,13 @@ t_path		*find_path(t_lem *lem)
 
 t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 {
-	t_path		*path;
+	t_path		*head;
 	t_paths		*temp_paths;
 
 	if (!bucket)
 		return (NULL);
-	path = find_path(lem);
-	if (path != NULL)
+	head = find_path(lem);
+	if (head != NULL)
 	{
 		if (bucket->paths == NULL)
 		{
@@ -206,7 +186,7 @@ t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 				return (NULL);
 			}
 			temp_paths->path = NULL;
-			temp_paths->path = path;
+			temp_paths->path = head;
 			temp_paths->next_path = NULL;
 			temp_paths->length = 0;
 			bucket->paths = temp_paths;
@@ -223,13 +203,13 @@ t_path		*add_path_to_bucket(t_lem *lem, t_bucket *bucket)
 			}
 			temp_paths = temp_paths->next_path;
 			temp_paths->path = NULL;
-			temp_paths->path = path;
+			temp_paths->path = head;
 			temp_paths->next_path = NULL;
 			temp_paths->length = 0;
 		}
 		//temp_paths->length += lem->path_length;
-		update_edges_and_reset(path, lem);
+		update_edges_and_reset(head, lem);
 	}
-	ft_printf("Path %p returned. Length is %d\n", path, lem->path_length);
-	return (path);
+	ft_printf("Path %p returned. Length is %d\n", head, lem->path_length);
+	return (head);
 }

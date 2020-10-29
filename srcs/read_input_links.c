@@ -1,13 +1,13 @@
 #include "../includes/lem_in.h"
 
-void	add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
+t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 {
 	t_rlink	*link;
 
 	if (!(link = (t_rlink*)malloc(sizeof(t_rlink))))
 	{
 		ft_printf("Malloc error\n");
-		return ;
+		return (NULL);
 	}
 	link->tgtroom = room2;
 	link->next = NULL;
@@ -15,6 +15,8 @@ void	add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
 	link->flow = 1;
+	link->opposite = NULL;
+	return (link);
 }
 
 int		check_link(t_lem *lem, int i)
@@ -34,22 +36,26 @@ int		check_link(t_lem *lem, int i)
 
 int		save_link(t_lem *lem, int i)
 {
-	t_room	*room;
+	t_room	*room1;
 	t_room	*room2;
+	t_rlink	*link1;
+	t_rlink	*link2;
 	char	*from;
 	char	*to;
 
 	from = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(from) + 1;
 	to = ft_strcdup(&lem->input[i], '\n');
-	room = get_hashed_room(lem, from);
+	room1 = get_hashed_room(lem, from);
 	room2 = get_hashed_room(lem, to);
-	add_room_to_rooms_linked_rooms(room, room2);
-	add_room_to_rooms_linked_rooms(room2, room);
+	link1 = add_room_to_rooms_linked_rooms(room1, room2);
+	link2 = add_room_to_rooms_linked_rooms(room2, room1);
+	link1->opposite = link2;
+	link2->opposite = link1;
 	if (lem->info == 1)
 	{
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room->x, room->y, room2->x, room2->y, room->name, room2->name);
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room2->x, room2->y, room->x, room->y, room2->name, room->name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room1->x, room1->y, room2->x, room2->y, room1->name, room2->name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room2->x, room2->y, room1->x, room1->y, room2->name, room1->name);
 	}
 	return (i + ft_strlen(to) + 1);
 }

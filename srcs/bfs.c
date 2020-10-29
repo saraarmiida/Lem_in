@@ -101,7 +101,6 @@ int		create_bucket(t_lem *lem)
 	int			i;
 
 	i = 0;
-	start_room = lem->start->linked_rooms;
 	bucket =  NULL;
 	if (lem->bucketlist == NULL)
 	{
@@ -132,24 +131,20 @@ int		create_bucket(t_lem *lem)
 		bucket->next_bucket = NULL;
 		bucket->length = 0;
 	}
-	while (i < 2) // HORRIBLE
+	start_room = lem->start->linked_rooms;
+	while (start_room != NULL)
 	{
 		if (level_rooms(lem, lem->start, NULL) == 1)
 		{
-			while (start_room != NULL)
-			{
-				ft_printf("\nstart_room is %d\n", start_room->tgtroom->name);
-				if ((add_path_to_bucket(lem, bucket)) != NULL)
-					ft_printf("Added path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
-				else
-					ft_printf("Added null path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
-				start_room = start_room->next;
-			}
-			start_room = lem->start->linked_rooms;
+			ft_printf("rooms leveled\n");
+			ft_printf("\nstart_room is %d\n", start_room->tgtroom->name);
+			while ((add_path_to_bucket(lem, bucket)) == NULL)
+				ft_printf("Added null path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
+			ft_printf("Added path to bucket %p. Bucket length is now %d\n", bucket, bucket->length);
 		}
 		else
 			return (0);
-		i++;
+		start_room = start_room->next;
 	}
 	return (1);
 }

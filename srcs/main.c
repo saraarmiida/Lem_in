@@ -141,7 +141,7 @@ int			main(int argc, char **argv)
 	if (lem->info == 1)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
 	while (create_bucket(lem) == 1) {
-		ft_printf("Made a bucket");
+		ft_printf("Made a bucket\n");
 	}
 	if (lem->info == 1)
 		print_debug_info(lem);

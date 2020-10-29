@@ -79,7 +79,7 @@ static void reset_levels_and_visited(t_lem *lem)
 		}
 		i++;
 	}
-	lem->start->visited = 1;
+	lem->end->visited = 0;
 }
 
 static void	update_edges_and_reset(t_path *path, t_lem *lem)

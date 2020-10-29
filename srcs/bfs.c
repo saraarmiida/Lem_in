@@ -52,28 +52,13 @@ int			level_rooms(t_lem *lem, t_room *current, t_queues *temp_prevq)
 		//ft_printf("Et: %d | Ef: %d\n", edge->tgtroom->name, edge->flow);
 		while (edge != NULL && edge->flow == 1)
 		{
-			if (lem->lvl_flow == 1 && edge->flow == 0)
-			{
-				//ft_printf("Egde to %d is at max. Tgt level is at %d.\n", edge->tgtroom->name, edge->tgtroom->level);
-				edge = current->linked_rooms;
-			}
-			else if (edge->tgtroom->level == 0 && lem->start != edge->tgtroom && edge->flow == 1)
+			if (edge->tgtroom->level == 0 && lem->start != edge->tgtroom && edge->flow == 1)
 			{
 				//ft_printf("		Leveling room %d: %d.\n", edge->tgtroom->name, current->level + 1);
 				edge->tgtroom->level = current->level + 1;
-				if (current->linked_rooms->next->flow == 1)
-				{
-					//ft_printf("Egde now from %d: %d.\n", current->name, current->linked_rooms->next->tgtroom->name);
-					edge = current->linked_rooms->next;
-				}
-				else	
-					edge = NULL;
+				//ft_printf("Egde now from %d: %d.\n", current->name, current->linked_rooms->next->tgtroom->name);
 			}
-			else
-			{
-				//ft_printf("Tried room %d. Fail. \n", current->name, edge->tgtroom->name);
-				edge = edge->next;
-			}
+			edge = edge->next;
 		}
 	}
 	else

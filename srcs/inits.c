@@ -1,9 +1,17 @@
 #include "../includes/lem_in.h"
 
-/*
-** Initializes a new queue, linking the possible previous queue to
-** it and adding the children rooms of the current parent room to the queue
-*/
+t_path		*init_node(t_room *room, t_path *next)
+{
+	t_path	*node;
+
+	if (!(node = (t_path*)malloc(sizeof(t_path))))
+		return (NULL);
+	node->room = room;
+	node->next = next;
+	node->prev = NULL;
+	node->room->visited = 2;
+	return (node);
+}
 
 t_queue		*init_newq(t_room *current, t_queue *parent)
 {
@@ -18,22 +26,6 @@ t_queue		*init_newq(t_room *current, t_queue *parent)
 	newq->parent = parent;
 	newq->next = NULL;
 	return (newq);
-}
-
-t_path		*init_new_path(t_lem *lem)
-{
-	t_path *head;
-
-	if (!(head = (t_path*)malloc(sizeof(t_path))))
-	{
-		ft_printf("Malloc failed");
-		return (NULL);
-	}
-	head->room = lem->start;
-	head->prev = NULL;
-	head->next = NULL;
-	lem->path_length = 0;
-	return (head);
 }
 
 void		*init_table(t_lem *lem)

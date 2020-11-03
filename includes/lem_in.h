@@ -125,25 +125,30 @@ t_room				*get_hashed_room(t_lem *lem, char *key);
 */
 void				init_lem(t_lem *lem);
 t_queue				*init_newq(t_room *current, t_queue *parent);
-t_path				*init_new_path(t_lem *lem);
+t_path				*init_node(t_room *room, t_path *next);
 void				*init_table(t_lem *lem);
 
 /*
 ** bfs.c
 */
 int					create_bucket(t_lem *lem);
-int		solve(t_lem *lem);
+int					solve(t_lem *lem);
 
 /*
 ** find_paths.c
 */
-t_path			*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
+t_path				*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
 
 /*
 ** send_ants.c
 */
 void				send_ants(t_lem *lem);
 
+/*
+** print_info.c
+*/
+void				print_queue(t_queue *queue, int l);
+void				print_path(t_paths *paths);
 void				print_debug_info(t_lem *lem);
 void				print_paths(t_lem *lem);
 

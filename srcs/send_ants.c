@@ -1,7 +1,7 @@
 
 #include "../includes/lem_in.h"
 
-/*
+
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 {
 	int	length;
@@ -21,14 +21,13 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 	}
 	return (ant);
 }
-*/
 
 /*
 ** Goes through all rooms in a path, and if there is an ant in a room, it
 ** moves the ant to the next room.
 */
 
-/*
+
 void	move_ants(t_path *room, t_room *end)
 {
 	int	temp_ant;
@@ -47,13 +46,12 @@ void	move_ants(t_path *room, t_room *end)
 		room = room->next;
 	}
 }
-*/
+
 
 /*
 ** sorts paths from shortest to longest
 */
 
-/*
 
 void	sort_paths(t_lem *lem)
 {
@@ -82,7 +80,7 @@ void	sort_paths(t_lem *lem)
 		current = current->next;
 	}
 }
-*/
+
 /*
 ** Keeps track of how many rounds are still needed to get the latest sent
 ** ant to end room (lem->path_length) and while it is > 0, we move all ants that
@@ -90,7 +88,7 @@ void	sort_paths(t_lem *lem)
 ** send new ants to paths.
 */
 
-/*
+
 void	send_ants(t_lem *lem)
 {
 	int		ant;
@@ -118,4 +116,3 @@ void	send_ants(t_lem *lem)
 		ft_printf("\n");
 	}
 }
-*/

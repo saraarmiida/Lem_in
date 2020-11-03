@@ -39,7 +39,7 @@ typedef struct		s_paths
 {
 	struct s_path	*path;
 	int				length;
-	struct s_paths	*next_path;
+	struct s_paths	*next;
 }					t_paths;
 
 typedef struct		s_bucket
@@ -82,6 +82,7 @@ typedef struct		s_lem
 	t_room			*current;
 	t_queue			*queue;
 	t_bucket		*bucketlist;
+	t_paths			*paths;
 	int				path_length;
 	int				ants; // make unsigned long
 	int				room_amount;

@@ -67,7 +67,7 @@ void		print_paths(t_lem *lem)
 				ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
 				temp_path = temp_path->next;
 			}
-			temp_paths = temp_paths->next_path;
+			temp_paths = temp_paths->next;
 		}
 		i++;
 		ft_printf("\n\n");
@@ -144,6 +144,6 @@ int			main(int argc, char **argv)
 		ft_printf("Couldn't solve\n");
 	// if (lem->info == 1)
 	// 	print_debug_info(lem);
-	//send_ants(lem);
+	send_ants(lem);
 	return (0);
 }

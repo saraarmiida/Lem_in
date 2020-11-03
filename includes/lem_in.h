@@ -28,12 +28,12 @@ typedef struct		s_rlink
 	int				flow;
 }					t_rlink;
 
-typedef struct		s_queues
+typedef struct		s_queue
 {
-	struct s_rlink	*linked_rooms;
-	struct s_queues	*nextq;
-	struct s_queues	*prevq;
-}					t_queues;
+	struct s_room	*room;
+	struct s_queue	*parent;
+	struct s_queue	*next;
+}					t_queue;
 
 typedef struct		s_paths
 {
@@ -54,18 +54,17 @@ typedef struct		s_bucket
 ** Combine t_path, t_rlink, t_queues and t_paths to t_queue.
 */
 
-typedef struct		s_queue
-{
-	void			*node;
-	size_t			node_size;
-	void			*next;
-	void			*prev;
-}					t_queue;
+// typedef struct		s_queue
+// {
+// 	void			*node;
+// 	size_t			node_size;
+// 	void			*next;
+// 	void			*prev;
+// }					t_queue;
 
 typedef struct		s_room
 {
 	char			*c_name;
-	int				name;
 	int				x;
 	int				y;
 	int				level;
@@ -81,7 +80,7 @@ typedef struct		s_lem
 	t_room			*start;
 	t_room			*end;
 	t_room			*current;
-	t_queues		**queues;
+	t_queue			*queue;
 	t_bucket		*bucketlist;
 	int				path_length;
 	int				ants; // make unsigned long
@@ -124,7 +123,7 @@ t_room				*get_hashed_room(t_lem *lem, char *key);
 ** inits.c
 */
 void				init_lem(t_lem *lem);
-t_queues			*init_newq(t_queues *temp_prevq, t_room *current);
+t_queue				*init_newq(t_room *current, t_queue *parent);
 t_path				*init_new_path(t_lem *lem);
 void				*init_table(t_lem *lem);
 
@@ -132,6 +131,7 @@ void				*init_table(t_lem *lem);
 ** bfs.c
 */
 int					create_bucket(t_lem *lem);
+int		solve(t_lem *lem);
 
 /*
 ** find_paths.c

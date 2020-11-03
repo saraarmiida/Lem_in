@@ -19,25 +19,25 @@ void		print_rooms(t_lem *lem)
 		{
 			ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
 			rl = r->linked_rooms;
-			ft_printf("\tLinked rooms: ");
-			while (rl != NULL)
-			{
-				ft_printf("%s -> ", rl->tgtroom->c_name);
-				rl = rl->next;
-			}
-			ft_printf("\n");
+			// ft_printf("\tLinked rooms: ");
+			// while (rl != NULL)
+			// {
+			// 	ft_printf("%s -> ", rl->tgtroom->c_name);
+			// 	rl = rl->next;
+			// }
+			// ft_printf("\n");
 			while (r->next != NULL)
 			{
 				r = r->next;
 				ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
 				rl = r->linked_rooms;
-				ft_printf("\tLinked rooms: ");
-				while (rl != NULL)
-				{
-					ft_printf("%s -> ", rl->tgtroom->c_name);
-					rl = rl->next;
-				}
-				ft_printf("\n");
+				// ft_printf("\tLinked rooms: ");
+				// while (rl != NULL)
+				// {
+				// 	ft_printf("%s -> ", rl->tgtroom->c_name);
+				// 	rl = rl->next;
+				// }
+				// ft_printf("\n");
 			}
 		}
 		i++;
@@ -108,7 +108,7 @@ void		print_debug_info(t_lem *lem)
 {
 	//print_hashtable(lem);
 	print_rooms(lem);
-	print_paths(lem);
+	// print_paths(lem);
 }
 
 
@@ -117,7 +117,7 @@ int			main(int argc, char **argv)
 	t_lem	*lem;
 	int		info;
 
-	info = 1;
+	info = 0;
 	if (!(lem = (t_lem*)malloc(sizeof(t_lem))))
 		return (1);
 	if (argc == 3)
@@ -140,11 +140,10 @@ int			main(int argc, char **argv)
 	read_input(lem);
 	if (lem->info == 1)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
-	while (create_bucket(lem) == 1) {
-		ft_printf("Made a bucket\n");
-	}
-	if (lem->info == 1)
-		print_debug_info(lem);
+	if (solve(lem) == 0)
+		ft_printf("Couldn't solve\n");
+	// if (lem->info == 1)
+	// 	print_debug_info(lem);
 	//send_ants(lem);
 	return (0);
 }

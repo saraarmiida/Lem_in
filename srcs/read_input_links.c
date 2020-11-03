@@ -54,8 +54,8 @@ int		save_link(t_lem *lem, int i)
 	link2->opposite = link1;
 	if (lem->info == 1)
 	{
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room1->x, room1->y, room2->x, room2->y, room1->name, room2->name);
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %d to %d\n", room2->x, room2->y, room1->x, room1->y, room2->name, room1->name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room1->x, room1->y, room2->x, room2->y, room1->c_name, room2->c_name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room2->x, room2->y, room1->x, room1->y, room2->c_name, room1->c_name);
 	}
 	return (i + ft_strlen(to) + 1);
 }
@@ -79,7 +79,7 @@ int		get_links(t_lem *lem)
 			return (1);
 		}
 	}
-	ft_printf("Got %d links\n", lem->link_amount);
+	// ft_printf("Got %d links\n", lem->link_amount);
 	lem->i = i;
 	return (0);
 }

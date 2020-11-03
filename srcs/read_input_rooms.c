@@ -37,19 +37,15 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		return (0);
 	room->c_name = name;
-	room->name = ft_atoi(name);
 	i += ft_strlen(room->c_name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
-	room->visited = 1;
+	room->visited = 0;
 	if (start_or_end == 1)
 		lem->start = room;
 	if (start_or_end == 2)
-	{
 		lem->end = room;
-		room->visited = 0;
-	}
 	room->next = NULL;
 	room->linked_rooms = NULL;
 	room->level = 0;

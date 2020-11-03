@@ -5,24 +5,18 @@
 ** it and adding the children rooms of the current parent room to the queue
 */
 
-t_queues	*init_newq(t_queues *temp_prevq, t_room *current)
+t_queue		*init_newq(t_room *current, t_queue *parent)
 {
-	t_queues	*newq;
-	t_rlink		*templink;
+	t_queue		*newq;
 
-	if (!(newq = (t_queues*)malloc(sizeof(t_queues))))
+	if (!(newq = (t_queue*)malloc(sizeof(t_queue))))
 	{
 		ft_printf("Could not allocate queue.");
 		return (0);
 	}
-	newq->nextq = NULL;
-	newq->prevq = temp_prevq;
-	templink = current->linked_rooms;
-	while (templink->flow == 0)
-		templink = templink->next;
-	newq->linked_rooms = templink;
-	if (temp_prevq)
-		temp_prevq->nextq = newq;
+	newq->room = current;
+	newq->parent = parent;
+	newq->next = NULL;
 	return (newq);
 }
 

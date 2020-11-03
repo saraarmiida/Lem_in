@@ -64,16 +64,9 @@ t_paths		*edmondskarp(t_lem *lem)
 				}
 				child = child->next;
 			}
-			// if (parentq->next != NULL)
-			// 	ft_printf("	parent change %s -> %s\n\n", parentq->room->c_name, parentq->next->room->c_name);
 			parentq = parentq->next;
 		}
 		level++;
-		// if (childq != NULL)
-		// {
-		// 	print_queue(childq, level - 1);
-		// 	ft_printf("	next level parent changes to -> %s\n\n", childq->room->c_name);
-		// }
 		parentq = childq;
 		childq = NULL;
 	}
@@ -126,7 +119,7 @@ int		solve(t_lem *lem)
 	start_room = lem->start->linked_rooms;
 	path = NULL;
 	i = 0;
-	while (i < 3)
+	while (start_room != NULL && i <= lem->ants)
 	{
 		path = edmondskarp(lem);
 		if (path != NULL)
@@ -135,6 +128,7 @@ int		solve(t_lem *lem)
 			reset_rooms(lem);
 			print_path(lem->paths);
 		}
+		start_room = start_room->next;
 		i++;
 	}
 	return (0);

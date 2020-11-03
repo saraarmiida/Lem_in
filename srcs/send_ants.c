@@ -94,9 +94,11 @@ void	send_ants(t_lem *lem)
 	int		ant;
 	t_paths	*path;
 	t_paths	*start;
+	int		i;
 
 	ft_printf("%s\n\n", lem->input); // add ignoring comments
 	ant = 1;
+	i = 0;
 	sort_paths(lem);
 	lem->path_length = lem->paths->length;
 	start = lem->paths;
@@ -114,5 +116,7 @@ void	send_ants(t_lem *lem)
 		}
 		lem->path_length--;
 		ft_printf("\n");
+		i++;
 	}
+	ft_printf("Lines used: %d\n", i);
 }

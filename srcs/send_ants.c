@@ -13,7 +13,7 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 		path->path->next->room->ant = ant;
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
-		length += path->length;
+		length = path->length;
 		path = path->next;
 		if (path != NULL && length + (lem->ants - ant) <= path->length)
 			return (ant + 1);

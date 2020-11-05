@@ -28,7 +28,7 @@ int			main(int argc, char **argv)
 	read_input(lem);
 	if (lem->info == 1)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
-	if (solve(lem) == 0)
+	if (solve(lem) == 1)
 		ft_printf("Couldn't solve\n");
 	// if (lem->info == 1)
 	// 	print_debug_info(lem);

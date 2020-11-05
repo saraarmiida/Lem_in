@@ -84,6 +84,7 @@ typedef struct		s_lem
 	t_queue			*queue;
 	t_bucket		*bucketlist;
 	t_paths			*paths;
+	int				max_flow;
 	int				path_length;
 	int				ants; // make unsigned long
 	int				room_amount;

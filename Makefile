@@ -4,10 +4,9 @@ SRCS = 	srcs/main.c \
 		srcs/read_input_basics.c \
 		srcs/read_input_rooms.c \
 		srcs/read_input_links.c \
-		srcs/bfs.c \
+		srcs/solve.c \
 		srcs/hash.c \
 		srcs/send_ants.c \
-		srcs/find_paths.c \
 		srcs/print_info.c \
 		srcs/inits.c 
 
@@ -15,10 +14,9 @@ OBJS = 	main.o \
 		read_input_basics.o \
 		read_input_rooms.o \
 		read_input_links.o \
-		bfs.o \
+		solve.o \
 		hash.o \
 		send_ants.o \
-		find_paths.o \
 		print_info.o \
 		inits.o
 

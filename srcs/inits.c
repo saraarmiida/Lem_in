@@ -1,15 +1,14 @@
 #include "../includes/lem_in.h"
 
-t_path		*init_node(t_room *room, t_path *next)
+t_path		*init_node(t_room *room, t_path *prev)
 {
 	t_path	*node;
 
 	if (!(node = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	node->room = room;
-	node->next = next;
-	node->prev = NULL;
-	node->room->visited = 2;
+	node->next = NULL;
+	node->prev = prev;
 	return (node);
 }
 
@@ -51,6 +50,7 @@ void		init_lem(t_lem *lem)
 	lem->room_amount = 0;
 	lem->link_amount = 0;
 	lem->path_length = 0;
+	lem->max_flow = 0;
 	lem->tablesize = 0;
 	lem->input = NULL;
 	lem->j = 0;

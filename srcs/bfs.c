@@ -37,7 +37,7 @@ t_paths		*edmondskarp(t_lem *lem)
 	parentq = NULL;
 	child = NULL;
 	newq = NULL;
-	parentq = init_newq(lem->start, NULL);
+	parentq = init_newq(lem->start, NULL, NULL);
 	lem->start->visited = 1;
 	end = 0;
 	while (end == 0 && parentq != NULL)
@@ -47,12 +47,12 @@ t_paths		*edmondskarp(t_lem *lem)
 			child = parentq->room->linked_rooms;
 			while (child != NULL && end == 0)
 			{
-				if (child->tgtroom->visited == 0)
+				if (child->flow == 1 && child->tgtroom->visited == 0)
 				{
 					// ft_printf("parent: %s child: %s level %d\n", parentq->room->c_name, child->tgtroom->c_name, level);
 					child->tgtroom->visited = 1;
 					child->tgtroom->level = parentq->room->level + 1;
-					newq = init_newq(child->tgtroom, parentq);
+					newq = init_newq(child->tgtroom, child, parentq);
 					if (childq)
 						newq->next = childq;
 					childq = newq;
@@ -71,6 +71,75 @@ t_paths		*edmondskarp(t_lem *lem)
 		childq = NULL;
 	}
 	return (NULL);
+}
+
+void	save_flow(t_queue *queue, t_room *start)
+{
+	while (queue->room != start)
+	{
+		if (queue->edge->flow == 0)
+		{
+			queue->edge->flow = 1;
+			queue->edge->opposite->flow = -1;
+		}
+		else if (queue->edge->flow == -1)
+		{
+			queue->edge->flow = 0;
+			queue->edge->opposite->flow = 0;
+		}
+		queue = queue->parent;
+	}
+}
+
+int		edmondskarp_flow(t_lem *lem)
+{
+	t_queue			*parentq;
+	t_rlink			*child;
+	t_queue			*childq;
+	int				level;
+	int				end;
+	t_queue			*newq;
+
+	level = 0;
+	childq = NULL;
+	parentq = NULL;
+	child = NULL;
+	newq = NULL;
+	parentq = init_newq(lem->start, NULL, NULL);
+	lem->start->visited = 1;
+	end = 0;
+	while (end == 0 && parentq != NULL)
+	{
+		while (parentq != NULL && end == 0)
+		{
+			child = parentq->room->linked_rooms;
+			while (child != NULL && end == 0)
+			{
+				if (child->tgtroom->visited == 0 && child->flow != 1)
+				{
+					// ft_printf("parent: %s child: %s level %d\n", parentq->room->c_name, child->tgtroom->c_name, level);
+					child->tgtroom->visited = 1;
+					child->tgtroom->level = parentq->room->level + 1;
+					newq = init_newq(child->tgtroom, child, parentq);
+					if (childq)
+						newq->next = childq;
+					childq = newq;
+					if (child->tgtroom == lem->end)
+					{
+						end = 1;
+						save_flow(childq, lem->start);
+						return (1);
+					}
+				}
+				child = child->next;
+			}
+			parentq = parentq->next;
+		}
+		level++;
+		parentq = childq;
+		childq = NULL;
+	}
+	return (0);
 }
 
 void	reset_rooms(t_lem *lem)
@@ -116,6 +185,18 @@ int		solve(t_lem *lem)
 	t_rlink	*start_room;
 	int		i;
 
+	start_room = lem->start->linked_rooms;
+	i = 0;
+	while (start_room != NULL && i <= lem->ants)
+	{
+		if (edmondskarp_flow(lem) == 1)
+		{
+			reset_rooms(lem);
+			// print_path(lem->paths);
+		}
+		start_room = start_room->next;
+		i++;
+	}
 	start_room = lem->start->linked_rooms;
 	path = NULL;
 	i = 0;

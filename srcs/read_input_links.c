@@ -14,7 +14,7 @@ t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	if (room->linked_rooms)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
-	link->flow = 1;
+	link->flow = 0;
 	link->opposite = NULL;
 	return (link);
 }

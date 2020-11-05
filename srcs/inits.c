@@ -13,7 +13,7 @@ t_path		*init_node(t_room *room, t_path *next)
 	return (node);
 }
 
-t_queue		*init_newq(t_room *current, t_queue *parent)
+t_queue		*init_newq(t_room *room, t_rlink *edge, t_queue *parent)
 {
 	t_queue		*newq;
 
@@ -22,7 +22,8 @@ t_queue		*init_newq(t_room *current, t_queue *parent)
 		ft_printf("Could not allocate queue.");
 		return (0);
 	}
-	newq->room = current;
+	newq->room = room;
+	newq->edge = edge;
 	newq->parent = parent;
 	newq->next = NULL;
 	return (newq);

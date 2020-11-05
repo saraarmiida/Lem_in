@@ -12,7 +12,7 @@ void		print_queue(t_queue *queue, int l)
 	ft_printf("queue l %d: ", l);
 	while (q != NULL)
 	{
-		ft_printf("| %s ", q->room->c_name);
+		ft_printf("| %s ", q->edge->tgtroom->c_name);
 		q = q->next;
 	}
 	ft_printf("\n");

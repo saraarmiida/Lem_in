@@ -31,6 +31,7 @@ typedef struct		s_rlink
 typedef struct		s_queue
 {
 	struct s_room	*room;
+	struct s_rlink	*edge;
 	struct s_queue	*parent;
 	struct s_queue	*next;
 }					t_queue;
@@ -124,7 +125,7 @@ t_room				*get_hashed_room(t_lem *lem, char *key);
 ** inits.c
 */
 void				init_lem(t_lem *lem);
-t_queue				*init_newq(t_room *current, t_queue *parent);
+t_queue				*init_newq(t_room *room, t_rlink *edge, t_queue *parent);
 t_path				*init_node(t_room *room, t_path *next);
 void				*init_table(t_lem *lem);
 

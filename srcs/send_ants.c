@@ -1,6 +1,12 @@
 
 #include "../includes/lem_in.h"
 
+/*
+** Sends a new ant to the shortest path, then evaluates whether it makes
+** sense to send another ant to the next shortest path. It makes sense to
+** send an ant to a path if path length is less than length of the shorter
+** paths combined with the amount of ants left.
+*/
 
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 {
@@ -26,7 +32,6 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 ** Goes through all rooms in a path, and if there is an ant in a room, it
 ** moves the ant to the next room.
 */
-
 
 void	move_ants(t_path *room, t_room *end)
 {

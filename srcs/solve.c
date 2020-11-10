@@ -1,5 +1,9 @@
 #include "../includes/lem_in.h"
 
+/*
+** Sets all rooms to be unvisited.
+*/
+
 void	reset_rooms(t_lem *lem)
 {
 	int		i;
@@ -26,6 +30,10 @@ void	reset_rooms(t_lem *lem)
 	lem->end->visited = 0;
 }
 
+/*
+** Saves found path to struct
+*/
+
 int	save_path(t_lem *lem, t_path *head, int length)
 {
 	t_paths	*path;
@@ -44,6 +52,10 @@ int	save_path(t_lem *lem, t_path *head, int length)
 	}
 	return (1);
 }
+
+/*
+** Finds a path from start to end, can only use flows of 1.
+*/
 
 int		find_path(t_lem *lem)
 {
@@ -76,6 +88,11 @@ int		find_path(t_lem *lem)
 	return (0);
 }
 
+/*
+** Backtracts path found from end room to start room, setting the flow of the edges
+** to either 1 or 0, depending on if we used unused edge or edge with negative flow.
+*/
+
 void	mark_flow(t_queue *queue, t_lem *lem)
 {
 	while (queue->room != lem->start)
@@ -94,6 +111,12 @@ void	mark_flow(t_queue *queue, t_lem *lem)
 	}
 	lem->max_flow++;
 }
+
+/*
+** We go through rooms with bfs, finding the shortest path that we haven't found yet.
+** Instead of saving the path, we just mark the flow, which allows the use of negative
+** flow, which can lead to finding more optimal paths.
+*/
 
 int		edmondskarp(t_lem *lem)
 {
@@ -142,6 +165,12 @@ int		edmondskarp(t_lem *lem)
 	}
 	return (0);
 }
+
+/*
+** solve first goes through rooms, marking flows while searching for paths.
+** On the second iteration we already know how many paths are possible to find
+** (max_flow) and we search paths based on how we marked the flows.
+*/
 
 int		solve(t_lem *lem)
 {

@@ -123,5 +123,5 @@ void	send_ants(t_lem *lem)
 		ft_printf("\n");
 		i++;
 	}
-	ft_printf("Lines used: %d\n", i);
+	ft_printf("lines %d\n", i);
 }

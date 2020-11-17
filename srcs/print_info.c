@@ -18,25 +18,27 @@ void		print_queue(t_queue *queue, int l)
 	ft_printf("\n");
 }
 
-void		print_path(t_paths *paths)
+void		print_path(t_bucket *set)
 {
 	t_paths		*temp_paths;
 	t_path		*temp_path;
 	int			i;
 
 	i = 1;
-	temp_paths = paths;
-	ft_printf("\nPRINTING PATHS\n");
+	temp_paths = set->paths;
+	ft_printf("\nPRINTING SET\n");
+	ft_printf("cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
 	while (temp_paths != NULL)
 	{
 		temp_path = temp_paths->path;
-		ft_printf("Path:\n");
+		ft_printf("Path%d:\n", i);
 		while (temp_path != NULL)
 		{
 			ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
 			temp_path = temp_path->next;
 		}
 		temp_paths = temp_paths->next;
+		i++;
 	}
 }
 
@@ -81,35 +83,35 @@ void		print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-void		print_paths(t_lem *lem)
-{
-	t_bucket	*bucket;
-	t_paths		*temp_paths;
-	t_path		*temp_path;
-	int			i;
+// void		print_paths(t_lem *lem)
+// {
+// 	t_bucket	*bucket;
+// 	t_paths		*temp_paths;
+// 	t_path		*temp_path;
+// 	int			i;
 
-	i = 1;
-	bucket = lem->bucketlist;
-	while (bucket->next_bucket != NULL)
-	{
-		ft_printf("\nBucket %d:\n", i);
-		temp_paths = bucket->paths;
-		while (temp_paths != NULL)
-		{
-			temp_path = temp_paths->path;
-			ft_printf("Path:\n");
-			while (temp_path != NULL)
-			{
-				ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
-				temp_path = temp_path->next;
-			}
-			temp_paths = temp_paths->next;
-		}
-		i++;
-		ft_printf("\n\n");
-		bucket = bucket->next_bucket;
-	}
-}
+// 	i = 1;
+// 	bucket = lem->bucketlist;
+// 	while (bucket->next_bucket != NULL)
+// 	{
+// 		ft_printf("\nBucket %d:\n", i);
+// 		temp_paths = bucket->paths;
+// 		while (temp_paths != NULL)
+// 		{
+// 			temp_path = temp_paths->path;
+// 			ft_printf("Path:\n");
+// 			while (temp_path != NULL)
+// 			{
+// 				ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
+// 				temp_path = temp_path->next;
+// 			}
+// 			temp_paths = temp_paths->next;
+// 		}
+// 		i++;
+// 		ft_printf("\n\n");
+// 		bucket = bucket->next_bucket;
+// 	}
+// }
 
 void		print_hashtable(t_lem *lem)
 {

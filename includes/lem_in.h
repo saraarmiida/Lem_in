@@ -9,8 +9,8 @@
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
-# include "SDL2/SDL.h"
-# include "../visualiser/SDL2_ttf.framework/Headers/SDL_ttf.h"
+// # include "SDL2/SDL.h"
+// # include "../visualiser/SDL2_ttf.framework/Headers/SDL_ttf.h"
 
 typedef struct		s_path
 {
@@ -46,9 +46,9 @@ typedef struct		s_paths
 typedef struct		s_bucket
 {
 	struct s_paths	*paths;
-	struct s_path	*path;
 	int				length;
-	struct s_bucket	*next_bucket;
+	int				flow;
+	int				cost;
 }					t_bucket;
 
 /*
@@ -82,7 +82,7 @@ typedef struct		s_lem
 	t_room			*end;
 	t_room			*current;
 	t_queue			*queue;
-	t_bucket		*bucketlist;
+	t_bucket		*best_set;
 	t_paths			*paths;
 	int				max_flow;
 	int				path_length;
@@ -150,7 +150,7 @@ void				send_ants(t_lem *lem);
 ** print_info.c
 */
 void				print_queue(t_queue *queue, int l);
-void				print_path(t_paths *paths);
+void				print_path(t_bucket *set);
 void				print_debug_info(t_lem *lem);
 void				print_paths(t_lem *lem);
 

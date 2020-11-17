@@ -34,7 +34,7 @@ void	reset_rooms(t_lem *lem)
 ** Saves found path to struct
 */
 
-int	save_path(t_lem *lem, t_path *head, int length)
+int	save_path(t_path *head, int length, t_bucket *set)
 {
 	t_paths	*path;
 
@@ -43,13 +43,14 @@ int	save_path(t_lem *lem, t_path *head, int length)
 	path->path = head;
 	path->next = NULL;
 	path->length = length;
-	if (lem->paths == NULL)
-		lem->paths = path;
+	if (set->paths == NULL)
+		set->paths = path;
 	else
 	{
-		path->next = lem->paths;
-		lem->paths = path;
+		path->next = set->paths;
+		set->paths = path;
 	}
+	set->length += length;
 	return (1);
 }
 
@@ -57,7 +58,7 @@ int	save_path(t_lem *lem, t_path *head, int length)
 ** Finds a path from start to end, can only use flows of 1.
 */
 
-int		find_path(t_lem *lem)
+int		find_path(t_lem *lem, t_bucket *set)
 {
 	t_rlink	*current;
 	t_path	*node;
@@ -77,7 +78,7 @@ int		find_path(t_lem *lem)
 			newnode = init_node(current->tgtroom, node);
 			node->next = newnode;
 			if (current->tgtroom == lem->end)
-				return (save_path(lem, head, len));
+				return (save_path(head, len, set));
 			node = newnode;
 			current->tgtroom->visited = 1;
 			current = current->tgtroom->linked_rooms;
@@ -166,6 +167,38 @@ int		edmondskarp(t_lem *lem)
 	return (0);
 }
 
+int		calc_cost(t_bucket *set, int ants)
+{
+	set->cost = ((set->length + ants) / set->flow) - 1;
+	return (set->cost);
+}
+
+void	find_set(t_lem *lem)
+{
+	int			j;
+	t_bucket	*set;
+	int			cost;
+
+	if (!(set = (t_bucket*)malloc(sizeof(t_bucket))))
+		return ;
+	set->paths = NULL;
+	set->length = 0;
+	set->flow = lem->max_flow;
+	set->cost = 0;
+	j = 0;
+	while (j < lem->max_flow)
+	{
+		find_path(lem, set);
+		j++;
+	}
+	cost = calc_cost(set, lem->ants);
+	if (lem->best_set == NULL || cost < lem->best_set->cost)
+	{
+		lem->best_set = set;
+	}
+	print_path(lem->best_set);
+}
+
 /*
 ** solve first goes through rooms, marking flows while searching for paths.
 ** On the second iteration we already know how many paths are possible to find
@@ -184,19 +217,12 @@ int		solve(t_lem *lem)
 	{
 		edmondskarp(lem);
 		reset_rooms(lem);
+		find_set(lem);
+		reset_rooms(lem);
 		start_room = start_room->next;
 		i++;
 	}
 	ft_printf("max flow: %d\n", lem->max_flow);
 	path = NULL;
-	i = 0;
-	while (i < lem->max_flow)
-	{
-		if (find_path(lem) == 1)
-		{
-			print_path(lem->paths);
-		}
-		i++;
-	}
 	return (0);
 }

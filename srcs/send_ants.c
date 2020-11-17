@@ -58,14 +58,14 @@ void	move_ants(t_path *room, t_room *end)
 */
 
 
-void	sort_paths(t_lem *lem)
+void	sort_paths(t_paths *set)
 {
 	int		temp_length;
 	t_path	*temp_path;
 	t_paths	*current;
 	t_paths	*next;
 
-	current = lem->paths;
+	current = set;
 	while (current->next != NULL)
 	{
 		next = current->next;
@@ -104,9 +104,9 @@ void	send_ants(t_lem *lem)
 	ft_printf("%s\n\n", lem->input); // add ignoring comments
 	ant = 1;
 	i = 0;
-	sort_paths(lem);
-	lem->path_length = lem->paths->length;
-	start = lem->paths;
+	start = lem->best_set->paths;
+	sort_paths(start);
+	lem->path_length = start->length;
 	while (lem->path_length > 0)
 	{
 		path = start;

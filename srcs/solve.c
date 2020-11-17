@@ -164,6 +164,8 @@ int		edmondskarp(t_lem *lem)
 		parentq = childq;
 		childq = NULL;
 	}
+	if (lem->max_flow == 0)
+		ft_error("no possible path");
 	return (0);
 }
 
@@ -193,9 +195,7 @@ void	find_set(t_lem *lem)
 	}
 	cost = calc_cost(set, lem->ants);
 	if (lem->best_set == NULL || cost < lem->best_set->cost)
-	{
 		lem->best_set = set;
-	}
 	print_path(lem->best_set);
 }
 
@@ -207,7 +207,6 @@ void	find_set(t_lem *lem)
 
 int		solve(t_lem *lem)
 {
-	t_paths	*path;
 	t_rlink	*start_room;
 	int		i;
 
@@ -222,7 +221,7 @@ int		solve(t_lem *lem)
 		start_room = start_room->next;
 		i++;
 	}
-	ft_printf("max flow: %d\n", lem->max_flow);
-	path = NULL;
+	if (lem->best_set == NULL)
+		ft_error("no possible path");
 	return (0);
 }

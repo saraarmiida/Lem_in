@@ -1,0 +1,30 @@
+11
+xxx 0 1
+fuck 1 0
+42 4 1
+lol 1 4
+5 5 5
+6 2 7
+7 0 9
+##end
+10 1 1
+hot 8 2
+8 1 3
+##start
+cold 23 3
+#comment
+cold-xxx
+cold-fuck
+xxx-42
+xxx-lol
+lol-fuck
+fuck-5
+#another comment
+42-lol
+42-6
+42-7
+6-8
+8-hot
+7-hot
+hot-10
+5-hot

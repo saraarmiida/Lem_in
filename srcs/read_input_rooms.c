@@ -35,7 +35,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	t_room	*room;
 
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
-		return (0);
+		ft_error("malloc error");
 	room->c_name = name;
 	i += ft_strlen(room->c_name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
@@ -76,8 +76,10 @@ int		save_room(t_lem *lem, int i, int start_or_end)
 		{
 			if (ft_strcmp(room->c_name, name) == 0)
 			{
-				//ft_printf("Found a duplicate\n");
-				return (skip_line(lem->input, i));
+				if (room == lem->end || room == lem->start)
+					return (skip_line(lem->input, i));
+				else
+					ft_error("duplicate room");
 			}
 			prev = room;
 			room = prev->next;
@@ -100,7 +102,7 @@ int		get_start_and_end(t_lem *lem)
 	start = ft_strmatchlen(lem->input, "##start\n");
 	end = ft_strmatchlen(lem->input, "##end\n");
 	if (start == -1 || end == -1)
-		return (0);
+		ft_error("no start or end room");
 	save_room(lem, start, START_ROOM);
 	save_room(lem, end, END_ROOM);
 	return (1);
@@ -115,6 +117,8 @@ int		check_room(t_lem *lem, int i)
 	int j;
 
 	j = i;
+	if (lem->input[i] == 'L' || lem->input[i] == '#')
+		ft_error("invalid room name");
 	while (lem->input[j] != '\n' && lem->input[j])
 	{
 		if (lem->input[j] == '-')
@@ -153,10 +157,7 @@ int		get_rooms(t_lem *lem)
 			if ((i = check_room(lem, i)) == -1)
 				break ;
 			else if (i == -2)
-			{
-				ft_printf("Ruums error\n");
-				return (1);
-			}
+				ft_error("invalid rooms");
 		}
 	}
 	lem->tablesize = lem->room_amount * 1.5;

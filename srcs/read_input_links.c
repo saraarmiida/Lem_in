@@ -48,6 +48,8 @@ int		save_link(t_lem *lem, int i)
 	to = ft_strcdup(&lem->input[i], '\n');
 	room1 = get_hashed_room(lem, from);
 	room2 = get_hashed_room(lem, to);
+	if (room1 == NULL || room2 == NULL)
+		ft_error("unknown room name in link");
 	link1 = add_room_to_rooms_linked_rooms(room1, room2);
 	link2 = add_room_to_rooms_linked_rooms(room2, room1);
 	link1->opposite = link2;
@@ -74,10 +76,7 @@ int		get_links(t_lem *lem)
 			i = save_link(lem, i);
 		}
 		else
-		{
-			ft_printf("Links error\n");
-			return (1);
-		}
+			ft_error("invalid links");
 	}
 	// ft_printf("Got %d links\n", lem->link_amount);
 	lem->i = i;

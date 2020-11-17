@@ -6,6 +6,7 @@
 # define START_ROOM	1
 # define END_ROOM	2
 # define BAD_MAGIC_NUMBER_LINKS 10
+# define MAX_INT	2147483647
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -153,5 +154,7 @@ void				print_queue(t_queue *queue, int l);
 void				print_path(t_bucket *set);
 void				print_debug_info(t_lem *lem);
 void				print_paths(t_lem *lem);
+
+void				ft_error(char *msg);
 
 #endif

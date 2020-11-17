@@ -1,5 +1,11 @@
 #include "../includes/lem_in.h"
 
+void		ft_error(char *msg)
+{
+	ft_printf("ERROR: %s\n", msg);
+	exit(1);
+}
+
 int			main(int argc, char **argv)
 {
 	t_lem	*lem;
@@ -29,7 +35,7 @@ int			main(int argc, char **argv)
 	if (lem->info == 1)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
 	if (solve(lem) == 1)
-		ft_printf("Couldn't solve\n");
+		ft_error("no possible paths");
 	// if (lem->info == 1)
 	// 	print_debug_info(lem);
 	send_ants(lem);

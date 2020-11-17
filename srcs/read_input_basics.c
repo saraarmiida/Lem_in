@@ -7,23 +7,38 @@ int		skip_line(char *input, int i)
 	return (i + 1);
 }
 
+int		only_digits(char *input, int index)
+{
+	int	i;
+
+	i = index;
+	while (input[i] != '\n')
+	{
+		if (ft_isdigit(input[i]) == 0)
+			ft_error("invalid ants");
+		i++;
+	}
+	return (1);
+}
+
 int		get_ants(t_lem *lem)
 {
 	int	i;
 
 	i = 0;
-	while (lem->input[i])
+	while (lem->input[i] && lem->input[i] == '#')
+		i = skip_line(lem->input, i);
+	if (only_digits(lem->input, i) && (i == 0 || lem->input[i - 1] == '\n'))
 	{
-		if (lem->input[i] == '#')
-			i = skip_line(lem->input, i);
-		else if (ft_isdigit(lem->input[i]) && (i == 0 || lem->input[i - 1] == '\n'))
-		{
-			lem->ants = ft_atoi(&lem->input[i]);
-			lem->i = i + ft_intlen(lem->ants) + 1;
+		lem->ants = ft_atoi(&lem->input[i]);
+		lem->i = i + ft_intlen(lem->ants) + 1;
+		if (lem->ants > 0 && lem->ants <= MAX_INT)
 			return (0);
-		}
+		else
+			ft_error("invalid number of ants");	
 	}
-	ft_printf("Ants error\n");
+	else
+		ft_error("invalid ants");
 	return (1);
 }
 

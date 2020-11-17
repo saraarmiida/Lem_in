@@ -1,0 +1,24 @@
+4242
+##start
+room1 23 3
+room2 16 7
+#comment
+3 16 5
+room4 16 5
+5 9 3
+6 1 5
+room7 4 8
+##end
+0 9 5
+0-room4
+room1-3
+room4-3
+5-room2
+3-5
+#another comment
+room4-room2
+room2-room1
+room7-6
+room7-room2
+room7-room4
+#another comment

@@ -30,22 +30,22 @@ int		ft_strmatchlen(char const *s, char const *s2)
 	return (-1);
 }
 
-t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
+t_room	*get_room_info(t_lem *lem, char *name, int i)
 {
 	t_room	*room;
 
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
 		ft_error("malloc error");
+	if (i == lem->start_i)
+		lem->start = room;
+	if (i == lem->end_i)
+		lem->end = room;
 	room->c_name = name;
 	i += ft_strlen(room->c_name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
 	room->visited = 0;
-	if (start_or_end == 1)
-		lem->start = room;
-	if (start_or_end == 2)
-		lem->end = room;
 	room->next = NULL;
 	room->linked_rooms = NULL;
 	room->level = 0;
@@ -54,7 +54,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i, int start_or_end)
 	return (room);
 }
 
-int		save_room(t_lem *lem, int i, int start_or_end)
+int		save_room(t_lem *lem, int i)
 {
 	t_room			*room;
 	t_room			*prev;
@@ -66,7 +66,7 @@ int		save_room(t_lem *lem, int i, int start_or_end)
 	room = lem->rooms[slot];
 	if (room == NULL)
 	{
-		lem->rooms[slot] = get_room_info(lem, name, i, start_or_end);
+		lem->rooms[slot] = get_room_info(lem, name, i);
 		lem->j += 1;
 		return (lem->i);
 	}
@@ -76,15 +76,12 @@ int		save_room(t_lem *lem, int i, int start_or_end)
 		{
 			if (ft_strcmp(room->c_name, name) == 0)
 			{
-				if (room == lem->end || room == lem->start)
-					return (skip_line(lem->input, i));
-				else
-					ft_error("duplicate room");
+				ft_error("duplicate room");
 			}
 			prev = room;
 			room = prev->next;
 		}
-		prev->next = get_room_info(lem, name, i, start_or_end);
+		prev->next = get_room_info(lem, name, i);
 		lem->j += 1;
 	}
 	return (lem->i);
@@ -96,15 +93,10 @@ int		save_room(t_lem *lem, int i, int start_or_end)
 
 int		get_start_and_end(t_lem *lem)
 {
-	int		start;
-	int		end;
-
-	start = ft_strmatchlen(lem->input, "##start\n");
-	end = ft_strmatchlen(lem->input, "##end\n");
-	if (start == -1 || end == -1)
+	lem->start_i = ft_strmatchlen(lem->input, "##start\n");
+	lem->end_i = ft_strmatchlen(lem->input, "##end\n");
+	if (lem->start_i == -1 || lem->end_i == -1)
 		ft_error("no start or end room");
-	save_room(lem, start, START_ROOM);
-	save_room(lem, end, END_ROOM);
 	return (1);
 }
 
@@ -121,7 +113,7 @@ int		check_room(t_lem *lem, int i)
 		ft_error("invalid room name");
 	while (lem->input[j] != '\n' && lem->input[j])
 	{
-		if (lem->input[j] == '-')
+		if (lem->input[j] == '-' && !(ft_isdigit(lem->input[j + 1]) == 1 && lem->input[j - 1] == ' '))
 			return (-1);
 		j++;
 	}
@@ -130,11 +122,15 @@ int		check_room(t_lem *lem, int i)
 	if (lem->input[i] != ' ')
 		return (-2);
 	i++;
+	if (lem->input[i] == '-')
+		i++;
 	while (ft_isdigit(lem->input[i]))
 		i++;
 	if (lem->input[i] != ' ')
 		return (-2);
 	i++;
+	if (lem->input[i] == '-')
+		i++;
 	while (ft_isdigit(lem->input[i]))
 		i++;
 	if (lem->input[i] != '\n')
@@ -170,7 +166,7 @@ int		get_rooms(t_lem *lem)
 		if (lem->input[i] == '#')
 			i = skip_line(lem->input, i);
 		else
-			i = save_room(lem, i, 0);
+			i = save_room(lem, i);
 	}
 	lem->i = i;
 	return (0);

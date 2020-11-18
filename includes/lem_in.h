@@ -3,8 +3,6 @@
 
 # define TABLE_SIZE	100
 # define BUF_SIZE	4194305
-# define START_ROOM	1
-# define END_ROOM	2
 # define BAD_MAGIC_NUMBER_LINKS 10
 # define MAX_INT	2147483647
 # include "../libft/ft_printf/includes/ft_printf.h"
@@ -85,6 +83,8 @@ typedef struct		s_lem
 	t_queue			*queue;
 	t_bucket		*best_set;
 	t_paths			*paths;
+	int				start_i;
+	int				end_i;
 	int				max_flow;
 	int				path_length;
 	int				ants; // make unsigned long

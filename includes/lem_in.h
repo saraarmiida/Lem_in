@@ -9,9 +9,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-// # include "SDL2/SDL.h"
-// # include "../visualiser/SDL2_ttf.framework/Headers/SDL_ttf.h"
-
 typedef struct		s_path
 {
 	struct s_room	*room;
@@ -160,5 +157,8 @@ void				print_queue(t_queue *queue, int l);
 void				print_path(t_bucket *set);
 void				print_rooms(t_lem *lem);
 void				print_debug_info(t_lem *lem);
+void				print_final_paths(t_lem *lem);
+
+void				ft_error(char *msg);
 
 #endif

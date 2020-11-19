@@ -5,7 +5,7 @@ int			main(void)
 	t_lem	*lem;
 	int		info;
 
-	info = 0;
+	info = 1;
 	if (!(lem = (t_lem*)malloc(sizeof(t_lem))))
 		return (1);
 	// if (argc == 3)
@@ -27,10 +27,14 @@ int			main(void)
 	init_lem(lem);
 	lem->info = info;
 	read_input(lem);
-	if (lem->info == 1)
-		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
 	if (solve(lem) == 1)
+	{
 		ft_error("no possible paths");
+		ft_printf("Couldn't solve\n");
+	}
+	//print_final_paths(lem);
+	//if (lem->info == 1)
+	//	print_debug_info(lem);
 	send_ants(lem);
 	return (0);
 }

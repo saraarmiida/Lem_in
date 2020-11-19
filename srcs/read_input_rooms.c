@@ -21,6 +21,8 @@ static t_room	*get_room_info(t_lem *lem, char *name, int i)
 	room->linked_rooms = NULL;
 	room->level = 0;
 	room->ant = 0;
+	if (lem->info == 1)
+		ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", room->x, room->y, room->visited, room->level, room->name);
 	lem->i = i + ft_intlen(room->y) + 1;
 	return (room);
 }

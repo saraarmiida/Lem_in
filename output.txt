@@ -1,0 +1,195 @@
+#n|x2|y2|v0|l0|3|c1|
+#n|x4|y0|v0|l0|0|c1|
+#n|x4|y14|v0|l0|17|c1|
+#n|x6|y12|v0|l0|18|c1|
+#n|x8|y12|v0|l0|19|c1|
+#n|x10|y12|v0|l0|20|c1|
+#n|x2|y4|v0|l0|4|c1|
+#n|x4|y2|v0|l0|1|c1|
+#n|x4|y4|v0|l0|2|c1|
+#n|x6|y2|v0|l0|5|c1|
+#n|x6|y4|v0|l0|6|c1|
+#n|x4|y6|v0|l0|7|c1|
+#n|x2|y6|v0|l0|8|c1|
+#n|x0|y8|v0|l0|9|c1|
+#n|x2|y8|v0|l0|10|c1|
+#n|x4|y8|v0|l0|11|c1|
+#n|x6|y8|v0|l0|12|c1|
+#n|x2|y10|v0|l0|13|c1|
+#n|x4|y10|v0|l0|14|c1|
+#n|x2|y12|v0|l0|15|c1|
+#n|x4|y12|v0|l0|16|c1|
+#Rooms: 21
+#e|fx4|fy0|tx4|ty2
+#e|fx4|fy0|tx2|ty2
+#e|fx4|fy2|tx4|ty4
+#e|fx4|fy2|tx6|ty2
+#e|fx4|fy4|tx2|ty4
+#e|fx4|fy4|tx4|ty6
+#e|fx4|fy4|tx2|ty6
+#e|fx2|fy2|tx2|ty4
+#e|fx6|fy2|tx6|ty4
+#e|fx6|fy4|tx4|ty6
+#e|fx4|fy6|tx4|ty8
+#e|fx4|fy6|tx6|ty8
+#e|fx2|fy6|tx0|ty8
+#e|fx2|fy6|tx2|ty8
+#e|fx0|fy8|tx2|ty10
+#e|fx0|fy8|tx2|ty12
+#e|fx2|fy8|tx4|ty8
+#e|fx2|fy8|tx2|ty10
+#e|fx2|fy8|tx4|ty10
+#e|fx6|fy8|tx4|ty10
+#e|fx2|fy10|tx2|ty12
+#e|fx4|fy10|tx4|ty12
+#e|fx2|fy12|tx4|ty12
+#e|fx2|fy12|tx4|ty14
+#e|fx4|fy12|tx4|ty14
+#e|fx4|fy12|tx6|ty12
+#e|fx6|fy12|tx8|ty12
+#e|fx8|fy12|tx10|ty12
+#Links: 28
+#s|fx2|fy12|tx4|ty14|f1
+#s|fx0|fy8|tx2|ty12|f1
+#s|fx2|fy6|tx0|ty8|f1
+#s|fx4|fy4|tx2|ty6|f1
+#s|fx4|fy2|tx4|ty4|f1
+#s|fx4|fy0|tx4|ty2|f1
+#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|
+#PRINTING SET
+#cost: 45
+flow: 1
+steps: 6
+#Path1 length 6:
+#Room 0 (level: 0)
+#Room 1 (level: 1)
+#Room 2 (level: 2)
+#Room 8 (level: 3)
+#Room 9 (level: 4)
+#Room 15 (level: 5)
+#Room 17 (level: 0)
+#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#s|fx4|fy12|tx4|ty14|f1
+#s|fx4|fy10|tx4|ty12|f1
+#s|fx6|fy8|tx4|ty10|f1
+#s|fx4|fy6|tx6|ty8|f1
+#s|fx6|fy4|tx4|ty6|f1
+#s|fx6|fy2|tx6|ty4|f1
+#s|fx4|fy2|tx6|ty2|f1
+#s|fx4|fy4|tx4|ty2|f0
+#s|fx2|fy4|tx4|ty4|f1
+#s|fx2|fy2|tx2|ty4|f1
+#s|fx4|fy0|tx2|ty2|f1
+#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|
+#PRINTING SET
+#cost: 26
+flow: 2
+steps: 15
+#Path1 length 8:
+#Room 0 (level: 0)
+#Room 1 (level: 1)
+#Room 5 (level: 2)
+#Room 6 (level: 3)
+#Room 7 (level: 4)
+#Room 12 (level: 5)
+#Room 14 (level: 6)
+#Room 16 (level: 7)
+#Room 17 (level: 0)
+#Path2 length 7:
+#Room 0 (level: 0)
+#Room 3 (level: 1)
+#Room 4 (level: 2)
+#Room 2 (level: 3)
+#Room 8 (level: 4)
+#Room 9 (level: 5)
+#Room 15 (level: 6)
+#Room 17 (level: 0)
+#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|#rn|40
+3 2 2
+#Comment
+##start
+0 4 0
+##end
+17 4 14
+# Next three lines for dead end
+18 6 12
+19 8 12
+20 10 12
+#
+4 2 4
+1 4 2
+2 4 4
+5 6 2
+6 6 4
+7 4 6
+8 2 6
+9 0 8
+10 2 8
+11 4 8
+12 6 8
+13 2 10
+14 4 10
+15 2 12
+16 4 12
+0-1
+0-3
+1-2
+1-5
+2-4
+2-7
+2-8
+3-4
+5-6
+6-7
+7-11
+7-12
+8-9
+8-10
+9-13
+# Shortcuts
+9-15
+# 12-17
+#
+10-11
+10-13
+10-14
+12-14
+13-15
+14-16
+15-16
+15-17
+16-17
+16-18
+18-19
+19-20
+
+
+L1-3 L2-1 
+L1-4 L2-5 L3-3 L4-1 
+L3-4 L1-2 L4-5 L2-6 L5-3 L6-1 
+L5-4 L3-2 L1-8 L6-5 L4-6 L2-7 L7-3 L8-1 
+L7-4 L5-2 L3-8 L1-9 L8-5 L6-6 L4-7 L2-12 L9-3 L10-1 
+L9-4 L7-2 L5-8 L3-9 L1-15 L10-5 L8-6 L6-7 L4-12 L2-14 L11-3 L12-1 
+L11-4 L9-2 L7-8 L5-9 L3-15 L1-17 L12-5 L10-6 L8-7 L6-12 L4-14 L2-16 L13-3 L14-1 
+L13-4 L11-2 L9-8 L7-9 L5-15 L3-17 L14-5 L12-6 L10-7 L8-12 L6-14 L4-16 L2-17 L15-3 L16-1 
+L15-4 L13-2 L11-8 L9-9 L7-15 L5-17 L16-5 L14-6 L12-7 L10-12 L8-14 L6-16 L4-17 L17-3 L18-1 
+L17-4 L15-2 L13-8 L11-9 L9-15 L7-17 L18-5 L16-6 L14-7 L12-12 L10-14 L8-16 L6-17 L19-3 L20-1 
+L19-4 L17-2 L15-8 L13-9 L11-15 L9-17 L20-5 L18-6 L16-7 L14-12 L12-14 L10-16 L8-17 L21-3 L22-1 
+L21-4 L19-2 L17-8 L15-9 L13-15 L11-17 L22-5 L20-6 L18-7 L16-12 L14-14 L12-16 L10-17 L23-3 L24-1 
+L23-4 L21-2 L19-8 L17-9 L15-15 L13-17 L24-5 L22-6 L20-7 L18-12 L16-14 L14-16 L12-17 L25-3 L26-1 
+L25-4 L23-2 L21-8 L19-9 L17-15 L15-17 L26-5 L24-6 L22-7 L20-12 L18-14 L16-16 L14-17 L27-3 L28-1 
+L27-4 L25-2 L23-8 L21-9 L19-15 L17-17 L28-5 L26-6 L24-7 L22-12 L20-14 L18-16 L16-17 L29-3 L30-1 
+L29-4 L27-2 L25-8 L23-9 L21-15 L19-17 L30-5 L28-6 L26-7 L24-12 L22-14 L20-16 L18-17 L31-3 L32-1 
+L31-4 L29-2 L27-8 L25-9 L23-15 L21-17 L32-5 L30-6 L28-7 L26-12 L24-14 L22-16 L20-17 L33-3 L34-1 
+L33-4 L31-2 L29-8 L27-9 L25-15 L23-17 L34-5 L32-6 L30-7 L28-12 L26-14 L24-16 L22-17 L35-3 L36-1 
+L35-4 L33-2 L31-8 L29-9 L27-15 L25-17 L36-5 L34-6 L32-7 L30-12 L28-14 L26-16 L24-17 L37-3 L38-1 
+L37-4 L35-2 L33-8 L31-9 L29-15 L27-17 L38-5 L36-6 L34-7 L32-12 L30-14 L28-16 L26-17 L39-3 L40-1 
+L39-4 L37-2 L35-8 L33-9 L31-15 L29-17 L40-5 L38-6 L36-7 L34-12 L32-14 L30-16 L28-17 
+L39-2 L37-8 L35-9 L33-15 L31-17 L40-6 L38-7 L36-12 L34-14 L32-16 L30-17 
+L39-8 L37-9 L35-15 L33-17 L40-7 L38-12 L36-14 L34-16 L32-17 
+L39-9 L37-15 L35-17 L40-12 L38-14 L36-16 L34-17 
+L39-15 L37-17 L40-14 L38-16 L36-17 
+L39-17 L40-16 L38-17 
+L40-17 
+#f|fx4|fy4|tx2|ty2
+#f|fx4|fy4|tx4|ty4
+lines 27

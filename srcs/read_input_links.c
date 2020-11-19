@@ -1,12 +1,12 @@
 #include "../includes/lem_in.h"
 
-static t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
+static t_rlink *add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 {
-	t_rlink	*link;
+	t_rlink *link;
 
-	if (!(link = (t_rlink*)malloc(sizeof(t_rlink))))
+	if (!(link = (t_rlink *)malloc(sizeof(t_rlink))))
 	{
-		ft_printf("Malloc error\n");
+		ft_error("Malloc error\n");
 		return (NULL);
 	}
 	link->tgtroom = room2;
@@ -19,7 +19,7 @@ static t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	return (link);
 }
 
-static int		check_link(t_lem *lem, int i)
+static int check_link(t_lem *lem, int i)
 {
 	while (ft_isprint(lem->input[i]) && lem->input[i] != '-')
 		i++;
@@ -34,13 +34,13 @@ static int		check_link(t_lem *lem, int i)
 	return (i + 1);
 }
 
-static int		save_link(t_lem *lem, int i)
+static int save_link(t_lem *lem, int i)
 {
-	t_room	*room1;
-	t_room	*room2;
-	t_rlink	*link1;
-	t_rlink	*link2;
-	char	*room_name;
+	t_room *room1;
+	t_room *room2;
+	t_rlink *link1;
+	t_rlink *link2;
+	char *room_name;
 
 	room_name = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(room_name) + 1;
@@ -55,23 +55,37 @@ static int		save_link(t_lem *lem, int i)
 	link2->opposite = link1;
 	if (lem->info == 1)
 	{
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n",\
-		room1->x, room1->y, room2->x, room2->y, room1->name, room2->name);
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n",\
-		room2->x, room2->y, room1->x, room1->y, room2->name, room1->name);
+		ft_putstr("#e|fx");
+		ft_putnbr(room1->x);
+		ft_putstr("|fy");
+		ft_putnbr(room1->y);
+		ft_putstr("|tx");
+		ft_putnbr(room2->x);
+		ft_putstr("|ty");
+		ft_putnbr(room2->y);
+		ft_putstr("\n");
+		//ft_printf("#e|fx%d|fy%d|tx%d|ty%d|\n", room1->x, room1->y, room2->x, room2->y);
+		//ft_putchar_fd(lem->input[i + ft_strlen(room_name) + 3], 2);
+
+		//ft_printf("#|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room1->x, room1->y, room2->x, room2->y, room1->c_name, room2->c_name);
+		//ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room2->x, room2->y, room1->x, room1->y, room2->c_name, room1->c_name);
 	}
 	return (i + ft_strlen(room_name) + 1);
 }
 
-int				get_links(t_lem *lem)
+int get_links(t_lem *lem)
 {
-	int	i;
+	int i;
 
 	i = lem->i;
+	if (lem->info == 1)
+		ft_printf("#Rooms: %d\n", lem->room_amount);
 	while (lem->input[i])
 	{
 		if (lem->input[i] == '#')
+		{
 			i = skip_line(lem->input, i);
+		}
 		else if ((check_link(lem, i)) != -2)
 		{
 			i = save_link(lem, i);
@@ -79,6 +93,9 @@ int				get_links(t_lem *lem)
 		else
 			ft_error("invalid links");
 	}
+	if (lem->info == 1)
+		ft_printf("#Links: %d\n", lem->link_amount);
+	// ft_printf("Got %d links\n", lem->link_amount);
 	lem->i = i;
 	return (0);
 }

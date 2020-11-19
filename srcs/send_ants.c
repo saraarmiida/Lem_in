@@ -119,5 +119,7 @@ void		send_ants(t_lem *lem)
 		ft_printf("\n");
 		i++;
 	}
-	ft_printf("lines: %d\n", i);
+	// if (lem->info == 1)
+	// 	print_final_paths(lem);
+	ft_printf("lines %d\n", i);
 }

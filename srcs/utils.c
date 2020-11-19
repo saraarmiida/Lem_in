@@ -34,6 +34,7 @@ void		reset_rooms(t_lem *lem)
 	}
 	lem->start->visited = 0;
 	lem->end->visited = 0;
+	ft_printf("#rn|");
 }
 
 /*

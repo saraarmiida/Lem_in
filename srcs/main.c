@@ -1,11 +1,5 @@
 #include "../includes/lem_in.h"
 
-void		ft_error(char *msg)
-{
-	ft_printf("ERROR: %s\n", msg);
-	exit(1);
-}
-
 int			main(int argc, char **argv)
 {
 	t_lem	*lem;
@@ -39,5 +33,6 @@ int			main(int argc, char **argv)
 	// if (lem->info == 1)
 	// 	print_debug_info(lem);
 	send_ants(lem);
+	// free_lem(lem);
 	return (0);
 }

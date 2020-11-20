@@ -35,7 +35,7 @@ int		get_ants(t_lem *lem)
 		if (lem->ants > 0 && lem->ants <= MAX_INT)
 			return (0);
 		else
-			ft_error("invalid number of ants");	
+			ft_error("invalid number of ants");
 	}
 	else
 		ft_error("invalid ants");

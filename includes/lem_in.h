@@ -83,6 +83,7 @@ typedef struct		s_lem
 	t_queue			*queue;
 	t_bucket		*best_set;
 	t_paths			*paths;
+	int				*qi;
 	int				start_i;
 	int				end_i;
 	int				max_flow;
@@ -155,6 +156,18 @@ void				print_path(t_bucket *set);
 void				print_debug_info(t_lem *lem);
 void				print_paths(t_lem *lem);
 
+/*
+** utils.c
+*/
+
+void				reset_rooms(t_lem *lem);
 void				ft_error(char *msg);
+void				free_set(t_bucket *set);
+void				free_queue(t_queue **queue);
+void				free_lem(t_lem* lem);
+int					ft_strmatchlen(char const *s, char const *s2);
+
+int					edmondskarp(t_lem *lem);
+
 
 #endif

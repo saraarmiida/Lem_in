@@ -58,4 +58,5 @@ void		init_lem(t_lem *lem)
 	lem->info = 0;
 	lem->best_set = NULL;
 	lem->lvl_flow = 0;
+	lem->qi = 0;
 }

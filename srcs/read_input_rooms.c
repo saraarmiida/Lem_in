@@ -1,35 +1,5 @@
 #include "../includes/lem_in.h"
 
-/*
-** ft_strmatchlen takes haystack and needle and
-** returns the number of indexes the haystack had to
-** search plus the length of needle. If needle is
-** not found, it returns -1.
-*/
-
-int		ft_strmatchlen(char const *s, char const *s2)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		j = 0;
-		while (s[i] != s2[0] && s[i] != '\0')
-			i++;
-		while (s[i] == s2[j])
-		{
-			i++;
-			j++;
-		}
-		if (s2[j] == '\0')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 t_room	*get_room_info(t_lem *lem, char *name, int i)
 {
 	t_room	*room;
@@ -75,9 +45,7 @@ int		save_room(t_lem *lem, int i)
 		while (room != NULL)
 		{
 			if (ft_strcmp(room->c_name, name) == 0)
-			{
 				ft_error("duplicate room");
-			}
 			prev = room;
 			room = prev->next;
 		}

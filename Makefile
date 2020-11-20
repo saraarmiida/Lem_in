@@ -8,7 +8,9 @@ SRCS = 	srcs/main.c \
 		srcs/hash.c \
 		srcs/send_ants.c \
 		srcs/print_info.c \
-		srcs/inits.c 
+		srcs/inits.c \
+		srcs/utils.c \
+		srcs/edmondskarp.c \
 
 OBJS = 	main.o \
 		read_input_basics.o \
@@ -18,7 +20,9 @@ OBJS = 	main.o \
 		hash.o \
 		send_ants.o \
 		print_info.o \
-		inits.o
+		inits.o \
+		utils.o \
+		edmondskarp.o \
 
 INCS = -I ./srcs -I ./libft/includes/
 

@@ -52,11 +52,9 @@ void	move_ants(t_path *room, t_room *end)
 	}
 }
 
-
 /*
 ** sorts paths from shortest to longest
 */
-
 
 void	sort_paths(t_paths *set)
 {
@@ -93,15 +91,14 @@ void	sort_paths(t_paths *set)
 ** send new ants to paths.
 */
 
-
 void	send_ants(t_lem *lem)
 {
-	int		ant;
 	t_paths	*path;
 	t_paths	*start;
+	int		ant;
 	int		i;
 
-	ft_printf("%s\n\n", lem->input); // add ignoring comments
+	ft_printf("%s\n\n", lem->input);
 	ant = 1;
 	i = 0;
 	start = lem->best_set->paths;
@@ -116,12 +113,11 @@ void	send_ants(t_lem *lem)
 			path = path->next;
 		}
 		if (ant <= lem->ants)
-		{
 			ant = send_new_ants(start, ant, lem);
-		}
 		lem->path_length--;
 		ft_printf("\n");
 		i++;
 	}
 	ft_printf("lines %d\n", i);
+	free_set(lem->best_set);
 }

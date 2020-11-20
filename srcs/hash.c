@@ -38,8 +38,12 @@ t_room			*get_hashed_room(t_lem *lem, char *key)
 	while (room != NULL)
 	{
 		if (ft_strcmp(room->c_name, key) == 0)
+		{
+			ft_strdel(&key);
 			return (room);
+		}
 		room = room->next;
 	}
+	ft_strdel(&key);
 	return (NULL);
 }

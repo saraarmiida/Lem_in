@@ -40,14 +40,14 @@ int		save_link(t_lem *lem, int i)
 	t_room	*room2;
 	t_rlink	*link1;
 	t_rlink	*link2;
-	char	*from;
-	char	*to;
+	char	*room_name;
 
-	from = ft_strcdup(&lem->input[i], '-');
-	i += ft_strlen(from) + 1;
-	to = ft_strcdup(&lem->input[i], '\n');
-	room1 = get_hashed_room(lem, from);
-	room2 = get_hashed_room(lem, to);
+	room_name = ft_strcdup(&lem->input[i], '-');
+	i += ft_strlen(room_name) + 1;
+	room1 = get_hashed_room(lem, room_name);
+	room_name = ft_strcdup(&lem->input[i], '\n');
+	i += ft_strlen(room_name) + 1;
+	room2 = get_hashed_room(lem, room_name);
 	if (room1 == NULL || room2 == NULL)
 		ft_error("unknown room name in link");
 	link1 = add_room_to_rooms_linked_rooms(room1, room2);
@@ -59,7 +59,7 @@ int		save_link(t_lem *lem, int i)
 		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room1->x, room1->y, room2->x, room2->y, room1->c_name, room2->c_name);
 		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room2->x, room2->y, room1->x, room1->y, room2->c_name, room1->c_name);
 	}
-	return (i + ft_strlen(to) + 1);
+	return (i);
 }
 
 int		get_links(t_lem *lem)
@@ -78,7 +78,6 @@ int		get_links(t_lem *lem)
 		else
 			ft_error("invalid links");
 	}
-	// ft_printf("Got %d links\n", lem->link_amount);
 	lem->i = i;
 	return (0);
 }

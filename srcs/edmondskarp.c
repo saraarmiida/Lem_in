@@ -25,6 +25,34 @@ void	mark_flow(t_queue *queue, t_lem *lem)
 	lem->max_flow++;
 }
 
+t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
+{
+	t_queue	*newq;
+	t_rlink	*child;
+
+	newq = NULL;
+	child = parentq->room->linked_rooms;
+	while (child != NULL)
+	{
+		if (child->tgtroom->visited == 0 && child->flow != 1)
+		{
+			child->tgtroom->visited = 1;
+			child->tgtroom->level = parentq->room->level + 1;
+			newq = init_newq(child->tgtroom, child, parentq);
+			if (childq)
+				newq->next = childq;
+			childq = newq;
+			if (child->tgtroom == lem->end)
+			{
+				mark_flow(childq, lem);
+				return (childq);
+			}
+		}
+		child = child->next;
+	}
+	return (childq);
+}
+
 /*
 ** We go through rooms with bfs, finding the shortest path that
 ** we haven't found yet. Instead of saving the path, we just mark
@@ -36,40 +64,20 @@ int		edmondskarp(t_lem *lem)
 {
 	t_queue			*parentq;
 	t_queue			*childq;
-	t_queue			*newq;
-	t_rlink			*child;
 	int				level;
 
 	level = 0;
 	childq = NULL;
 	parentq = NULL;
-	child = NULL;
-	newq = NULL;
 	parentq = init_newq(lem->start, NULL, NULL);
 	lem->start->visited = 1;
 	while (parentq != NULL)
 	{
 		while (parentq != NULL)
 		{
-			child = parentq->room->linked_rooms;
-			while (child != NULL)
-			{
-				if (child->tgtroom->visited == 0 && child->flow != 1)
-				{
-					child->tgtroom->visited = 1;
-					child->tgtroom->level = parentq->room->level + 1;
-					newq = init_newq(child->tgtroom, child, parentq);
-					if (childq)
-						newq->next = childq;
-					childq = newq;
-					if (child->tgtroom == lem->end)
-					{
-						mark_flow(childq, lem);
-						return (1);
-					}
-				}
-				child = child->next;
-			}
+			childq = find_childq(parentq, childq, lem);
+			if (childq && childq->room == lem->end)
+				return (1);
 			parentq = parentq->next;
 		}
 		level++;

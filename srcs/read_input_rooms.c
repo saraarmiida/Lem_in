@@ -16,6 +16,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i)
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
 	room->visited = 0;
+	room->in_path = 0;
 	room->next = NULL;
 	room->linked_rooms = NULL;
 	room->level = 0;

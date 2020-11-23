@@ -71,6 +71,7 @@ typedef struct		s_room
 	int				y;
 	int				level;
 	int				visited;
+	int				in_path;
 	int				ant;
 	t_rlink			*linked_rooms;
 	struct s_room	*next;
@@ -158,6 +159,7 @@ void				print_queue(t_queue *queue, int l);
 void				print_path(t_bucket *set);
 void				print_debug_info(t_lem *lem);
 void				print_paths(t_lem *lem);
+void				print_rooms(t_lem *lem);
 
 /*
 ** utils.c

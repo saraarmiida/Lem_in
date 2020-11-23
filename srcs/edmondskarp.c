@@ -8,6 +8,7 @@
 
 void	mark_flow(t_queue *queue, t_lem *lem)
 {
+	// ft_printf("\nMARKING FLOW\n");
 	while (queue->room != lem->start)
 	{
 		if (queue->edge->flow == 0)
@@ -20,8 +21,10 @@ void	mark_flow(t_queue *queue, t_lem *lem)
 			queue->edge->flow = 0;
 			queue->edge->opposite->flow = 0;
 		}
+		// ft_printf("	edge %s flow %d|%d\n", queue->room->c_name, queue->edge->flow, queue->edge->opposite->flow);
 		queue = queue->parent;
 	}
+	// ft_printf("\n");
 	lem->max_flow++;
 }
 
@@ -29,13 +32,22 @@ t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 {
 	t_queue	*newq;
 	t_rlink	*child;
+	int		flow;
 
 	newq = NULL;
+	flow = 0;
 	child = parentq->room->linked_rooms;
+	if (parentq->room->in_path == 1 && parentq->parent->room->in_path == 0)
+		flow = 0;
+	else
+		flow = 1;
+	// ft_printf("\nFINDING CHILDQ\n");
+	// ft_printf("	parent: %s\n", parentq->room->c_name);
 	while (child != NULL)
 	{
-		if (child->tgtroom->visited == 0 && child->flow != 1)
+		if (child->tgtroom->visited == 0 && child->flow != 1 && child->flow != flow)
 		{
+			// ft_printf("		child: %s\n", child->tgtroom->c_name);
 			child->tgtroom->visited = 1;
 			child->tgtroom->level = parentq->room->level + 1;
 			newq = init_newq(child->tgtroom, child, parentq, lem);

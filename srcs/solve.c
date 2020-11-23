@@ -40,10 +40,12 @@ int		find_path(t_lem *lem, t_bucket *set)
 	node = init_node(lem->start, NULL);
 	head = node;
 	len = 0;
+	// ft_printf("\nFINDING PATH\n");
 	while (current != NULL)
 	{
 		if (current->flow == 1 && current->tgtroom->visited == 0)
 		{
+			// ft_printf("	Chosen %s (flow: %d|%d)\n", current->tgtroom->c_name, current->flow, current->opposite->flow);
 			len++;
 			newnode = init_node(current->tgtroom, node);
 			node->next = newnode;
@@ -51,10 +53,14 @@ int		find_path(t_lem *lem, t_bucket *set)
 				return (save_path(head, len, set));
 			node = newnode;
 			current->tgtroom->visited = 1;
+			current->tgtroom->in_path = 1;
 			current = current->tgtroom->linked_rooms;
 		}
 		else
+		{
+			// ft_printf("	Skipped %s (flow: %d|%d)\n", current->tgtroom->c_name, current->flow, current->opposite->flow);
 			current = current->next;
+		}
 	}
 	return (0);
 }

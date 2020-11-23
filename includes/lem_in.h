@@ -33,6 +33,8 @@ typedef struct		s_queue
 	struct s_rlink	*edge;
 	struct s_queue	*parent;
 	struct s_queue	*next;
+	struct s_queue	*prev;
+	
 }					t_queue;
 
 typedef struct		s_paths
@@ -83,6 +85,7 @@ typedef struct		s_lem
 	t_queue			*queue;
 	t_bucket		*best_set;
 	t_paths			*paths;
+	t_queue			*last_queue;
 	int				*qi;
 	int				start_i;
 	int				end_i;
@@ -128,7 +131,7 @@ t_room				*get_hashed_room(t_lem *lem, char *key);
 ** inits.c
 */
 void				init_lem(t_lem *lem);
-t_queue				*init_newq(t_room *room, t_rlink *edge, t_queue *parent);
+t_queue				*init_newq(t_room *room, t_rlink *edge, t_queue *parent, t_lem *lem);
 t_path				*init_node(t_room *room, t_path *next);
 void				*init_table(t_lem *lem);
 
@@ -163,7 +166,7 @@ void				print_paths(t_lem *lem);
 void				reset_rooms(t_lem *lem);
 void				ft_error(char *msg);
 void				free_set(t_bucket *set);
-void				free_queue(t_queue **queue);
+void				free_queue(t_queue *queue);
 void				free_lem(t_lem* lem);
 int					ft_strmatchlen(char const *s, char const *s2);
 

@@ -12,10 +12,13 @@ t_path		*init_node(t_room *room, t_path *prev)
 	return (node);
 }
 
-t_queue		*init_newq(t_room *room, t_rlink *edge, t_queue *parent)
+t_queue		*init_newq(t_room *room, t_rlink *edge, t_queue *parent, t_lem *lem)
 {
-	t_queue		*newq;
+	t_queue			*newq;
+	static t_queue	*prev;
 
+	if (!prev)
+		prev = NULL;
 	if (!(newq = (t_queue*)malloc(sizeof(t_queue))))
 	{
 		ft_printf("Could not allocate queue.");
@@ -25,6 +28,12 @@ t_queue		*init_newq(t_room *room, t_rlink *edge, t_queue *parent)
 	newq->edge = edge;
 	newq->parent = parent;
 	newq->next = NULL;
+	newq->prev = prev;
+	lem->last_queue = newq;
+	if (room != lem->end)
+		prev = newq;
+	else
+		prev = NULL;
 	return (newq);
 }
 

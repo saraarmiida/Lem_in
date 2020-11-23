@@ -38,7 +38,7 @@ t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 		{
 			child->tgtroom->visited = 1;
 			child->tgtroom->level = parentq->room->level + 1;
-			newq = init_newq(child->tgtroom, child, parentq);
+			newq = init_newq(child->tgtroom, child, parentq, lem);
 			if (childq)
 				newq->next = childq;
 			childq = newq;
@@ -69,7 +69,7 @@ int		edmondskarp(t_lem *lem)
 	level = 0;
 	childq = NULL;
 	parentq = NULL;
-	parentq = init_newq(lem->start, NULL, NULL);
+	parentq = init_newq(lem->start, NULL, NULL, lem);
 	lem->start->visited = 1;
 	while (parentq != NULL)
 	{

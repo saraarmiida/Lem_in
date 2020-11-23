@@ -100,6 +100,9 @@ int		solve(t_lem *lem)
 	while (start_room != NULL && i <= lem->ants)
 	{
 		edmondskarp(lem);
+		if (lem->last_queue)
+			free_queue(lem->last_queue);
+		lem->last_queue = NULL;
 		reset_rooms(lem);
 		find_set(lem);
 		reset_rooms(lem);

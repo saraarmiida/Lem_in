@@ -34,6 +34,6 @@ int			main(int argc, char **argv)
 	// 	print_debug_info(lem);
 	send_ants(lem);
 	// free_lem(lem);
-	while (1);
+	// while (1);
 	return (0);
 }

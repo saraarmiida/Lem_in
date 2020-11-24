@@ -99,26 +99,20 @@ void	find_set(t_lem *lem)
 
 int		solve(t_lem *lem)
 {
-	t_rlink	*start_room;
-	int		i;
-	int		y;
+	int		x;
 
-	start_room = lem->start->linked_rooms;
-	i = 0;
-	y = 1;
-	while (y == 1)
+	x = 1;
+	while (x == 1)
 	{
-		y = edmondskarp(lem);
+		x = edmondskarp(lem);
 		if (lem->last_queue)
 			free_queue(lem->last_queue);
 		lem->last_queue = NULL;
-		if (y == 0)
+		if (x == 0)
 			break ;
 		reset_rooms(lem);
 		find_set(lem);
 		reset_rooms(lem);
-		start_room = start_room->next;
-		i++;
 	}
 	if (lem->best_set == NULL)
 		ft_error("no possible path");

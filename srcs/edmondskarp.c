@@ -76,9 +76,9 @@ t_queue	*save_newq(t_rlink *child, t_queue *parentq, t_queue *childq, t_lem *lem
 
 t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 {
-	t_rlink	*child;
-	int		flow;
+	t_rlink			*child;
 	static t_room	*crossing_old_path;
+	int				flow;
 
 	if (!crossing_old_path)
 		crossing_old_path = NULL;
@@ -126,11 +126,8 @@ int		edmondskarp(t_lem *lem)
 {
 	t_queue			*parentq;
 	t_queue			*childq;
-	int				level;
 
-	level = 0;
 	childq = NULL;
-	parentq = NULL;
 	parentq = init_newq(lem->start, NULL, NULL, lem);
 	lem->start->visited = 1;
 	while (parentq != NULL)
@@ -142,7 +139,6 @@ int		edmondskarp(t_lem *lem)
 				return (1);
 			parentq = parentq->next;
 		}
-		level++;
 		parentq = childq;
 		childq = NULL;
 	}

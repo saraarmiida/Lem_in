@@ -17,11 +17,15 @@ void	reset_rooms(t_lem *lem)
 		{
 			if (r->visited == 1)
 				r->visited = 0;
+			if (r->in_path == 0)
+				r->level = 0;
 			while (r->next != NULL)
 			{
 				r = r->next;
 				if (r->visited == 1)
 					r->visited = 0;
+				if (r->in_path == 0)
+					r->level = 0;
 			}
 		}
 		i++;

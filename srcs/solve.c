@@ -40,12 +40,12 @@ int		find_path(t_lem *lem, t_bucket *set)
 	node = init_node(lem->start, NULL);
 	head = node;
 	len = 0;
-	ft_printf("\nFINDING PATH\n");
+	// ft_printf("\nFINDING PATH\n");
 	while (current != NULL)
 	{
 		if (current->flow == 1 && current->tgtroom->visited == 0)
 		{
-			ft_printf("	Chosen %s (flow: %d|%d)\n", current->tgtroom->c_name, current->flow, current->opposite->flow);
+			// ft_printf("	Chosen %s (flow: %d|%d)\n", current->tgtroom->c_name, current->flow, current->opposite->flow);
 			len++;
 			newnode = init_node(current->tgtroom, node);
 			node->next = newnode;
@@ -59,7 +59,7 @@ int		find_path(t_lem *lem, t_bucket *set)
 		}
 		else
 		{
-			ft_printf("	Skipped %s (flow: %d|%d)\n", current->tgtroom->c_name, current->flow, current->opposite->flow);
+			// ft_printf("	Skipped %s (flow: %d|%d)\n", current->tgtroom->c_name, current->flow, current->opposite->flow);
 			current = current->next;
 		}
 	}
@@ -101,15 +101,19 @@ int		solve(t_lem *lem)
 {
 	t_rlink	*start_room;
 	int		i;
+	int		y;
 
 	start_room = lem->start->linked_rooms;
 	i = 0;
-	while (start_room != NULL && i <= lem->ants)
+	y = 1;
+	while (y == 1)
 	{
-		edmondskarp(lem);
+		y = edmondskarp(lem);
 		if (lem->last_queue)
 			free_queue(lem->last_queue);
 		lem->last_queue = NULL;
+		if (y == 0)
+			break ;
 		reset_rooms(lem);
 		find_set(lem);
 		reset_rooms(lem);

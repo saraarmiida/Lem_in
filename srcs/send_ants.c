@@ -98,7 +98,7 @@ void	send_ants(t_lem *lem)
 	int		ant;
 	int		i;
 
-	ft_printf("%s\n\n", lem->input);
+	// ft_printf("%s\n\n", lem->input);
 	ant = 1;
 	i = 0;
 	start = lem->best_set->paths;

@@ -89,7 +89,7 @@ void		free_lem(t_lem *lem)
 	t_room	*tmp;
 
 	i = 0;
-	ft_printf("freeing struct\n");
+	// ft_printf("freeing struct\n");
 	while (i < lem->tablesize)
 	{
 		r = lem->rooms[i];
@@ -120,7 +120,7 @@ void	free_path(t_path *node)
 {
 	t_path *tmp;
 
-	ft_printf("freeing path\n");
+	// ft_printf("freeing path\n");
 	while (node != NULL)
 	{
 		tmp = node;
@@ -135,7 +135,7 @@ void	free_set(t_bucket *set)
 	t_paths	*tmp;
 
 	path = set->paths;
-	ft_printf("freeing set\n");
+	// ft_printf("freeing set\n");
 	while (path != NULL)
 	{
 		free_path(path->path);
@@ -151,7 +151,7 @@ void	free_queue(t_queue *queue)
 {
 	t_queue	*tmp;
 
-	ft_printf("freeing queue\n");
+	// ft_printf("freeing queue\n");
 	while (queue != NULL)
 	{
 		if (queue)

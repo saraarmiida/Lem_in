@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-int			main(int argc, char **argv)
+int			main()
 {
 	t_lem	*lem;
 	int		info;
@@ -8,21 +8,22 @@ int			main(int argc, char **argv)
 	info = 0;
 	if (!(lem = (t_lem*)malloc(sizeof(t_lem))))
 		return (1);
-	if (argc == 3)
-	{
-		if (ft_strncmp(argv[2], "-v", 2) != 0)
-		{
-			ft_putstr_fd("Usage with file and visualiser: ./lem-in [map] -v | ./visualiser/visu\n", 2);
-			exit(0);
-		}
-		info = 1;
-	}
-	else if (argc != 2)
-	{
-		ft_putstr_fd("Usage: ./lem-in [map]\nWith visualiser: ./lem-in [map] -v | ./visualiser/visu\n", 2);
-		exit(0);
-	}
-	lem->fd = open(argv[1], O_RDONLY);
+	// if (argc == 3)
+	// {
+	// 	if (ft_strncmp(argv[2], "-v", 2) != 0)
+	// 	{
+	// 		ft_putstr_fd("Usage with file and visualiser: ./lem-in [map] -v | ./visualiser/visu\n", 2);
+	// 		exit(0);
+	// 	}
+	// 	info = 1;
+	// }
+	// else if (argc != 2)
+	// {
+	// 	ft_putstr_fd("Usage: ./lem-in [map]\nWith visualiser: ./lem-in [map] -v | ./visualiser/visu\n", 2);
+	// 	exit(0);
+	// }
+	// lem->fd = open(argv[1], O_RDONLY);
+	lem->fd = 0;
 	init_lem(lem);
 	lem->info = info;
 	read_input(lem);
@@ -31,5 +32,6 @@ int			main(int argc, char **argv)
 	if (solve(lem) == 1)
 		ft_error("no possible paths");
 	send_ants(lem);
+	while (1);
 	return (0);
 }

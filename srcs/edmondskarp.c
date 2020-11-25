@@ -4,8 +4,8 @@ void	remove_old_flow(t_room *room, t_lem *lem)
 {
 	t_rlink	*link;
 
-	// ft_printf("\nREMOVING OLD FLOW\n");
-	// ft_printf("starting from: %s\n", room->c_name);
+	ft_printf("\nREMOVING OLD FLOW\n");
+	ft_printf("starting from: %s\n", room->c_name);
 	while (room != lem->start)
 	{
 		link = room->linked_rooms;
@@ -13,10 +13,10 @@ void	remove_old_flow(t_room *room, t_lem *lem)
 			link = link->next;
 		if (link->flow == -1)
 		{
-			// ft_printf("	edge %s flow %d|%d to ", link->tgtroom->c_name, link->flow, link->opposite->flow);
+			ft_printf("	edge %s flow %d|%d to ", link->tgtroom->c_name, link->flow, link->opposite->flow);
 			link->flow = 0;
 			link->opposite->flow = 0;
-			// ft_printf("%d|%d\n", link->flow, link->opposite->flow);
+			ft_printf("%d|%d\n", link->flow, link->opposite->flow);
 		}
 		room = link->tgtroom;
 	}
@@ -31,7 +31,7 @@ void	remove_old_flow(t_room *room, t_lem *lem)
 
 void	mark_flow(t_queue *queue, t_lem *lem)
 {
-	// ft_printf("\nMARKING FLOW\n");
+	ft_printf("\nMARKING FLOW\n");
 	while (queue->room != lem->start)
 	{
 		if (queue->edge->flow == 0)
@@ -44,10 +44,10 @@ void	mark_flow(t_queue *queue, t_lem *lem)
 			queue->edge->flow = 0;
 			queue->edge->opposite->flow = 0;
 		}
-		// ft_printf("	edge %s flow %d|%d\n", queue->room->c_name, queue->edge->flow, queue->edge->opposite->flow);
+		ft_printf("	edge %s flow %d|%d\n", queue->room->c_name, queue->edge->flow, queue->edge->opposite->flow);
 		queue = queue->parent;
 	}
-	// ft_printf("\n");
+	ft_printf("\n");
 	lem->max_flow++;
 }
 
@@ -96,20 +96,6 @@ t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 			if (childq && childq->room == lem->end)
 				return (childq);
 		}
-		// else if (child->tgtroom->visited == 0 && child->flow == 1 && (child->tgtroom->level > (parentq->room->level + 1) || (child->tgtroom == lem->end && flow == 1)))
-		// {
-		// 	if (crossing_old_path == NULL)
-		// 		crossing_old_path = parentq->room;
-		// 	childq = save_newq(child, parentq, childq, lem);
-		// 	if (childq && childq->room == lem->end)
-		// 	{
-		// 		remove_old_flow(crossing_old_path, lem);
-		// 		crossing_old_path = NULL;
-		// 		return (childq);
-		// 	}
-		// }
-		// else
-			// ft_printf("		rejected child: %s level %d visited %d flow %d\n", child->tgtroom->c_name, child->tgtroom->level, child->tgtroom->visited, child->flow);
 		child = child->next;
 	}
 	return (childq);

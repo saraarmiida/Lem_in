@@ -17,7 +17,7 @@ int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 	length = 0;
 	while (path != NULL && ant <= lem->ants)
 	{
-		ft_printf("L%d-%d ", ant, i);
+		// ft_printf("L%d-%d ", ant, i);
 		path->path->next->room->ant = ant;
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
@@ -44,10 +44,10 @@ void	move_ants(t_path *room, t_room *end)
 	running_ant = 0;
 	while (room->room != end)
 	{
-		if (room->room->ant != 0)
-		{
-			ft_printf("L%d-%s ", room->room->ant, room->next->room->c_name);
-		}
+		// if (room->room->ant != 0)
+		// {
+		// 	ft_printf("L%d-%s ", room->room->ant, room->next->room->c_name);
+		// }
 		temp_ant = room->room->ant;
 		room->room->ant = running_ant;
 		running_ant = room->next->room == end ? 0 : temp_ant;
@@ -103,7 +103,7 @@ void	send_ants(t_lem *lem)
 
 	ant = 1;
 	i = 0;
-	ft_printf("%s\n\n", lem->input);
+	// ft_printf("%s\n\n", lem->input);
 	start = lem->best_set->paths;
 	sort_paths(start);
 	lem->path_length = start->length;
@@ -118,9 +118,9 @@ void	send_ants(t_lem *lem)
 		if (ant <= lem->ants)
 			ant = send_new_ants(start, ant, lem);
 		lem->path_length--;
-		ft_printf("\n");
+		// ft_printf("\n");
 		i++;
 	}
-	ft_printf("lines %d\n", i);
+	ft_printf("lines: %d\n", i);
 	free_set(lem->best_set);
 }

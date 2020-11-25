@@ -52,7 +52,8 @@ int		read_input(t_lem *lem)
 	char	*tmp;
 	int		i;
 
-	while ((i = read(lem->fd, buf, BUF_SIZE)) > 0)
+	ft_printf("hello1\n");
+	while ((i = read(0, buf, BUF_SIZE)) > 0)
 	{
 		buf[i] = '\0';
 		if (!lem->input)

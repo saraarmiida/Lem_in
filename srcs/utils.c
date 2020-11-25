@@ -1,5 +1,13 @@
 #include "../includes/lem_in.h"
 
+void	reset_room(t_room *r)
+{
+	if (r->visited == 1)
+		r->visited = 0;
+	if (r->in_path == 0)
+		r->level = 0;
+}
+
 /*
 ** Sets all rooms to be unvisited.
 */
@@ -15,17 +23,11 @@ void	reset_rooms(t_lem *lem)
 		r = lem->rooms[i];
 		if (r != NULL)
 		{
-			if (r->visited == 1)
-				r->visited = 0;
-			if (r->in_path == 0)
-				r->level = 0;
+			reset_room(r);
 			while (r->next != NULL)
 			{
 				r = r->next;
-				if (r->visited == 1)
-					r->visited = 0;
-				if (r->in_path == 0)
-					r->level = 0;
+				reset_room(r);
 			}
 		}
 		i++;
@@ -68,52 +70,6 @@ void	ft_error(char *msg)
 {
 	ft_printf("ERROR: %s\n", msg);
 	exit(1);
-}
-
-void	free_links(t_rlink *node)
-{
-	t_rlink *tmp;
-
-	while (node != NULL)
-	{
-		tmp = node;
-		node = node->next;
-		free(tmp);
-	}
-}
-
-void	free_lem(t_lem *lem)
-{
-	int		i;
-	t_room	*r;
-	t_room	*tmp;
-
-	i = 0;
-	// ft_printf("freeing struct\n");
-	while (i < lem->tablesize)
-	{
-		r = lem->rooms[i];
-		if (r != NULL)
-		{
-			free_links(r->linked_rooms);
-			tmp = r;
-			r = r->next;
-			ft_strdel(&tmp->c_name);
-			free(tmp);
-			while (r != NULL)
-			{
-				free_links(r->linked_rooms);
-				tmp = r;
-				r = r->next;
-				ft_strdel(&tmp->c_name);
-				free(tmp);
-			}
-		}
-		i++;
-	}
-	free(lem->rooms);
-	ft_strdel(&lem->input);
-	free(lem);
 }
 
 void	free_path(t_path *node)

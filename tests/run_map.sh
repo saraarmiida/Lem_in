@@ -35,9 +35,8 @@ do
   count=$(( $count + 1))
   sleep 1
 done
-​
 avg=$(echo $total / $count | bc -l)
 echo "Total runs $count"
 echo "Total diff $total"
 echo "Average diff to req: $avg"
-echo "Biggest difference: $biggest
+echo "Biggest difference: $biggest"

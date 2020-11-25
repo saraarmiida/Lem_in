@@ -1,13 +1,6 @@
 #include "../includes/lem_in.h"
 
-int		skip_line(char *input, int i)
-{
-	while (input[i] && input[i] != '\n')
-		i++;
-	return (i + 1);
-}
-
-int		only_digits(char *input, int index)
+static int	only_digits(char *input, int index)
 {
 	int	i;
 
@@ -21,7 +14,7 @@ int		only_digits(char *input, int index)
 	return (1);
 }
 
-int		get_ants(t_lem *lem)
+static int	get_ants(t_lem *lem)
 {
 	int	i;
 
@@ -46,21 +39,25 @@ int		get_ants(t_lem *lem)
 ** read input to a simple string
 */
 
-int		read_input(t_lem *lem)
+int			read_input(t_lem *lem)
 {
 	char	buf[BUF_SIZE + 1];
 	char	*tmp;
 	int		i;
 
-	ft_printf("hello1\n");
 	while ((i = read(0, buf, BUF_SIZE)) > 0)
 	{
 		buf[i] = '\0';
-		if (!lem->input)
+		if (lem->input == NULL)
 			lem->input = ft_strnew(0);
 		tmp = ft_strjoin(lem->input, buf);
 		ft_strdel(&lem->input);
 		lem->input = tmp;
+	}
+	if (lem->input == NULL)
+	{
+		ft_putstr_fd("Usage: ./lem-in < [map]\nWith visualiser:\
+		./lem-in -v < [map] | ./visualiser/visu\n", 2);
 	}
 	get_ants(lem);
 	get_rooms(lem);

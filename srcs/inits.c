@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-t_path		*init_node(t_room *room, t_path *prev)
+t_path		*init_node(t_room *room, t_path *prev, t_lem *lem)
 {
 	t_path	*node;
 
@@ -9,6 +9,13 @@ t_path		*init_node(t_room *room, t_path *prev)
 	node->room = room;
 	node->next = NULL;
 	node->prev = prev;
+	if (prev != NULL)
+		prev->next = node;
+	if (room != lem->start && room != lem->end)
+	{
+		room->visited = 1;
+		room->in_path = 1;
+	}
 	return (node);
 }
 
@@ -54,18 +61,18 @@ void		*init_table(t_lem *lem)
 
 void		init_lem(t_lem *lem)
 {
-	lem->fd = 3;
+	lem->best_set = NULL;
+	lem->input = NULL;
+	lem->start_i = 0;
+	lem->end_i = 0;
+	lem->max_flow = 0;
+	lem->path_length = 0;
 	lem->ants = 0;
 	lem->room_amount = 0;
-	lem->link_amount = 0;
-	lem->path_length = 0;
-	lem->max_flow = 0;
 	lem->tablesize = 0;
-	lem->input = NULL;
-	lem->j = 0;
+	lem->link_amount = 0;
 	lem->i = 0;
+	lem->j = 0;
 	lem->info = 0;
-	lem->best_set = NULL;
-	lem->lvl_flow = 0;
-	lem->qi = 0;
+	lem->fd = 3; // can delete
 }

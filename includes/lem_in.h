@@ -8,6 +8,7 @@
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
+
 // # include "SDL2/SDL.h"
 // # include "../visualiser/SDL2_ttf.framework/Headers/SDL_ttf.h"
 
@@ -19,29 +20,11 @@ typedef struct		s_path
 	int				length;
 }					t_path;
 
-typedef struct		s_rlink
-{
-	struct s_room	*tgtroom;
-	struct s_rlink	*next;
-	struct s_rlink	*opposite;
-	int				flow;
-}					t_rlink;
-
-typedef struct		s_queue
-{
-	struct s_room	*room;
-	struct s_rlink	*edge;
-	struct s_queue	*parent;
-	struct s_queue	*next;
-	struct s_queue	*prev;
-	
-}					t_queue;
-
 typedef struct		s_paths
 {
 	struct s_path	*path;
 	int				length;
-	int				ants;
+	int				ants; // can delete if no change in send_ants
 	struct s_paths	*next;
 }					t_paths;
 
@@ -53,21 +36,27 @@ typedef struct		s_bucket
 	int				cost;
 }					t_bucket;
 
-/*
-** Combine t_path, t_rlink, t_queues and t_paths to t_queue.
-*/
+typedef struct		s_queue
+{
+	struct s_room	*room;
+	struct s_rlink	*edge;
+	struct s_queue	*parent;
+	struct s_queue	*next;
+	struct s_queue	*prev;
 
-// typedef struct		s_queue
-// {
-// 	void			*node;
-// 	size_t			node_size;
-// 	void			*next;
-// 	void			*prev;
-// }					t_queue;
+}					t_queue;
+
+typedef struct		s_rlink
+{
+	struct s_room	*tgtroom;
+	struct s_rlink	*next;
+	struct s_rlink	*opposite;
+	int				flow;
+}					t_rlink;
 
 typedef struct		s_room
 {
-	char			*c_name;
+	char			*name;
 	int				x;
 	int				y;
 	int				level;
@@ -88,7 +77,7 @@ typedef struct		s_lem
 	t_bucket		*best_set;
 	t_paths			*paths;
 	t_queue			*last_queue;
-	int				*qi;
+	char			*input;
 	int				start_i;
 	int				end_i;
 	int				max_flow;
@@ -97,25 +86,21 @@ typedef struct		s_lem
 	int				room_amount;
 	int				tablesize;
 	int				link_amount;
-	int				fd;
-	char			*input;
 	int				i;
 	int				j;
 	int				info;
-	int				lvl_flow;
+	int				fd; // can delete
 }					t_lem;
 
 /*
 ** read_input_basics.c
 */
 int					read_input(t_lem *lem);
-int					skip_line(char *input, int i);
 
 /*
 ** read_input_rooms.c
 */
 int					get_rooms(t_lem *lem);
-int					get_start_and_end(t_lem *lem);
 
 /*
 ** read_input_links.c
@@ -126,27 +111,18 @@ int					get_links(t_lem *lem);
 ** hash.c
 */
 unsigned int		hash(char *key, int tablesize);
-void				*init_table(t_lem *lem);
 t_room				*get_hashed_room(t_lem *lem, char *key);
 
 /*
-** inits.c
+** solve.c
 */
-void				init_lem(t_lem *lem);
-t_queue				*init_newq(t_room *room, t_rlink *edge, t_queue *parent, t_lem *lem);
-t_path				*init_node(t_room *room, t_path *next);
-void				*init_table(t_lem *lem);
-
-/*
-** bfs.c
-*/
-int					create_bucket(t_lem *lem);
 int					solve(t_lem *lem);
 
 /*
-** find_paths.c
+** edmondskarp.c
 */
-t_path				*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
+
+int					edmondskarp(t_lem *lem);
 
 /*
 ** send_ants.c
@@ -154,26 +130,35 @@ t_path				*add_path_to_bucket(t_lem *lem, t_bucket *bucket);
 void				send_ants(t_lem *lem);
 
 /*
-** print_info.c
-*/
-void				print_queue(t_queue *queue, int l);
-void				print_path(t_bucket *set);
-void				print_debug_info(t_lem *lem);
-void				print_paths(t_lem *lem);
-void				print_rooms(t_lem *lem);
-
-/*
 ** utils.c
 */
-
 void				reset_rooms(t_lem *lem);
+int					ft_strmatchlen(char const *s, char const *s2);
 void				ft_error(char *msg);
+int					skip_line(char *input, int i);
+
+/*
+** inits.c
+*/
+t_path				*init_node(t_room *room, t_path *next, t_lem *lem);
+t_queue				*init_newq(t_room *r, t_rlink *edge, t_queue *p, t_lem *l);
+void				*init_table(t_lem *lem);
+void				init_lem(t_lem *lem);
+
+/*
+** free.c
+*/
+void				free_path(t_path *node);
 void				free_set(t_bucket *set);
 void				free_queue(t_queue *queue);
-void				free_lem(t_lem* lem);
-int					ft_strmatchlen(char const *s, char const *s2);
 
-int					edmondskarp(t_lem *lem);
-
+/*
+** print_info.c
+*/
+// remove ones that are not necessary for visu / explaining
+void				print_queue(t_queue *queue, int l);
+void				print_path(t_bucket *set);
+void				print_rooms(t_lem *lem);
+void				print_debug_info(t_lem *lem);
 
 #endif

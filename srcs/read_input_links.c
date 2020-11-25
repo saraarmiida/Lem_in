@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
+static t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 {
 	t_rlink	*link;
 
@@ -19,7 +19,7 @@ t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	return (link);
 }
 
-int		check_link(t_lem *lem, int i)
+static int		check_link(t_lem *lem, int i)
 {
 	while (ft_isprint(lem->input[i]) && lem->input[i] != '-')
 		i++;
@@ -34,7 +34,7 @@ int		check_link(t_lem *lem, int i)
 	return (i + 1);
 }
 
-int		save_link(t_lem *lem, int i)
+static int		save_link(t_lem *lem, int i)
 {
 	t_room	*room1;
 	t_room	*room2;
@@ -46,7 +46,6 @@ int		save_link(t_lem *lem, int i)
 	i += ft_strlen(room_name) + 1;
 	room1 = get_hashed_room(lem, room_name);
 	room_name = ft_strcdup(&lem->input[i], '\n');
-	i += ft_strlen(room_name) + 1;
 	room2 = get_hashed_room(lem, room_name);
 	if (room1 == NULL || room2 == NULL)
 		ft_error("unknown room name in link");
@@ -56,13 +55,15 @@ int		save_link(t_lem *lem, int i)
 	link2->opposite = link1;
 	if (lem->info == 1)
 	{
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room1->x, room1->y, room2->x, room2->y, room1->c_name, room2->c_name);
-		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room2->x, room2->y, room1->x, room1->y, room2->c_name, room1->c_name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n",\
+		room1->x, room1->y, room2->x, room2->y, room1->name, room2->name);
+		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n",\
+		room2->x, room2->y, room1->x, room1->y, room2->name, room1->name);
 	}
-	return (i);
+	return (i + ft_strlen(room_name) + 1);
 }
 
-int		get_links(t_lem *lem)
+int				get_links(t_lem *lem)
 {
 	int	i;
 

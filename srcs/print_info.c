@@ -4,7 +4,7 @@
 ** Print debug info
 */
 
-void		print_queue(t_queue *queue, int l)
+void	print_queue(t_queue *queue, int l)
 {
 	t_queue	*q;
 
@@ -12,13 +12,13 @@ void		print_queue(t_queue *queue, int l)
 	ft_printf("queue l %d: ", l);
 	while (q != NULL)
 	{
-		ft_printf("| %s ", q->edge->tgtroom->c_name);
+		ft_printf("| %s ", q->edge->tgtroom->name);
 		q = q->next;
 	}
 	ft_printf("\n");
 }
 
-void		print_path(t_bucket *set)
+void	print_path(t_bucket *set)
 {
 	t_paths		*temp_paths;
 	t_path		*temp_path;
@@ -34,7 +34,7 @@ void		print_path(t_bucket *set)
 		ft_printf("Path%d length %d:\n", i, temp_paths->length);
 		while (temp_path != NULL)
 		{
-			ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
+			ft_printf("	Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
 			temp_path = temp_path->next;
 		}
 		temp_paths = temp_paths->next;
@@ -42,7 +42,7 @@ void		print_path(t_bucket *set)
 	}
 }
 
-void		print_rooms(t_lem *lem)
+void	print_rooms(t_lem *lem)
 {
 	int		i;
 	t_room	*r;
@@ -54,11 +54,11 @@ void		print_rooms(t_lem *lem)
 		r = lem->rooms[i];
 		if (r != NULL)
 		{
-			ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
+			ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->name, r->x, r->y, r->level, r->visited, r->next);
 			while (r->next != NULL)
 			{
 				r = r->next;
-				ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
+				ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->name, r->x, r->y, r->level, r->visited, r->next);
 			}
 		}
 		i++;
@@ -66,7 +66,7 @@ void		print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-void		print_hashtable(t_lem *lem)
+void	print_hashtable(t_lem *lem)
 {
 	int		i;
 	int		j;
@@ -79,24 +79,21 @@ void		print_hashtable(t_lem *lem)
 		if (lem->rooms[i] != NULL)
 		{
 			room = lem->rooms[i];
-			ft_printf("slot [%d]:\n", i);
-			ft_printf("	name: %s\n", lem->rooms[i]->c_name);
+			ft_printf("slot [%d]:\n	name: %s\n", i, lem->rooms[i]->name);
 			j++;
 			while (room->next != NULL)
 			{
-				ft_printf("	name: %s\n", room->next->c_name);
+				ft_printf("	name: %s\n", room->next->name);
 				room = room->next;
 				j++;
 			}
 		}
 		i++;
 	}
-	ft_printf("room amount: %d printed: %d\n\n", lem->room_amount, j);
 }
 
-void		print_debug_info(t_lem *lem)
+void	print_debug_info(t_lem *lem)
 {
 	// print_hashtable(lem);
 	print_rooms(lem);
-	// print_paths(lem);
 }

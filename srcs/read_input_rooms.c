@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-t_room	*get_room_info(t_lem *lem, char *name, int i)
+static t_room	*get_room_info(t_lem *lem, char *name, int i)
 {
 	t_room	*room;
 
@@ -10,8 +10,8 @@ t_room	*get_room_info(t_lem *lem, char *name, int i)
 		lem->start = room;
 	if (i == lem->end_i)
 		lem->end = room;
-	room->c_name = name;
-	i += ft_strlen(room->c_name) + 1;
+	room->name = name;
+	i += ft_strlen(room->name) + 1;
 	room->x = ft_atoi(&lem->input[i]);
 	i += ft_intlen(room->x) + 1;
 	room->y = ft_atoi(&lem->input[i]);
@@ -25,7 +25,7 @@ t_room	*get_room_info(t_lem *lem, char *name, int i)
 	return (room);
 }
 
-int		save_room(t_lem *lem, int i)
+static int		save_room(t_lem *lem, int i)
 {
 	t_room			*room;
 	t_room			*prev;
@@ -45,7 +45,7 @@ int		save_room(t_lem *lem, int i)
 	{
 		while (room != NULL)
 		{
-			if (ft_strcmp(room->c_name, name) == 0)
+			if (ft_strcmp(room->name, name) == 0)
 				ft_error("duplicate room");
 			prev = room;
 			room = prev->next;
@@ -60,7 +60,7 @@ int		save_room(t_lem *lem, int i)
 ** save start and end rooms
 */
 
-int		get_start_and_end(t_lem *lem)
+static int		get_start_and_end(t_lem *lem)
 {
 	lem->start_i = ft_strmatchlen(lem->input, "##start\n");
 	lem->end_i = ft_strmatchlen(lem->input, "##end\n");
@@ -73,7 +73,7 @@ int		get_start_and_end(t_lem *lem)
 ** validates room syntax
 */
 
-int		check_room(t_lem *lem, int i)
+static int		check_room(t_lem *lem, int i)
 {
 	int j;
 
@@ -108,7 +108,7 @@ int		check_room(t_lem *lem, int i)
 	return (i + 1);
 }
 
-int		get_rooms(t_lem *lem)
+int				get_rooms(t_lem *lem)
 {
 	int	i;
 

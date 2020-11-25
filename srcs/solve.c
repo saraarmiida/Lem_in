@@ -4,7 +4,7 @@
 ** Saves found path to struct
 */
 
-int		save_path(t_path *head, int length, t_bucket *set)
+static int	save_path(t_path *head, int length, t_bucket *set)
 {
 	t_paths	*path;
 
@@ -29,16 +29,15 @@ int		save_path(t_path *head, int length, t_bucket *set)
 ** Finds a path from start to end, can only use flows of 1.
 */
 
-int		find_path(t_lem *lem, t_bucket *set)
+static int	find_path(t_lem *lem, t_bucket *set)
 {
 	t_rlink	*current;
 	t_path	*node;
-	t_path	*newnode;
 	t_path	*head;
 	int		len;
 
 	current = lem->start->linked_rooms;
-	node = init_node(lem->start, NULL);
+	node = init_node(lem->start, NULL, lem);
 	head = node;
 	len = 0;
 	while (current != NULL)
@@ -46,23 +45,20 @@ int		find_path(t_lem *lem, t_bucket *set)
 		if (current->flow == 1 && current->tgtroom->visited == 0)
 		{
 			len++;
-			newnode = init_node(current->tgtroom, node);
-			node->next = newnode;
+			node = init_node(current->tgtroom, node, lem);
 			if (current->tgtroom == lem->end)
 				return (save_path(head, len, set));
-			node = newnode;
-			current->tgtroom->visited = 1;
-			current->tgtroom->in_path = 1;
 			current->tgtroom->level = len;
 			current = current->tgtroom->linked_rooms;
 		}
 		else
 			current = current->next;
 	}
+	free_path(head);
 	return (0);
 }
 
-void	find_set(t_lem *lem)
+static void	find_set(t_lem *lem)
 {
 	int			j;
 	t_bucket	*set;
@@ -93,9 +89,9 @@ void	find_set(t_lem *lem)
 ** (max_flow) and we search paths based on how we marked the flows.
 */
 
-int		solve(t_lem *lem)
+int			solve(t_lem *lem)
 {
-	int		x;
+	int	x;
 
 	x = 1;
 	while (x == 1)

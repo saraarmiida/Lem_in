@@ -37,7 +37,7 @@ t_room			*get_hashed_room(t_lem *lem, char *key)
 		return (NULL);
 	while (room != NULL)
 	{
-		if (ft_strcmp(room->c_name, key) == 0)
+		if (ft_strcmp(room->name, key) == 0)
 		{
 			ft_strdel(&key);
 			return (room);

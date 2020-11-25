@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-int			main()
+int			main(void)
 {
 	t_lem	*lem;
 	int		info;
@@ -32,6 +32,5 @@ int			main()
 	if (solve(lem) == 1)
 		ft_error("no possible paths");
 	send_ants(lem);
-	while (1);
 	return (0);
 }

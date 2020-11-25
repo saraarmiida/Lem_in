@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-void	reset_room(t_room *r)
+static void	reset_room(t_room *r)
 {
 	if (r->visited == 1)
 		r->visited = 0;
@@ -12,7 +12,7 @@ void	reset_room(t_room *r)
 ** Sets all rooms to be unvisited.
 */
 
-void	reset_rooms(t_lem *lem)
+void		reset_rooms(t_lem *lem)
 {
 	int		i;
 	t_room	*r;
@@ -43,7 +43,7 @@ void	reset_rooms(t_lem *lem)
 ** not found, it returns -1.
 */
 
-int		ft_strmatchlen(char const *s, char const *s2)
+int			ft_strmatchlen(char const *s, char const *s2)
 {
 	int i;
 	int j;
@@ -66,56 +66,15 @@ int		ft_strmatchlen(char const *s, char const *s2)
 	return (-1);
 }
 
-void	ft_error(char *msg)
+void		ft_error(char *msg)
 {
 	ft_printf("ERROR: %s\n", msg);
 	exit(1);
 }
 
-void	free_path(t_path *node)
+int			skip_line(char *input, int i)
 {
-	t_path *tmp;
-
-	// ft_printf("freeing path\n");
-	while (node != NULL)
-	{
-		tmp = node;
-		node = node->next;
-		free(tmp);
-	}
-}
-
-void	free_set(t_bucket *set)
-{
-	t_paths *path;
-	t_paths	*tmp;
-
-	path = set->paths;
-	// ft_printf("freeing set\n");
-	while (path != NULL)
-	{
-		free_path(path->path);
-		tmp = path;
-		path = path->next;
-		free(tmp);
-	}
-	free(set);
-	set = NULL;
-}
-
-void	free_queue(t_queue *queue)
-{
-	t_queue	*tmp;
-
-	// ft_printf("freeing queue\n");
-	while (queue != NULL)
-	{
-		if (queue)
-		{
-			tmp = queue;
-			queue = queue->prev;
-			if (tmp)
-				free(tmp);
-		}
-	}
+	while (input[i] && input[i] != '\n')
+		i++;
+	return (i + 1);
 }

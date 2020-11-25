@@ -13,6 +13,7 @@ int		save_path(t_path *head, int length, t_bucket *set)
 	path->path = head;
 	path->next = NULL;
 	path->length = length;
+	path->ants = 0;
 	if (set->paths == NULL)
 		set->paths = path;
 	else
@@ -88,7 +89,7 @@ void	find_set(t_lem *lem)
 	}
 	else
 		free_set(set);
-	print_path(lem->best_set);
+	// print_path(lem->best_set);
 }
 
 /*

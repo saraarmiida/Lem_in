@@ -64,13 +64,13 @@ int		ft_strmatchlen(char const *s, char const *s2)
 	return (-1);
 }
 
-void		ft_error(char *msg)
+void	ft_error(char *msg)
 {
 	ft_printf("ERROR: %s\n", msg);
 	exit(1);
 }
 
-void		free_links(t_rlink *node)
+void	free_links(t_rlink *node)
 {
 	t_rlink *tmp;
 
@@ -82,7 +82,7 @@ void		free_links(t_rlink *node)
 	}
 }
 
-void		free_lem(t_lem *lem)
+void	free_lem(t_lem *lem)
 {
 	int		i;
 	t_room	*r;

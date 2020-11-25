@@ -11,19 +11,22 @@
 int		send_new_ants(t_paths *path, int ant, t_lem *lem)
 {
 	int	length;
+	int	i;
 
+	i = 1;
 	length = 0;
 	while (path != NULL && ant <= lem->ants)
 	{
-		ft_printf("L%d-%s ", ant, path->path->next->room->c_name);
+		ft_printf("L%d-%d ", ant, i);
 		path->path->next->room->ant = ant;
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
-		length = path->length;
+		length += path->length;
 		path = path->next;
-		if (path != NULL && length + (lem->ants - ant) <= path->length)
+		if (path != NULL && (length + (lem->ants - ant)) / i < path->length)
 			return (ant + 1);
 		ant++;
+		i++;
 	}
 	return (ant);
 }
@@ -98,9 +101,9 @@ void	send_ants(t_lem *lem)
 	int		ant;
 	int		i;
 
-	ft_printf("%s\n\n", lem->input);
 	ant = 1;
 	i = 0;
+	ft_printf("%s\n\n", lem->input);
 	start = lem->best_set->paths;
 	sort_paths(start);
 	lem->path_length = start->length;

@@ -31,7 +31,7 @@ void		print_path(t_bucket *set)
 	while (temp_paths != NULL)
 	{
 		temp_path = temp_paths->path;
-		ft_printf("Path%d:\n", i);
+		ft_printf("Path%d length %d:\n", i, temp_paths->length);
 		while (temp_path != NULL)
 		{
 			ft_printf("	Room %s (level: %d)\n", temp_path->room->c_name, temp_path->room->level);
@@ -42,51 +42,10 @@ void		print_path(t_bucket *set)
 	}
 }
 
-// void		print_rooms(t_lem *lem)
-// {
-// 	int		i;
-// 	t_room	*r;
-// 	t_rlink	*rl;
-
-// 	ft_printf("\nPRINTING ROOMS:\n");
-// 	i = 0;
-// 	while (i < lem->tablesize)
-// 	{
-// 		r = lem->rooms[i];
-// 		if (r != NULL)
-// 		{
-// 			ft_printf("Room: %s | Level: %d | Visited: %d | In path %d\n", r->c_name, r->level, r->visited, r->in_path);
-// 			rl = r->linked_rooms;
-// 			ft_printf("\tLinks to: ");
-// 			while (rl != NULL)
-// 			{
-// 				ft_printf("%s %d|%d ", rl->tgtroom->c_name, rl->flow, rl->opposite->flow);
-// 				rl = rl->next;
-// 			}
-// 			ft_printf("\n");
-// 			while (r->next != NULL)
-// 			{
-// 				r = r->next;
-// 				ft_printf("Room: %s | Level: %d | Visited: %d | In path %d\n", r->c_name, r->level, r->visited, r->in_path);
-// 				rl = r->linked_rooms;
-// 				ft_printf("Linked rooms: ");
-// 				while (rl != NULL)
-// 				{
-// 					ft_printf("%s %d|%d ", rl->tgtroom->c_name, rl->flow, rl->opposite->flow);
-// 					rl = rl->next;
-// 				}
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	ft_printf("\n\n");
-// }
-
 void		print_rooms(t_lem *lem)
 {
 	int		i;
 	t_room	*r;
-	t_rlink	*rl;
 
 	ft_printf("Rooms:\n");
 	i = 0;
@@ -96,26 +55,10 @@ void		print_rooms(t_lem *lem)
 		if (r != NULL)
 		{
 			ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
-			rl = r->linked_rooms;
-			// ft_printf("\tLinked rooms: ");
-			// while (rl != NULL)
-			// {
-			// 	ft_printf("%s -> ", rl->tgtroom->c_name);
-			// 	rl = rl->next;
-			// }
-			// ft_printf("\n");
 			while (r->next != NULL)
 			{
 				r = r->next;
 				ft_printf("|-\t-|Name: %s | X: %d | Y: %d | L: %d | Visited: %d | Next: %p\n", r->c_name, r->x, r->y, r->level, r->visited, r->next);
-				rl = r->linked_rooms;
-				// ft_printf("\tLinked rooms: ");
-				// while (rl != NULL)
-				// {
-				// 	ft_printf("%s -> ", rl->tgtroom->c_name);
-				// 	rl = rl->next;
-				// }
-				// ft_printf("\n");
 			}
 		}
 		i++;
@@ -125,8 +68,8 @@ void		print_rooms(t_lem *lem)
 
 void		print_hashtable(t_lem *lem)
 {
-	int	i;
-	int j;
+	int		i;
+	int		j;
 	t_room	*room;
 
 	i = 0;
@@ -151,10 +94,9 @@ void		print_hashtable(t_lem *lem)
 	ft_printf("room amount: %d printed: %d\n\n", lem->room_amount, j);
 }
 
-
 void		print_debug_info(t_lem *lem)
 {
-	//print_hashtable(lem);
+	// print_hashtable(lem);
 	print_rooms(lem);
 	// print_paths(lem);
 }

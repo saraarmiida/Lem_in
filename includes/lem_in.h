@@ -41,6 +41,7 @@ typedef struct		s_paths
 {
 	struct s_path	*path;
 	int				length;
+	int				ants;
 	struct s_paths	*next;
 }					t_paths;
 

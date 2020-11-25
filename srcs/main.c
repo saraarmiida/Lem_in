@@ -30,10 +30,6 @@ int			main(int argc, char **argv)
 		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
 	if (solve(lem) == 1)
 		ft_error("no possible paths");
-	// if (lem->info == 1)
-	// 	print_debug_info(lem);
 	send_ants(lem);
-	// free_lem(lem);
-	// while (1);
 	return (0);
 }

@@ -2,7 +2,7 @@
 
 void		print_usage(void)
 {
-	ft_putstr_fd("\nusage: ./lem-in [option] | ./visualiser/visu\n", 2);
+	ft_putstr_fd("\nusage: ./lem-in [option] < [map]\n", 2);
 	ft_putstr_fd("options:\n", 2);
 	ft_putstr_fd("	-h : get usage\n", 2);
 	ft_putstr_fd("	-v : run with visualiser\n", 2);

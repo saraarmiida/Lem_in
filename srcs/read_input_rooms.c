@@ -5,7 +5,7 @@ static t_room	*get_room_info(t_lem *lem, char *name, int i)
 	t_room	*room;
 
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
-		ft_error("malloc error");
+		ft_error(strerror(errno));
 	if (i == lem->start_i)
 		lem->start = room;
 	if (i == lem->end_i)

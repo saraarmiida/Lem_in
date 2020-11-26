@@ -5,10 +5,7 @@ static t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 	t_rlink	*link;
 
 	if (!(link = (t_rlink*)malloc(sizeof(t_rlink))))
-	{
-		ft_printf("Malloc error\n");
-		return (NULL);
-	}
+		ft_error(strerror(errno));
 	link->tgtroom = room2;
 	link->next = NULL;
 	if (room->linked_rooms)

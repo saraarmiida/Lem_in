@@ -7,7 +7,7 @@ int			main(void)
 
 	info = 0;
 	if (!(lem = (t_lem*)malloc(sizeof(t_lem))))
-		return (1);
+		ft_error(strerror(errno));
 	// if (argc == 3)
 	// {
 	// 	if (ft_strncmp(argv[2], "-v", 2) != 0)

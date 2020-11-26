@@ -5,7 +5,7 @@ t_path		*init_node(t_room *room, t_path *prev, t_lem *lem)
 	t_path	*node;
 
 	if (!(node = (t_path*)malloc(sizeof(t_path))))
-		return (NULL);
+		ft_error(strerror(errno));
 	node->room = room;
 	node->next = NULL;
 	node->prev = prev;
@@ -27,10 +27,7 @@ t_queue		*init_newq(t_room *room, t_rlink *edge, t_queue *parent, t_lem *lem)
 	if (!prev)
 		prev = NULL;
 	if (!(newq = (t_queue*)malloc(sizeof(t_queue))))
-	{
-		ft_printf("Could not allocate queue.");
-		return (0);
-	}
+		ft_error(strerror(errno));
 	newq->room = room;
 	newq->edge = edge;
 	newq->parent = parent;
@@ -49,7 +46,8 @@ void		*init_table(t_lem *lem)
 	int			i;
 	t_room		**rooms;
 
-	rooms = (t_room**)malloc(sizeof(t_room) * (lem->tablesize));
+	if (!(rooms = (t_room**)malloc(sizeof(t_room) * (lem->tablesize))))
+		ft_error(strerror(errno));
 	i = 0;
 	while (i < lem->tablesize)
 	{

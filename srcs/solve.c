@@ -9,7 +9,7 @@ static int	save_path(t_path *head, int length, t_bucket *set)
 	t_paths	*path;
 
 	if (!(path = (t_paths*)malloc(sizeof(t_paths))))
-		return (0);
+		ft_error(strerror(errno));
 	path->path = head;
 	path->next = NULL;
 	path->length = length;
@@ -64,7 +64,7 @@ static void	find_set(t_lem *lem)
 	t_bucket	*set;
 
 	if (!(set = (t_bucket*)malloc(sizeof(t_bucket))))
-		return ;
+		ft_error(strerror(errno));
 	set->paths = NULL;
 	set->length = 0;
 	set->flow = lem->max_flow;
@@ -80,7 +80,7 @@ static void	find_set(t_lem *lem)
 	}
 	else
 		free_set(set);
-	print_path(lem->best_set);
+	// print_path(lem->best_set);
 }
 
 /*

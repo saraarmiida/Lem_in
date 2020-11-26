@@ -8,6 +8,8 @@
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 
 // # include "SDL2/SDL.h"
 // # include "../visualiser/SDL2_ttf.framework/Headers/SDL_ttf.h"

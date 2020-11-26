@@ -102,7 +102,7 @@ void		send_ants(t_lem *lem)
 
 	ant = 1;
 	i = 0;
-	ft_printf("%s\n\n", lem->input);
+	ft_printf("%s\n", lem->input);
 	sort_paths(lem->best_set->paths);
 	lem->path_length = lem->best_set->paths->length;
 	while (lem->path_length > 0)

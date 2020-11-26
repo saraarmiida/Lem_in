@@ -54,6 +54,8 @@ int			read_input(t_lem *lem)
 		ft_strdel(&lem->input);
 		lem->input = tmp;
 	}
+	if (i == -1)
+		ft_error(strerror(errno));
 	if (lem->input == NULL)
 	{
 		ft_putstr_fd("Usage: ./lem-in < [map]\nWith visualiser:\

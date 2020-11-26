@@ -9,7 +9,8 @@ void		print_usage(void)
 	ft_putstr_fd("	-q : quiet mode\n", 2);
 	ft_putstr_fd("	-l : print number of lines\n", 2);
 	ft_putstr_fd("	-r : print number of lines required\n", 2);
-	ft_putstr_fd("	-s : print paths\n\n", 2);
+	ft_putstr_fd("	-s : print paths\n", 2);
+	ft_putstr_fd("	-m : mode for testing leaks\n\n", 2);
 	exit(0);
 }
 
@@ -27,6 +28,8 @@ int			get_flag(char c, t_lem *lem)
 		lem->quiet = 1;
 	else if (c == 'r')
 		lem->required = 1;
+	else if (c == 'm')
+		lem->leaks = 1;
 	else
 		return (0);
 	return (1);
@@ -69,9 +72,12 @@ int			main(int argc, char **argv)
 	handle_flags(argc, argv, lem);
 	read_input(lem);
 	if (lem->info == 1)
-		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_amount, lem->link_amount);
+		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_nb, lem->link_nb);
 	if (solve(lem) == 1)
 		ft_error("no possible paths");
 	send_ants(lem);
+	if (lem->leaks == 1)
+		while (1)
+			lem->leaks = 1;
 	return (0);
 }

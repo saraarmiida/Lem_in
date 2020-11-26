@@ -85,9 +85,9 @@ typedef struct		s_lem
 	int				max_flow;
 	int				path_length;
 	int				ants; // make unsigned long
-	int				room_amount;
+	int				room_nb;
 	int				tablesize;
-	int				link_amount;
+	int				link_nb;
 	int				i;
 	int				j;
 	int				info;
@@ -96,6 +96,7 @@ typedef struct		s_lem
 	int				print_set;
 	int				quiet;
 	int				required;
+	int				leaks;
 }					t_lem;
 
 /*

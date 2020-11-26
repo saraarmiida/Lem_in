@@ -104,7 +104,7 @@ static int		check_room(t_lem *lem, int i)
 		i++;
 	if (lem->input[i] != '\n')
 		return (-2);
-	lem->room_amount++;
+	lem->room_nb++;
 	return (i + 1);
 }
 
@@ -125,12 +125,12 @@ int				get_rooms(t_lem *lem)
 				ft_error("invalid rooms");
 		}
 	}
-	lem->tablesize = lem->room_amount * 1.5;
+	lem->tablesize = lem->room_nb * 1.5;
 	lem->rooms = init_table(lem);
 	lem->j = 0;
 	get_start_and_end(lem);
 	i = ft_intlen(lem->ants) + 1;
-	while (lem->j < lem->room_amount)
+	while (lem->j < lem->room_nb)
 	{
 		if (lem->input[i] == '#')
 			i = skip_line(lem->input, i);

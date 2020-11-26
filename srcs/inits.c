@@ -66,9 +66,9 @@ void		init_lem(t_lem *lem)
 	lem->max_flow = 0;
 	lem->path_length = 0;
 	lem->ants = 0;
-	lem->room_amount = 0;
+	lem->room_nb = 0;
 	lem->tablesize = 0;
-	lem->link_amount = 0;
+	lem->link_nb = 0;
 	lem->i = 0;
 	lem->j = 0;
 	lem->info = 0;
@@ -77,4 +77,5 @@ void		init_lem(t_lem *lem)
 	lem->print_set = 0;
 	lem->quiet = 0;
 	lem->required = 0;
+	lem->leaks = 0;
 }

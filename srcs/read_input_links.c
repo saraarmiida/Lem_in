@@ -27,7 +27,7 @@ static int		check_link(t_lem *lem, int i)
 		i++;
 	if (lem->input[i] != '\n')
 		return (-2);
-	lem->link_amount++;
+	lem->link_nb++;
 	return (i + 1);
 }
 

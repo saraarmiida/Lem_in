@@ -26,12 +26,12 @@ void	print_path(t_bucket *set)
 
 	i = 1;
 	temp_paths = set->paths;
-	ft_printf("\nPRINTING SET\n");
-	ft_printf("cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
+	ft_printf("\nUSED SET\n");
+	// ft_printf("cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
 	while (temp_paths != NULL)
 	{
 		temp_path = temp_paths->path;
-		ft_printf("Path%d length %d:\n", i, temp_paths->length);
+		ft_printf("Path %d length %d:\n", i, temp_paths->length);
 		while (temp_path != NULL)
 		{
 			ft_printf("	Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);

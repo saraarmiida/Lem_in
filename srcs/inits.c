@@ -73,4 +73,8 @@ void		init_lem(t_lem *lem)
 	lem->j = 0;
 	lem->info = 0;
 	lem->fd = 3; // can delete
+	lem->print_links = 0;
+	lem->print_set = 0;
+	lem->quiet = 0;
+	lem->required = 0;
 }

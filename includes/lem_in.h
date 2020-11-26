@@ -92,6 +92,10 @@ typedef struct		s_lem
 	int				j;
 	int				info;
 	int				fd; // can delete
+	int				print_links;
+	int				print_set;
+	int				quiet;
+	int				required;
 }					t_lem;
 
 /*

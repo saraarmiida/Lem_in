@@ -79,6 +79,7 @@ typedef struct		s_lem
 	t_bucket		*best_set;
 	t_paths			*paths;
 	t_queue			*last_queue;
+	t_path			**ant;
 	char			*input;
 	int				start_i;
 	int				end_i;

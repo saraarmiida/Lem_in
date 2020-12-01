@@ -21,12 +21,12 @@ static int		check_link(t_lem *lem, int i)
 	while (ft_isprint(lem->input[i]) && lem->input[i] != '-')
 		i++;
 	if (lem->input[i] != '-')
-		return (-2);
+		ft_error("invalid links");
 	i++;
 	while (ft_isprint(lem->input[i]))
 		i++;
 	if (lem->input[i] != '\n')
-		return (-2);
+		ft_error("invalid links");
 	lem->link_nb++;
 	return (i + 1);
 }
@@ -43,6 +43,7 @@ static int		save_link(t_lem *lem, int i)
 	i += ft_strlen(room_name) + 1;
 	room1 = get_hashed_room(lem, room_name);
 	room_name = ft_strcdup(&lem->input[i], '\n');
+	i += ft_strlen(room_name) + 1;
 	room2 = get_hashed_room(lem, room_name);
 	if (room1 == NULL || room2 == NULL)
 		ft_error("unknown room name in link");
@@ -57,7 +58,7 @@ static int		save_link(t_lem *lem, int i)
 		ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n",\
 		room2->x, room2->y, room1->x, room1->y, room2->name, room1->name);
 	}
-	return (i + ft_strlen(room_name) + 1);
+	return (i);
 }
 
 int				get_links(t_lem *lem)
@@ -69,12 +70,8 @@ int				get_links(t_lem *lem)
 	{
 		if (lem->input[i] == '#')
 			i = skip_line(lem->input, i);
-		else if ((check_link(lem, i)) != -2)
-		{
+		else if ((check_link(lem, i)))
 			i = save_link(lem, i);
-		}
-		else
-			ft_error("invalid links");
 	}
 	lem->i = i;
 	return (0);

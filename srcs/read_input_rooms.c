@@ -46,7 +46,7 @@ static int		save_room(t_lem *lem, int i)
 		while (room != NULL)
 		{
 			if (ft_strcmp(room->name, name) == 0)
-				ft_error("duplicate room");
+				ft_error("1 duplicate room");
 			prev = room;
 			room = prev->next;
 		}
@@ -65,7 +65,7 @@ static int		get_start_and_end(t_lem *lem)
 	lem->start_i = ft_strmatchlen(lem->input, "##start\n");
 	lem->end_i = ft_strmatchlen(lem->input, "##end\n");
 	if (lem->start_i == -1 || lem->end_i == -1)
-		ft_error("no start or end room");
+		ft_error("2 no start or end room");
 	return (1);
 }
 
@@ -89,21 +89,21 @@ static int		check_room(t_lem *lem, int i)
 	while (ft_isprint(lem->input[i]) && lem->input[i] != ' ')
 		i++;
 	if (lem->input[i] != ' ')
-		return (-2);
+		ft_error("invalid rooms");
 	i++;
 	if (lem->input[i] == '-')
 		i++;
 	while (ft_isdigit(lem->input[i]))
 		i++;
 	if (lem->input[i] != ' ')
-		return (-2);
+		ft_error("invalid rooms");
 	i++;
 	if (lem->input[i] == '-')
 		i++;
 	while (ft_isdigit(lem->input[i]))
 		i++;
 	if (lem->input[i] != '\n')
-		return (-2);
+		ft_error("invalid rooms");
 	lem->room_nb++;
 	return (i + 1);
 }
@@ -129,7 +129,10 @@ int				get_rooms(t_lem *lem)
 	lem->rooms = init_table(lem);
 	lem->j = 0;
 	get_start_and_end(lem);
-	i = ft_intlen(lem->ants) + 1;
+	i = 0;
+	while (lem->input[i] == '#')
+		i = skip_line(lem->input, i);
+	i += ft_intlen(lem->ants) + 1;
 	while (lem->j < lem->room_nb)
 	{
 		if (lem->input[i] == '#')

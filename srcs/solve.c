@@ -58,6 +58,12 @@ static int	find_path(t_lem *lem, t_bucket *set)
 	return (0);
 }
 
+/*
+** Finds all possible paths and saves them in a set. Counts how
+** many lines would it take to send the ants through the new set
+** and replaces current best set if the new one is better.
+*/
+
 static void	find_set(t_lem *lem)
 {
 	int			j;
@@ -84,9 +90,9 @@ static void	find_set(t_lem *lem)
 }
 
 /*
-** solve first goes through rooms, marking flows while searching for paths.
-** On the second iteration we already know how many paths are possible to find
-** (max_flow) and we search paths based on how we marked the flows.
+** solve has a loop which continues as long as there is possibility to find
+** a new path. In the loop, edmondskarp finds and marks the flow and find_set
+** creates a new set of paths with the flow that has been found until now.
 */
 
 int			solve(t_lem *lem)

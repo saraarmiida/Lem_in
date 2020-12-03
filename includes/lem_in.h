@@ -138,6 +138,12 @@ int					edmondskarp(t_lem *lem);
 void				send_ants(t_lem *lem);
 
 /*
+** flags.c
+*/
+void				handle_flags(int argc, char **argv, t_lem *lem);
+void				print_flags(t_lem *lem, int lines);
+
+/*
 ** utils.c
 */
 void				reset_rooms(t_lem *lem);
@@ -152,6 +158,7 @@ t_path				*init_node(t_room *room, t_path *next, t_lem *lem);
 t_queue				*init_newq(t_room *r, t_rlink *edge, t_queue *p, t_lem *l);
 void				*init_table(t_lem *lem);
 void				init_lem(t_lem *lem);
+t_path				**init_ants(int ants);
 
 /*
 ** free.c

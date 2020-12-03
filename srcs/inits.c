@@ -1,5 +1,21 @@
 #include "../includes/lem_in.h"
 
+t_path		**init_ants(int ants)
+{
+	t_path	**ant;
+	int		i;
+
+	i = 0;
+	if (!(ant = (t_path**)malloc(sizeof(t_path*) * ants)))
+		ft_error(strerror(errno));
+	while (i < ants)
+	{
+		ant[i] = NULL;
+		i++;
+	}
+	return (ant);
+}
+
 t_path		*init_node(t_room *room, t_path *prev, t_lem *lem)
 {
 	t_path	*node;

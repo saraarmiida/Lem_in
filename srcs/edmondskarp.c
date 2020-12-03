@@ -25,6 +25,11 @@ static void		mark_flow(t_queue *queue, t_lem *lem)
 	lem->max_flow++;
 }
 
+/*
+** Saves all the necessary information of a new queue room and links it to the
+** queue. If the new queue member is end room, it marks the flow.
+*/
+
 static t_queue	*save_newq(t_rlink *child, t_queue *pq, t_queue *cq, t_lem *l)
 {
 	t_queue	*newq;
@@ -46,6 +51,14 @@ static t_queue	*save_newq(t_rlink *child, t_queue *pq, t_queue *cq, t_lem *l)
 	}
 	return (cq);
 }
+
+/*
+** Finds all the valid linked rooms (childq) for a room that has already been added
+** to the queue (parentq). A child room is valid when it hasn't been added to the queue
+** yet and the edge flow is not 1 (used in another path/flow). Note that we can use a
+** room that has been used in another path/flow, but then we need to create a negative
+** flow (r68) to avoid creating to paths that cross eachother.
+*/
 
 static t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 {
@@ -74,8 +87,8 @@ static t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 }
 
 /*
-** We go through rooms with bfs, finding the shortest path that
-** we haven't found yet. Instead of saving the path, we just mark
+** Goes through rooms with bfs, finding the shortest path that
+** hasn't been found yet. Instead of saving the path, we just mark
 ** the flow, which allows the use of negative flow, which can
 ** lead to finding more optimal paths.
 */

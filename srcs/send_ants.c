@@ -2,10 +2,11 @@
 #include "../includes/lem_in.h"
 
 /*
-** Sends a new ant to the shortest path, then evaluates whether it makes
+** Sends a new ant to the shortest path and saves
+** the room where the ant is to ant struct. Then evaluates wheter it makes
 ** sense to send another ant to the next shortest path. It makes sense to
-** send an ant to a path if path length is less than length of the shorter
-** paths combined with the amount of ants left.
+** send an ant to a path if path length is less than average length of the
+** shorter paths combined with the amount of ants left.
 */
 
 static int	send_new_ants(t_paths *path, int ant, t_lem *lem)
@@ -36,8 +37,8 @@ static int	send_new_ants(t_paths *path, int ant, t_lem *lem)
 }
 
 /*
-** Goes through all rooms in a path, and if there is an ant in a room, it
-** moves the ant to the next room.
+** Goes through the ant struct and if ant is already in a path, moves it
+** one room forward. When ant has reached end room, it gets set back to NULL.
 */
 
 static void	move_ants(t_lem *lem)
@@ -94,49 +95,12 @@ static void	sort_paths(t_paths *set)
 	}
 }
 
-void		print_flags(t_lem *lem, int lines)
-{
-	char	*str;
-
-	str = NULL;
-	if (lem->print_set == 1)
-		print_path(lem->best_set);
-	if (lem->print_links == 1)
-		ft_printf("lines: %d\n", lines);
-	if (lem->required == 1)
-	{
-		str = ft_strstr(lem->input, "#Here is the number of lines required: ");
-		if (str == NULL)
-			str = "not available";
-		else
-			str = ft_strcdup(str + 39, '\n');
-		ft_printf("number of lines required: %s\n", str);
-		
-	}
-}
-
 /*
 ** Keeps track of how many rounds are still needed to get the latest sent
 ** ant to end room (lem->path_length) and while it is > 0, we move all ants that
 ** are currently on paths and if there are still ants in the start room, we
 ** send new ants to paths.
 */
-
-t_path		**init_ants(int ants)
-{
-	t_path	**ant;
-	int		i;
-
-	i = 0;
-	if (!(ant = (t_path**)malloc(sizeof(t_path*) * ants)))
-		ft_error(strerror(errno));
-	while (i < ants)
-	{
-		ant[i] = NULL;
-		i++;
-	}
-	return (ant);
-}
 
 void		send_ants(t_lem *lem)
 {

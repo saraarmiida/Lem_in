@@ -57,10 +57,7 @@ int			read_input(t_lem *lem)
 	if (i == -1)
 		ft_error(strerror(errno));
 	if (lem->input == NULL)
-	{
-		ft_putstr_fd("Usage: ./lem-in < [map]\nWith visualiser:\
-		./lem-in -v < [map] | ./visualiser/visu\n", 2);
-	}
+		ft_error("empty input file");
 	get_ants(lem);
 	get_rooms(lem);
 	get_links(lem);

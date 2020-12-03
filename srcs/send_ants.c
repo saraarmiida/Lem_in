@@ -19,7 +19,10 @@ static int	send_new_ants(t_paths *path, int ant, t_lem *lem)
 	{
 		if (lem->quiet == 0)
 			ft_printf("L%d-%s ", ant, path->path->next->room->name);
-		lem->ant[ant - 1] = path->path->next;
+		if (path->path->next->room != lem->end)	
+			lem->ant[ant - 1] = path->path->next;
+		else
+			lem->ant[ant - 1] = NULL;
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
 		length += path->length;
@@ -147,7 +150,7 @@ void		send_ants(t_lem *lem)
 	sort_paths(lem->best_set->paths);
 	lem->path_length = lem->best_set->paths->length;
 	lem->ant = init_ants(lem->ants);
-	while (lem->path_length > 0)
+	while (lem->path_length > 0 || ant <= lem->ants)
 	{
 		move_ants(lem);
 		if (ant <= lem->ants)

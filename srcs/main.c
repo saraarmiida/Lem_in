@@ -9,10 +9,14 @@ int			main(int argc, char **argv)
 	init_lem(lem);
 	handle_flags(argc, argv, lem);
 	read_input(lem);
-	if (lem->info == 1)
-		ft_printf("|-\t-|Rooms: %d Links: %d\n", lem->room_nb, lem->link_nb);
 	if (solve(lem) == 1)
+	{
 		ft_error("no possible paths");
+		ft_printf("Couldn't solve\n");
+	}
+	//print_final_paths(lem);
+	//if (lem->info == 1)
+	//	print_debug_info(lem);
 	send_ants(lem);
 	if (lem->leaks == 1)
 		while (1)

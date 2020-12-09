@@ -1,53 +1,73 @@
 #ifndef VISU_H
 # define VISU_H
 
-# define NODESIZE	30
-# define PADDING	24
+# define NODESIZE	60
+# define PADDING	60
+# define FONTSIZE	24
 # define OFFSETX	700
 # define OFFSETY	100
-#include <stdio.h>
-#include "../../includes/lem_in.h"
+# define DRAW_EDGE	1
+# define DRAW_NODE	2
+# define DRAW_TEXT	3
+# define DRAW_PATH	4
+# define DRAW_FPTH	5
+# include <stdio.h>
+# include "../../includes/lem_in.h"
+# include "SDL2/SDL.h"
+# include "SDL2_ttf/SDL_ttf.h"
 
-typedef struct	s_node
+typedef struct		s_drawcmd
 {
-	int			x;
-	int			y;
-	int			name;
-	int			level;
-}				t_node;
+	int					type;
+	char				*name;
+	int					draw;
+	int					fromx;
+	int					fromy;
+	int					tox;
+	int					toy;
+	int					x;
+	int					y;
+	int					visited;
+	int					level;
+	int					flashed;
+	char				*str;
+	int					color_r;
+	int					color_g;
+	int					color_b;
+	int					color_a;
+	int					flow;
+	int					oflow;
+	struct s_drawcmd	*next;
+	struct s_drawcmd	*prev;
+}						t_drawcmd;
 
-typedef struct	s_line
+typedef struct			s_visu
 {
-	int			fromx;
-	int			fromy;
-	int			tox;
-	int			toy;
-}				t_line;
+	int					room_amount;
+	int					link_amount;
+	int					drawxspaths;
+	int					drawxcmds;
+	int					drawxedges;
+	TTF_Font			*sdl_font;
+	SDL_Event			sdl_event;
+	SDL_Window			*sdl_window;
+	SDL_Renderer		*sdl_renderer;
+	int					state;
+	t_drawcmd			*cmds;
+	t_drawcmd			*drawcmd_head;
+}						t_visu;
 
-typedef struct		s_edge
-{
-	int			fromx;
-	int			fromy;
-	int			tox;
-	int			toy;
-	struct s_edge	*next;
-}					t_edge;
-
-typedef struct	s_visu
-{
-	t_line		*lines;
-	t_line		*pathlines;
-	t_node		*nodes;
-	t_edge		*head;
-	int			room_amount;
-	int			link_amount;
-	int			drawxpaths;
-	int			drawxedges;
-	TTF_Font	*font;
-}				t_visu;
-
-int	draw_nodes(SDL_Renderer *renderer, t_visu *visu);
-int	draw_lines(SDL_Renderer *renderer, t_visu *visu);
-int	draw_text(SDL_Renderer *renderer, t_visu *visu);
+int					draw_nodes(t_visu *visu);
+int					draw_lines(t_visu *visu);
+int					draw_nodetexts(t_visu *visu, t_drawcmd *cmd);
+int					draw_cmds(t_visu *visu);
+char				*draw_cmd_edge(char *line, t_drawcmd *cmd);
+char				*draw_cmd_path(char *line, t_drawcmd *cmd);
+char				*draw_cmd_fpath(char *line, t_drawcmd *cmd);
+char				*draw_cmd_nodes(char *line, t_drawcmd *cmd);
+char				*add_cmd(char *line, t_visu *visu, const int type);
+t_visu				*init_visu_data(int fd);
+int					sn(char *str);
+int					between_pipes(char *str);
 
 #endif

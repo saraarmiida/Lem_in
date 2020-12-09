@@ -20,6 +20,8 @@ static void		mark_flow(t_queue *queue, t_lem *lem)
 			queue->edge->flow = 0;
 			queue->edge->opposite->flow = 0;
 		}
+		if (lem->info == 1)
+			ft_printf("#s|fx%d|fy%d|tx%d|ty%d|f%d\n", queue->edge->opposite->tgtroom->x, queue->edge->opposite->tgtroom->y, queue->edge->tgtroom->x, queue->edge->tgtroom->y, queue->edge->flow);
 		queue = queue->parent;
 	}
 	lem->max_flow++;
@@ -40,6 +42,8 @@ static t_queue	*save_newq(t_rlink *child, t_queue *pq, t_queue *cq, t_lem *l)
 	else
 		child->tgtroom->level = pq->room->level + 1;
 	child->tgtroom->visited = 1;
+	if (l->info == 1)
+		ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", child->tgtroom->x, child->tgtroom->y, child->tgtroom->visited, child->tgtroom->level, child->tgtroom->name);
 	newq = init_newq(child->tgtroom, child, pq, l);
 	if (cq)
 		newq->next = cq;

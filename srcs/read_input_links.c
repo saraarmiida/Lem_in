@@ -77,17 +77,16 @@ int get_links(t_lem *lem)
 
 	i = lem->i;
 	if (lem->info == 1)
-		ft_printf("#Rooms: %d\n", lem->room_amount);
+		ft_printf("#Rooms: %d\n", lem->room_nb);
 	while (lem->input[i])
 	{
 		if (lem->input[i] == '#')
-		{
 			i = skip_line(lem->input, i);
 		else if ((check_link(lem, i)))
 			i = save_link(lem, i);
 	}
 	if (lem->info == 1)
-		ft_printf("#Links: %d\n", lem->link_amount);
+		ft_printf("#Links: %d\n", lem->link_nb);
 	// ft_printf("Got %d links\n", lem->link_amount);
 	lem->i = i;
 	return (0);

@@ -78,11 +78,15 @@ int					draw_cmds(t_visu *visu)
 int					draw_nodetexts(t_visu *visu, t_drawcmd *cmd)
 {
 	char			*debug;
-	SDL_Color		white = {255, 255, 255, 255};
+	SDL_Color		white;
 	SDL_Surface		*surfacemessage;
 	SDL_Texture		*message;
 	SDL_Rect		message_rect;
 
+	white.r = 255;
+	white.g = 255;
+	white.b = 255;
+	white.a = 255;
 	debug = ft_strjoin(cmd->name, ft_itoa(cmd->level));
 	surfacemessage = TTF_RenderText_Blended(visu->sdl_font, debug, white);
 	message = SDL_CreateTextureFromSurface(visu->sdl_renderer, surfacemessage);

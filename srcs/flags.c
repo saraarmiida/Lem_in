@@ -7,7 +7,7 @@ void		print_flags(t_lem *lem, int lines)
 	str = NULL;
 	if (lem->print_set == 1)
 		print_path(lem->best_set, lem);
-	if (lem->print_links == 1)
+	if (lem->print_lines == 1)
 		ft_printf("lines: %d\n", lines);
 	if (lem->required == 1)
 	{
@@ -38,7 +38,7 @@ void		print_usage(void)
 int			get_flag(char c, t_lem *lem)
 {
 	if (c == 'l')
-		lem->print_links = 1;
+		lem->print_lines = 1;
 	else if (c == 's')
 		lem->print_set = 1;
 	else if (c == 'h')

@@ -48,7 +48,7 @@ static int		save_room(t_lem *lem, int i)
 		while (room != NULL)
 		{
 			if (ft_strcmp(room->name, name) == 0)
-				ft_error("1 duplicate room");
+				ft_error("duplicate room");
 			prev = room;
 			room = prev->next;
 		}
@@ -67,7 +67,7 @@ static int		get_start_and_end(t_lem *lem)
 	lem->start_i = ft_strmatchlen(lem->input, "##start\n");
 	lem->end_i = ft_strmatchlen(lem->input, "##end\n");
 	if (lem->start_i == -1 || lem->end_i == -1)
-		ft_error("2 no start or end room");
+		ft_error("no start or end room");
 	return (1);
 }
 

@@ -16,7 +16,7 @@ t_path		**init_ants(int ants)
 	return (ant);
 }
 
-t_path		*init_node(t_room *room, t_path *prev, t_lem *lem)
+t_path		*init_node(t_room *room, t_path *prev, t_lem *lem, int len)
 {
 	t_path	*node;
 
@@ -31,6 +31,7 @@ t_path		*init_node(t_room *room, t_path *prev, t_lem *lem)
 	{
 		room->visited = 1;
 		room->in_path = 1;
+		room->level = len;
 	}
 	return (node);
 }
@@ -88,7 +89,6 @@ void		init_lem(t_lem *lem)
 	lem->i = 0;
 	lem->j = 0;
 	lem->info = 0;
-	lem->fd = 3; // can delete
 	lem->print_lines = 0;
 	lem->print_set = 0;
 	lem->quiet = 0;

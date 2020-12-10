@@ -71,6 +71,18 @@ static int		get_start_and_end(t_lem *lem)
 	return (1);
 }
 
+static int		check_coordinate(t_lem *lem, int i)
+{
+	if (lem->input[i] != ' ')
+		ft_error("invalid rooms");
+	i++;
+	if (lem->input[i] == '-')
+		i++;
+	while (ft_isdigit(lem->input[i]))
+		i++;
+	return (i);
+}
+
 /*
 ** validates room syntax
 */
@@ -84,33 +96,22 @@ static int		check_room(t_lem *lem, int i)
 		ft_error("invalid room name");
 	while (lem->input[j] != '\n' && lem->input[j])
 	{
-		if (lem->input[j] == '-' && !(ft_isdigit(lem->input[j + 1]) == 1 && lem->input[j - 1] == ' '))
+		if (lem->input[j] == '-' && !(ft_isdigit(lem->input[j + 1]) == 1\
+		&& lem->input[j - 1] == ' '))
 			return (-1);
 		j++;
 	}
 	while (ft_isprint(lem->input[i]) && lem->input[i] != ' ')
 		i++;
-	if (lem->input[i] != ' ')
-		ft_error("invalid rooms");
-	i++;
-	if (lem->input[i] == '-')
-		i++;
-	while (ft_isdigit(lem->input[i]))
-		i++;
-	if (lem->input[i] != ' ')
-		ft_error("invalid rooms");
-	i++;
-	if (lem->input[i] == '-')
-		i++;
-	while (ft_isdigit(lem->input[i]))
-		i++;
+	i = check_coordinate(lem, i);
+	i = check_coordinate(lem, i);
 	if (lem->input[i] != '\n')
 		ft_error("invalid rooms");
 	lem->room_nb++;
 	return (i + 1);
 }
 
-int				get_rooms(t_lem *lem)
+void			check_rooms(t_lem *lem)
 {
 	int	i;
 
@@ -127,14 +128,18 @@ int				get_rooms(t_lem *lem)
 				ft_error("invalid rooms");
 		}
 	}
+}
+
+int				get_rooms(t_lem *lem)
+{
+	int	i;
+
+	check_rooms(lem);
+	i = lem->i;
 	lem->tablesize = lem->room_nb * 1.5;
 	lem->rooms = init_table(lem);
 	lem->j = 0;
 	get_start_and_end(lem);
-	i = 0;
-	while (lem->input[i] == '#')
-		i = skip_line(lem->input, i);
-	i += ft_intlen(lem->ants) + 1;
 	while (lem->j < lem->room_nb)
 	{
 		if (lem->input[i] == '#')

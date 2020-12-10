@@ -13,15 +13,15 @@ static void		mark_flow(t_queue *queue, t_lem *lem)
 		if (queue->edge->flow == 0)
 		{
 			queue->edge->flow = 1;
-			queue->edge->opposite->flow = -1;
+			queue->edge->opp->flow = -1;
 		}
 		else if (queue->edge->flow == -1)
 		{
 			queue->edge->flow = 0;
-			queue->edge->opposite->flow = 0;
+			queue->edge->opp->flow = 0;
 		}
 		if (lem->info == 1)
-			ft_printf("#s|fx%d|fy%d|tx%d|ty%d|f%d\n", queue->edge->opposite->tgtroom->x, queue->edge->opposite->tgtroom->y, queue->edge->tgtroom->x, queue->edge->tgtroom->y, queue->edge->flow);
+			ft_printf("#s|fx%d|fy%d|tx%d|ty%d|f%d\n", queue->edge->opp->tgtroom->x, queue->edge->opp->tgtroom->y, queue->edge->tgtroom->x, queue->edge->tgtroom->y, queue->edge->flow);
 		queue = queue->parent;
 	}
 	lem->max_flow++;
@@ -57,11 +57,11 @@ static t_queue	*save_newq(t_rlink *child, t_queue *pq, t_queue *cq, t_lem *l)
 }
 
 /*
-** Finds all the valid linked rooms (childq) for a room that has already been added
-** to the queue (parentq). A child room is valid when it hasn't been added to the queue
-** yet and the edge flow is not 1 (used in another path/flow). Note that we can use a
-** room that has been used in another path/flow, but then we need to create a negative
-** flow (r68) to avoid creating to paths that cross eachother.
+** Finds all the valid linked rooms (childq) for a room that has already been
+** added to the queue (parentq). A child room is valid when it hasn't been
+** added to the queue yet and the edge flow is not 1. Note that we can use
+** a room that has been used in another path/flow, but then we need to create
+** a negative flow (r68) to avoid creating to paths that cross eachother.
 */
 
 static t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)

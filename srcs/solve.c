@@ -13,7 +13,6 @@ static int	save_path(t_path *head, int length, t_bucket *set)
 	path->path = head;
 	path->next = NULL;
 	path->length = length;
-	path->ants = 0;
 	if (set->paths == NULL)
 		set->paths = path;
 	else
@@ -37,7 +36,7 @@ static int	find_path(t_lem *lem, t_bucket *set)
 	int		len;
 
 	current = lem->start->linked_rooms;
-	node = init_node(lem->start, NULL, lem);
+	node = init_node(lem->start, NULL, lem, 0);
 	head = node;
 	len = 0;
 	while (current != NULL)
@@ -45,11 +44,9 @@ static int	find_path(t_lem *lem, t_bucket *set)
 		if (current->flow == 1 && current->tgtroom->visited == 0)
 		{
 			len++;
-			node = init_node(current->tgtroom, node, lem);
+			node = init_node(current->tgtroom, node, lem, len);
 			if (current->tgtroom == lem->end)
 				return (save_path(head, len, set));
-			current->tgtroom->level = len;
-			current->tgtroom->visited = 1;
 			if (lem->info == 1)
 				ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", current->tgtroom->x, current->tgtroom->y, current->tgtroom->visited, current->tgtroom->level, current->tgtroom->name);
 			current = current->tgtroom->linked_rooms;

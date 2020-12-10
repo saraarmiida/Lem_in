@@ -23,7 +23,6 @@ typedef struct		s_paths
 {
 	struct s_path	*path;
 	int				length;
-	int				ants; // can delete if no change in send_ants
 	struct s_paths	*next;
 }					t_paths;
 
@@ -49,7 +48,7 @@ typedef struct		s_rlink
 {
 	struct s_room	*tgtroom;
 	struct s_rlink	*next;
-	struct s_rlink	*opposite;
+	struct s_rlink	*opp;
 	int				flow;
 }					t_rlink;
 
@@ -89,7 +88,6 @@ typedef struct		s_lem
 	int				i;
 	int				j;
 	int				info;
-	int				fd; // can delete
 	int				print_lines;
 	int				print_set;
 	int				quiet;
@@ -151,7 +149,7 @@ int					skip_line(char *input, int i);
 /*
 ** inits.c
 */
-t_path				*init_node(t_room *room, t_path *next, t_lem *lem);
+t_path				*init_node(t_room *room, t_path *next, t_lem *lem, int len);
 t_queue				*init_newq(t_room *r, t_rlink *edge, t_queue *p, t_lem *l);
 void				*init_table(t_lem *lem);
 void				init_lem(t_lem *lem);
@@ -171,7 +169,6 @@ void				free_queue(t_queue *queue);
 void				print_queue(t_queue *queue, int l);
 void				print_path(t_bucket *set);
 void				print_rooms(t_lem *lem);
-void				print_debug_info(t_lem *lem);
 void				print_final_paths(t_lem *lem);
 void				print_set(t_bucket *set);
 

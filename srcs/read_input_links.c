@@ -1,6 +1,6 @@
 #include "../includes/lem_in.h"
 
-static t_rlink *add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
+static t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 {
 	t_rlink *link;
 
@@ -12,11 +12,11 @@ static t_rlink *add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)
 		link->next = room->linked_rooms;
 	room->linked_rooms = link;
 	link->flow = 0;
-	link->opposite = NULL;
+	link->opp = NULL;
 	return (link);
 }
 
-static int check_link(t_lem *lem, int i)
+static int		check_link(t_lem *lem, int i)
 {
 	while (ft_isprint(lem->input[i]) && lem->input[i] != '-')
 		i++;
@@ -30,13 +30,13 @@ static int check_link(t_lem *lem, int i)
 	return (1);
 }
 
-static int save_link(t_lem *lem, int i)
+static int		save_link(t_lem *lem, int i)
 {
-	t_room *room1;
-	t_room *room2;
-	t_rlink *link1;
-	t_rlink *link2;
-	char *room_name;
+	t_room	*room1;
+	t_room	*room2;
+	t_rlink	*link1;
+	t_rlink	*link2;
+	char	*room_name;
 
 	room_name = ft_strcdup(&lem->input[i], '-');
 	i += ft_strlen(room_name) + 1;
@@ -48,8 +48,8 @@ static int save_link(t_lem *lem, int i)
 		return (-1);
 	link1 = add_room_to_rooms_linked_rooms(room1, room2);
 	link2 = add_room_to_rooms_linked_rooms(room2, room1);
-	link1->opposite = link2;
-	link2->opposite = link1;
+	link1->opp = link2;
+	link2->opp = link1;
 	lem->link_nb++;
 	if (lem->info == 1)
 	{
@@ -71,7 +71,7 @@ static int save_link(t_lem *lem, int i)
 	return (i);
 }
 
-int get_links(t_lem *lem)
+int				get_links(t_lem *lem)
 {
 	int i;
 

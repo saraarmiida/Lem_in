@@ -1,73 +1,74 @@
 #include "../includes/lem_in.h"
 
-void print_queue(t_queue *queue, int l)
-{
-	t_queue *q;
+// void	print_queue(t_queue *queue, int l)
+// {
+// 	t_queue *q;
 
-	q = queue;
-	ft_printf("#queue l %d: ", l);
-	while (q != NULL)
-	{
-		ft_printf("#| %s ", q->edge->tgtroom->name);
-		q = q->next;
-	}
-	ft_printf("\n");
-}
+// 	q = queue;
+// 	ft_printf("#queue l %d: ", l);
+// 	while (q != NULL)
+// 	{
+// 		ft_printf("#| %s ", q->edge->tgtroom->name);
+// 		q = q->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
-void print_set(t_bucket *set)
+void	print_set(t_bucket *set)
 {
-	t_paths *temp_paths;
-	t_path *temp_path;
-	int i;
+	t_paths	*paths;
+	t_path	*path;
+	int		i;
 
 	i = 1;
-	temp_paths = set->paths;
+	paths = set->paths;
 	ft_printf("\n#PRINTING SET\n");
-	ft_printf("cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
-	while (temp_paths != NULL)
+	ft_printf("cost: %d\nflow: %d\n", set->cost, set->flow);
+	ft_printf("steps: %d\n", set->length);
+	while (paths != NULL)
 	{
-		temp_path = temp_paths->path;
-		ft_printf("	Path%d length %d:\n", i, temp_paths->length);
-		while (temp_path != NULL)
+		path = paths->path;
+		ft_printf("Path%d length %d:\n", i, paths->length);
+		while (path != NULL)
 		{
-			ft_printf("		Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
-			temp_path = temp_path->next;
+			ft_printf("	Room %s (l: %d)\n", path->room->name, path->room->level);
+			path = path->next;
 		}
-		temp_paths = temp_paths->next;
+		paths = paths->next;
 		i++;
 	}
 }
 
-void print_path(t_bucket *set)
+void	print_path(t_bucket *set)
 {
-	t_paths *temp_paths;
-	t_path *temp_path;
-	int i;
+	t_paths	*paths;
+	t_path	*path;
+	int		i;
 
 	i = 1;
-	temp_paths = set->paths;
+	paths = set->paths;
 	ft_printf("\n#PRINTING SET\n");
 	ft_printf("#cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
-	while (temp_paths != NULL)
+	while (paths != NULL)
 	{
-		temp_path = temp_paths->path;
-		ft_printf("#Path%d length %d:\n", i, temp_paths->length);
-		while (temp_path != NULL)
+		path = paths->path;
+		ft_printf("#Path%d length %d:\n", i, paths->length);
+		while (path != NULL)
 		{
-			ft_printf("#Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
-			if (temp_path->next != NULL)
-				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", temp_path->room->x, temp_path->room->y, temp_path->next->room->x, temp_path->next->room->y);
-			temp_path = temp_path->next;
+			ft_printf("#Room %s (level: %d)\n", path->room->name, path->room->level);
+			if (path->next != NULL)
+				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", path->room->x, path->room->y, path->next->room->x, path->next->room->y);
+			path = path->next;
 		}
-		temp_paths = temp_paths->next;
+		paths = paths->next;
 		i++;
 	}
 }
 
-void print_rooms(t_lem *lem)
+void	print_rooms(t_lem *lem)
 {
-	int i;
-	t_room *r;
+	int		i;
+	t_room	*r;
 
 	ft_printf("#Rooms:\n");
 	i = 0;
@@ -88,10 +89,10 @@ void print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-void print_final_paths(t_lem *lem)
+void	print_final_paths(t_lem *lem)
 {
-	t_paths *path;
-	t_paths *start;
+	t_paths	*path;
+	t_paths	*start;
 
 	start = lem->best_set->paths;
 	path = start;
@@ -101,36 +102,4 @@ void print_final_paths(t_lem *lem)
 		ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", path->path->room->x, path->path->room->x, path->path->next->room->x, path->path->next->room->x);
 		path = path->next;
 	}
-}
-
-void print_hashtable(t_lem *lem)
-{
-	int i;
-	int j;
-	t_room *room;
-
-	i = 0;
-	j = 0;
-	while (i < lem->tablesize)
-	{
-		if (lem->rooms[i] != NULL)
-		{
-			room = lem->rooms[i];
-			ft_printf("#slot [%d]:\n	name: %s\n", i, lem->rooms[i]->name);
-			j++;
-			while (room->next != NULL)
-			{
-				ft_printf("#name: %s\n", room->next->name);
-				room = room->next;
-				j++;
-			}
-		}
-		i++;
-	}
-}
-
-void print_debug_info(t_lem *lem)
-{
-	// print_hashtable(lem);
-	print_rooms(lem);
 }

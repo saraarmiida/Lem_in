@@ -14,7 +14,7 @@ void print_queue(t_queue *queue, int l)
 	ft_printf("\n");
 }
 
-void print_path(t_bucket *set)
+void print_path(t_bucket *set, t_lem *lem)
 {
 	t_paths *temp_paths;
 	t_path *temp_path;
@@ -30,8 +30,9 @@ void print_path(t_bucket *set)
 		ft_printf("#Path%d length %d:\n", i, temp_paths->length);
 		while (temp_path != NULL)
 		{
-			ft_printf("#Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
-			if (temp_path->next != NULL)
+			if (lem->info == 1)
+				ft_printf("#Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
+			if (temp_path->next != NULL && lem->info == 1)
 				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", temp_path->room->x, temp_path->room->y, temp_path->next->room->x, temp_path->next->room->y);
 			temp_path = temp_path->next;
 		}

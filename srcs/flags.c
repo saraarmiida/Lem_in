@@ -6,7 +6,7 @@ void		print_flags(t_lem *lem, int lines)
 
 	str = NULL;
 	if (lem->print_set == 1)
-		print_path(lem->best_set);
+		print_path(lem->best_set, lem);
 	if (lem->print_links == 1)
 		ft_printf("lines: %d\n", lines);
 	if (lem->required == 1)

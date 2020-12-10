@@ -26,7 +26,7 @@ void		print_usage(void)
 	ft_putstr_fd("\nusage: ./lem-in [option] < [map]\n", 2);
 	ft_putstr_fd("options:\n", 2);
 	ft_putstr_fd("	-h : get usage\n", 2);
-	ft_putstr_fd("	-v : run with visualiser\n", 2);
+	ft_putstr_fd("	-v : run with visualiser. Print flags are not compatible with this.\n", 2);
 	ft_putstr_fd("	-q : quiet mode\n", 2);
 	ft_putstr_fd("	-l : print number of lines\n", 2);
 	ft_putstr_fd("	-r : print number of lines required\n", 2);

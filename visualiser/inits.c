@@ -62,6 +62,7 @@ t_visu		*init_visu_data(int fd)
 	{
 		line = init_rooms_links(line, visu);
 		line = init_drawcmds(line, visu);
+		//free(line);
 	}
 	init_sdl(visu);
 	return (visu);

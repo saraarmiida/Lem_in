@@ -14,7 +14,31 @@ void print_queue(t_queue *queue, int l)
 	ft_printf("\n");
 }
 
-void print_path(t_bucket *set, t_lem *lem)
+void print_set(t_bucket *set)
+{
+	t_paths *temp_paths;
+	t_path *temp_path;
+	int i;
+
+	i = 1;
+	temp_paths = set->paths;
+	ft_printf("\n#PRINTING SET\n");
+	ft_printf("cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
+	while (temp_paths != NULL)
+	{
+		temp_path = temp_paths->path;
+		ft_printf("	Path%d length %d:\n", i, temp_paths->length);
+		while (temp_path != NULL)
+		{
+			ft_printf("		Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
+			temp_path = temp_path->next;
+		}
+		temp_paths = temp_paths->next;
+		i++;
+	}
+}
+
+void print_path(t_bucket *set)
 {
 	t_paths *temp_paths;
 	t_path *temp_path;
@@ -30,9 +54,8 @@ void print_path(t_bucket *set, t_lem *lem)
 		ft_printf("#Path%d length %d:\n", i, temp_paths->length);
 		while (temp_path != NULL)
 		{
-			if (lem->info == 1)
-				ft_printf("#Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
-			if (temp_path->next != NULL && lem->info == 1)
+			ft_printf("#Room %s (level: %d)\n", temp_path->room->name, temp_path->room->level);
+			if (temp_path->next != NULL)
 				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", temp_path->room->x, temp_path->room->y, temp_path->next->room->x, temp_path->next->room->y);
 			temp_path = temp_path->next;
 		}

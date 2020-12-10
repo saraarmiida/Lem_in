@@ -20,16 +20,16 @@ static int	send_new_ants(t_paths *path, int ant, t_lem *lem)
 	{
 		if (lem->quiet == 0)
 			ft_printf("L%d-%s ", ant, path->path->next->room->name);
-		if (path->path->next->room != lem->end)	
-			lem->ant[ant - 1] = path->path->next;
-		else
-			lem->ant[ant - 1] = NULL;
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
 		length += path->length;
-		path = path->next;
-		if (path != NULL && (length + (lem->ants - ant)) / prev_paths < path->length)
-			return (ant + 1);
+		if (path->path->next->room != lem->end)
+		{
+			lem->ant[ant - 1] = path->path->next;
+			path = path->next;
+			if (path != NULL && (length + (lem->ants - ant)) / prev_paths < path->length)
+				return (ant + 1);
+		}
 		ant++;
 		prev_paths++;
 	}

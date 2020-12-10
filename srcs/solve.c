@@ -90,7 +90,7 @@ static void	find_set(t_lem *lem)
 	else
 		free_set(set);
 	if (lem->info == 1)
-		print_path(lem->best_set, lem);
+		print_path(lem->best_set);
 }
 
 /*

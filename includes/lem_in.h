@@ -169,10 +169,11 @@ void				free_queue(t_queue *queue);
 */
 // remove ones that are not necessary for visu / explaining
 void				print_queue(t_queue *queue, int l);
-void				print_path(t_bucket *set, t_lem *lem);
+void				print_path(t_bucket *set);
 void				print_rooms(t_lem *lem);
 void				print_debug_info(t_lem *lem);
 void				print_final_paths(t_lem *lem);
+void				print_set(t_bucket *set);
 
 void				ft_error(char *msg);
 

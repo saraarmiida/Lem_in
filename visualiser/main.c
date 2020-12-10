@@ -1,5 +1,22 @@
 #include "includes/visu.h"
 
+int			freevisu(t_visu *visu)
+{
+	t_drawcmd	*cmd;
+	t_drawcmd	*temp;
+
+	cmd =  visu->drawcmd_head;
+	while (cmd != NULL)
+	{
+		temp = cmd;
+		cmd = cmd->next;
+		//free(temp->name);
+		free(temp);
+	}
+	//free(visu);
+	return (0);
+}
+
 int			sn(char *str)
 {
 	int		i;
@@ -81,5 +98,7 @@ int			main(int argc, char **argv)
 	SDL_DestroyWindow(visu->sdl_window);
 	TTF_Quit();
 	SDL_Quit();
+	freevisu(visu);
+	//while(1);
 	return (0);
 }

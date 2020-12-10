@@ -19,7 +19,7 @@ do
 #  string=`./generator --flow-ten | ../lem-in -l| grep 'lines'`
 #  string=`./generator --flow-thousand | ../lem-in -l| grep 'lines'`
 #  string=`./generator --big | ../lem-in -l | grep 'lines'`
-  string=`./generator --big-superposition | ../lem-in | grep 'lines'`
+  string=`./generator --big-superposition | ../lem-in -l | grep 'lines'`
   required=`echo "$string" | cut -d " " -f 8 | sort -u`
   echo "lines required: " $required
   lines=`echo "$string" | grep 'lines: ' | awk '{print $2}'`

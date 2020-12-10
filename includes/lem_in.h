@@ -82,7 +82,7 @@ typedef struct		s_lem
 	int				end_i;
 	int				max_flow;
 	int				path_length;
-	int				ants; // make unsigned long
+	long long int	ants;
 	int				room_nb;
 	int				tablesize;
 	int				link_nb;

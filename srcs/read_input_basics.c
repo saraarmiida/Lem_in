@@ -16,7 +16,9 @@ static int	only_digits(char *input, int index)
 
 static int	get_ants(t_lem *lem)
 {
-	int	i;
+	int		i;
+	int		n;
+	char	*str;
 
 	i = 0;
 	while (lem->input[i] && lem->input[i] == '#')
@@ -24,10 +26,12 @@ static int	get_ants(t_lem *lem)
 	if (only_digits(lem->input, i) && (i == 0 || lem->input[i - 1] == '\n'))
 	{
 		lem->ants = ft_atoi(&lem->input[i]);
+		n = ft_intlen(lem->ants);
+		str = ft_itoa(lem->ants);
+		if (ft_strncmp(str, &lem->input[i], n) != 0)
+			ft_error("invalid number of ants");
 		lem->i = i + ft_intlen(lem->ants) + 1;
-		if (lem->ants > 0 && lem->ants <= MAX_INT)
-			return (0);
-		else
+		if (lem->ants < 1)
 			ft_error("invalid number of ants");
 	}
 	else

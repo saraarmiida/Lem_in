@@ -30,7 +30,6 @@ typedef struct		s_drawcmd
 	int					visited;
 	int					level;
 	int					flashed;
-	char				*str;
 	int					color_r;
 	int					color_g;
 	int					color_b;
@@ -38,7 +37,6 @@ typedef struct		s_drawcmd
 	int					flow;
 	int					oflow;
 	struct s_drawcmd	*next;
-	struct s_drawcmd	*prev;
 }						t_drawcmd;
 
 typedef struct			s_visu
@@ -68,6 +66,5 @@ char				*draw_cmd_nodes(char *line, t_drawcmd *cmd);
 char				*add_cmd(char *line, t_visu *visu, const int type);
 t_visu				*init_visu_data(int fd);
 int					sn(char *str);
-int					between_pipes(char *str);
 
 #endif

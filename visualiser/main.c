@@ -2,18 +2,18 @@
 
 int			freevisu(t_visu *visu)
 {
-	t_drawcmd	*cmd;
 	t_drawcmd	*temp;
 
-	cmd =  visu->drawcmd_head;
-	while (cmd != NULL)
+	visu->cmds = visu->drawcmd_head;
+	while (visu->cmds->next != NULL)
 	{
-		temp = cmd;
-		cmd = cmd->next;
-		//free(temp->name);
+		temp = visu->cmds;
+		visu->cmds = visu->cmds->next;
+		ft_strdel(&temp->name);
 		free(temp);
 	}
-	//free(visu);
+	free(visu->cmds);
+	free(visu);
 	return (0);
 }
 
@@ -30,22 +30,6 @@ int			sn(char *str)
 	while (ft_isdigit(*str) == 0)
 	{
 		str++;
-		i++;
-	}
-	return (i);
-}
-
-int			between_pipes(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] == '|')
-	{
-		i++;
-	}
-	while (str[i] != '|')
-	{
 		i++;
 	}
 	return (i);
@@ -96,9 +80,10 @@ int			main(int argc, char **argv)
 	while (visu->state == 0)
 		main_loop(visu);
 	SDL_DestroyWindow(visu->sdl_window);
+	SDL_DestroyRenderer(visu->sdl_renderer);
 	TTF_Quit();
 	SDL_Quit();
-	freevisu(visu);
-	//while(1);
+	//freevisu(visu);
+	while(1);
 	return (0);
 }

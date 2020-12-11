@@ -171,6 +171,8 @@ void				print_path(t_bucket *set);
 void				print_rooms(t_lem *lem);
 void				print_final_paths(t_lem *lem);
 void				print_set(t_bucket *set);
+void				print_room_visu(t_room *room);
+void				print_edge_visu(t_rlink *edge, char c);
 
 void				ft_error(char *msg);
 

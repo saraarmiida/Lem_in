@@ -52,22 +52,7 @@ static int		save_link(t_lem *lem, int i)
 	link2->opp = link1;
 	lem->link_nb++;
 	if (lem->info == 1)
-	{
-		ft_putstr("#e|fx");
-		ft_putnbr(room1->x);
-		ft_putstr("|fy");
-		ft_putnbr(room1->y);
-		ft_putstr("|tx");
-		ft_putnbr(room2->x);
-		ft_putstr("|ty");
-		ft_putnbr(room2->y);
-		ft_putstr("\n");
-		//ft_printf("#e|fx%d|fy%d|tx%d|ty%d|\n", room1->x, room1->y, room2->x, room2->y);
-		//ft_putchar_fd(lem->input[i + ft_strlen(room_name) + 3], 2);
-
-		//ft_printf("#|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room1->x, room1->y, room2->x, room2->y, room1->c_name, room2->c_name);
-		//ft_printf("|-\t-|Edge: %d | %d | %d | %d | from: %s to %s\n", room2->x, room2->y, room1->x, room1->y, room2->c_name, room1->c_name);
-	}
+		print_edge_visu(link2, 'e');
 	return (i);
 }
 

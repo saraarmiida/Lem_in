@@ -48,7 +48,7 @@ static int	find_path(t_lem *lem, t_bucket *set)
 			if (current->tgtroom == lem->end)
 				return (save_path(head, len, set));
 			if (lem->info == 1)
-				ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", current->tgtroom->x, current->tgtroom->y, current->tgtroom->visited, current->tgtroom->level, current->tgtroom->name);
+				print_room_visu(current->tgtroom);
 			current = current->tgtroom->linked_rooms;
 		}
 		else

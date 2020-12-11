@@ -38,11 +38,7 @@ static int		save_room(t_lem *lem, int i)
 	slot = hash(name, lem->tablesize);
 	room = lem->rooms[slot];
 	if (room == NULL)
-	{
 		lem->rooms[slot] = get_room_info(lem, name, i);
-		lem->j += 1;
-		return (lem->i);
-	}
 	else
 	{
 		while (room != NULL)
@@ -53,8 +49,8 @@ static int		save_room(t_lem *lem, int i)
 			room = prev->next;
 		}
 		prev->next = get_room_info(lem, name, i);
-		lem->j += 1;
 	}
+	lem->j += 1;
 	return (lem->i);
 }
 
@@ -69,65 +65,6 @@ static int		get_start_and_end(t_lem *lem)
 	if (lem->start_i == -1 || lem->end_i == -1)
 		ft_error("no start or end room");
 	return (1);
-}
-
-static int		check_coordinate(t_lem *lem, int i)
-{
-	if (lem->input[i] != ' ')
-		ft_error("invalid rooms");
-	i++;
-	if (lem->input[i] == '-')
-		i++;
-	while (ft_isdigit(lem->input[i]))
-		i++;
-	return (i);
-}
-
-/*
-** validates room syntax
-*/
-
-static int		check_room(t_lem *lem, int i)
-{
-	int j;
-
-	j = i;
-	if (lem->input[i] == 'L' || lem->input[i] == '#')
-		ft_error("invalid room name");
-	while (lem->input[j] != '\n' && lem->input[j])
-	{
-		if (lem->input[j] == '-' && !(ft_isdigit(lem->input[j + 1]) == 1\
-		&& lem->input[j - 1] == ' '))
-			return (-1);
-		j++;
-	}
-	while (ft_isprint(lem->input[i]) && lem->input[i] != ' ')
-		i++;
-	i = check_coordinate(lem, i);
-	i = check_coordinate(lem, i);
-	if (lem->input[i] != '\n')
-		ft_error("invalid rooms");
-	lem->room_nb++;
-	return (i + 1);
-}
-
-void			check_rooms(t_lem *lem)
-{
-	int	i;
-
-	i = lem->i;
-	while (lem->input[i])
-	{
-		if (lem->input[i] == '#')
-			i = skip_line(lem->input, i);
-		else
-		{
-			if ((i = check_room(lem, i)) == -1)
-				break ;
-			else if (i == -2)
-				ft_error("invalid rooms");
-		}
-	}
 }
 
 int				get_rooms(t_lem *lem)

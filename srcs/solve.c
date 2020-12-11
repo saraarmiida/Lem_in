@@ -28,17 +28,15 @@ static int	save_path(t_path *head, int length, t_bucket *set)
 ** Finds a path from start to end, can only use flows of 1.
 */
 
-static int	find_path(t_lem *lem, t_bucket *set)
+static int	find_path(t_lem *lem, t_bucket *set, int len)
 {
 	t_rlink	*current;
 	t_path	*node;
 	t_path	*head;
-	int		len;
 
 	current = lem->start->linked_rooms;
 	node = init_node(lem->start, NULL, lem, 0);
 	head = node;
-	len = 0;
 	while (current != NULL)
 	{
 		if (current->flow == 1 && current->tgtroom->visited == 0)
@@ -76,7 +74,7 @@ static void	find_set(t_lem *lem)
 	set->flow = lem->max_flow;
 	j = -1;
 	while (++j < lem->max_flow)
-		find_path(lem, set);
+		find_path(lem, set, 0);
 	set->cost = ((set->length + lem->ants) / set->flow) - 1;
 	if (lem->best_set == NULL || set->cost < lem->best_set->cost)
 	{

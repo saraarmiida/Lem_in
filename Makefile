@@ -12,7 +12,8 @@ SRCS = 	srcs/main.c \
 		srcs/utils.c \
 		srcs/edmondskarp.c \
 		srcs/free.c \
-		srcs/flags.c
+		srcs/flags.c \
+		srcs/check_rooms.c
 
 OBJS = 	main.o \
 		read_input_basics.o \
@@ -26,7 +27,8 @@ OBJS = 	main.o \
 		utils.o \
 		edmondskarp.o \
 		free.o \
-		flags.o
+		flags.o \
+		check_rooms.o
 
 INCS = -I ./srcs -I ./libft/includes/
 

@@ -111,6 +111,11 @@ int					get_rooms(t_lem *lem);
 int					get_links(t_lem *lem);
 
 /*
+** check_rooms.c
+*/
+void				check_rooms(t_lem *lem);
+
+/*
 ** hash.c
 */
 unsigned int		hash(char *key, int tablesize);

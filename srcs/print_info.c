@@ -2,12 +2,15 @@
 
 void	print_room_visu(t_room *room)
 {
-	ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", room->x, room->y, room->visited, room->level, room->name);
+	ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n",\
+	room->x, room->y, room->visited, room->level, room->name);
 }
 
 void	print_edge_visu(t_rlink *edge, char c)
 {
-	ft_printf("#%c|fx%d|fy%d|tx%d|ty%d|f%d\n", c, edge->opp->tgtroom->x, edge->opp->tgtroom->y, edge->tgtroom->x, edge->tgtroom->y, edge->flow);
+	ft_printf("#%c|fx%d|fy%d|tx%d|ty%d|f%d\n",\
+	c, edge->opp->tgtroom->x, edge->opp->tgtroom->y,\
+	edge->tgtroom->x, edge->tgtroom->y, edge->flow);
 }
 
 void	print_set(t_bucket *set)
@@ -19,15 +22,16 @@ void	print_set(t_bucket *set)
 	i = 1;
 	paths = set->paths;
 	ft_printf("\nPRINTING SET\n");
-	ft_printf("cost: %d\nflow: %d\n", set->cost, set->flow);
-	ft_printf("steps: %d\n", set->length);
+	ft_printf("#cost: %d\nflow: %d\nsteps: %d\n",\
+	set->cost, set->flow, set->length);
 	while (paths != NULL)
 	{
 		path = paths->path;
 		ft_printf("Path%d length %d:\n", i, paths->length);
 		while (path != NULL)
 		{
-			ft_printf("	Room %s (l: %d)\n", path->room->name, path->room->level);
+			ft_printf("	Room %s (level: %d)\n",\
+			path->room->name, path->room->level);
 			path = path->next;
 		}
 		paths = paths->next;

@@ -8,9 +8,19 @@ void	print_room_visu(t_room *room)
 
 void	print_edge_visu(t_rlink *edge, char c)
 {
-	ft_printf("#%c|fx%d|fy%d|tx%d|ty%d|f%d\n",\
-	c, edge->opp->tgtroom->x, edge->opp->tgtroom->y,\
-	edge->tgtroom->x, edge->tgtroom->y, edge->flow);
+	ft_putstr("#");
+	ft_putchar(c);
+	ft_putstr("|fx");
+	ft_putnbr(edge->opp->tgtroom->x);
+	ft_putstr("|fy");
+	ft_putnbr(edge->opp->tgtroom->y);
+	ft_putstr("|tx");
+	ft_putnbr(edge->tgtroom->x);
+	ft_putstr("|ty");
+	ft_putnbr(edge->tgtroom->y);
+	ft_putstr("|f%d");
+	ft_putnbr(edge->flow);
+	ft_putstr("\n");
 }
 
 void	print_set(t_bucket *set)

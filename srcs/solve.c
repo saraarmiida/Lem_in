@@ -76,6 +76,8 @@ static void	find_set(t_lem *lem)
 	while (++j < lem->max_flow)
 		find_path(lem, set, 0);
 	set->cost = ((set->length + lem->ants) / set->flow) - 1;
+	if (set->length == 1)
+		set->cost = 1;
 	if (lem->best_set == NULL || set->cost < lem->best_set->cost)
 	{
 		if (lem->best_set)

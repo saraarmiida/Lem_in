@@ -66,6 +66,5 @@ int			main(int argc, char **argv)
 	SDL_DestroyRenderer(visu->sdl_renderer);
 	TTF_Quit();
 	SDL_Quit();
-	while(1);
 	return (0);
 }

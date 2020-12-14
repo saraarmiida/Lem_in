@@ -99,21 +99,6 @@ void	print_rooms(t_lem *lem)
 	ft_printf("\n\n");
 }
 
-void	print_final_paths(t_lem *lem)
-{
-	t_paths	*path;
-	t_paths	*start;
-
-	start = lem->best_set->paths;
-	path = start;
-	ft_printf("#rs|");
-	while (path != NULL)
-	{
-		ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", path->path->room->x, path->path->room->x, path->path->next->room->x, path->path->next->room->x);
-		path = path->next;
-	}
-}
-
 void	print_queue(t_queue *queue, int l)
 {
 	t_queue *q;

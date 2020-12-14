@@ -1,6 +1,6 @@
 #include "includes/visu.h"
 
-int					render_node(t_visu *visu, t_drawcmd *cmd)
+static int			render_node(t_visu *visu, t_drawcmd *cmd)
 {
 	SDL_Rect		rect;
 

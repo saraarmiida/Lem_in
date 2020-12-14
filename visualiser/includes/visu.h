@@ -55,16 +55,16 @@ typedef struct			s_visu
 	t_drawcmd			*drawcmd_head;
 }						t_visu;
 
-int					draw_nodes(t_visu *visu);
-int					draw_lines(t_visu *visu);
-int					draw_nodetexts(t_visu *visu, t_drawcmd *cmd);
-int					draw_cmds(t_visu *visu);
-char				*draw_cmd_edge(char *line, t_drawcmd *cmd);
-char				*draw_cmd_path(char *line, t_drawcmd *cmd);
-char				*draw_cmd_fpath(char *line, t_drawcmd *cmd);
-char				*draw_cmd_nodes(char *line, t_drawcmd *cmd);
-char				*add_cmd(char *line, t_visu *visu, const int type);
-t_visu				*init_visu_data(int fd);
-int					sn(char *str);
+int						draw_nodes(t_visu *visu);
+int						draw_lines(t_visu *visu);
+int						draw_nodetexts(t_visu *visu, t_drawcmd *cmd);
+int						draw_cmds(t_visu *visu);
+char					*draw_cmd_edge(char *line, t_drawcmd *cmd);
+char					*draw_cmd_path(char *line, t_drawcmd *cmd);
+char					*draw_cmd_fpath(char *line, t_drawcmd *cmd);
+char					*draw_cmd_nodes(char *line, t_drawcmd *cmd);
+char					*add_cmd(char *line, t_visu *visu, const int type);
+t_visu					*init_visu_data(int fd);
+int						sn(char *str);
 
 #endif

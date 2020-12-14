@@ -25,7 +25,7 @@ static int	drawvisu(t_visu *visu)
 	return (0);
 }
 
-int			main_loop(t_visu *visu)
+static int	main_loop(t_visu *visu)
 {
 	SDL_Event e;
 

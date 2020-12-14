@@ -11,10 +11,10 @@
 # define DRAW_TEXT	3
 # define DRAW_PATH	4
 # define DRAW_FPTH	5
-# include <stdio.h>
-# include "../../includes/lem_in.h"
+# include <fcntl.h>
 # include "SDL2/SDL.h"
 # include "SDL2_ttf/SDL_ttf.h"
+# include "../../libft/ft_printf/includes/ft_printf.h"
 
 typedef struct		s_drawcmd
 {

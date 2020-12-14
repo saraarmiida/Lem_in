@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_input_links.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/14 13:09:59 by saraarmiida       #+#    #+#             */
+/*   Updated: 2020/12/14 13:10:00 by saraarmiida      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/lem_in.h"
 
 static t_rlink	*add_room_to_rooms_linked_rooms(t_room *room, t_room *room2)

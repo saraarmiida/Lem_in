@@ -14,9 +14,6 @@ int			main(int argc, char **argv)
 		ft_error("no possible paths");
 		ft_printf("Couldn't solve\n");
 	}
-	//print_final_paths(lem);
-	//if (lem->info == 1)
-	//	print_debug_info(lem);
 	send_ants(lem);
 	if (lem->leaks == 1)
 		while (1)

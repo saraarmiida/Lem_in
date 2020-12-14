@@ -48,6 +48,7 @@ t_visu		*init_visu_data(int fd)
 {
 	t_visu	*visu;
 	char	*line;
+	char	*temp;
 
 	if (!(visu = (t_visu*)malloc(sizeof(t_visu))))
 		return (0);
@@ -60,9 +61,10 @@ t_visu		*init_visu_data(int fd)
 	visu->drawcmd_head = NULL;
 	while (get_next_line(fd, &line) == 1)
 	{
-		line = init_rooms_links(line, visu);
-		line = init_drawcmds(line, visu);
-		//free(line);
+		temp = line;
+		temp = init_rooms_links(temp, visu);
+		temp = init_drawcmds(temp, visu);
+		ft_strdel(&line);
 	}
 	init_sdl(visu);
 	return (visu);

@@ -12,6 +12,7 @@ char	*draw_cmd_edge(char *line, t_drawcmd *cmd)
 	cmd->color_b = 255;
 	cmd->color_a = 200;
 	cmd->next = NULL;
+	cmd->name = NULL;
 	cmd->draw = 1;
 	return (line);
 }
@@ -28,6 +29,7 @@ char	*draw_cmd_path(char *line, t_drawcmd *cmd)
 	cmd->color_b = 0;
 	cmd->color_a = 200;
 	cmd->next = NULL;
+	cmd->name = NULL;
 	cmd->draw = 1;
 	return (line);
 }
@@ -44,6 +46,7 @@ char	*draw_cmd_fpath(char *line, t_drawcmd *cmd)
 	cmd->color_b = 255;
 	cmd->color_a = 200;
 	cmd->next = NULL;
+	cmd->name = NULL;
 	cmd->draw = 1;
 	return (line);
 }
@@ -54,8 +57,7 @@ char	*draw_cmd_nodes(char *line, t_drawcmd *cmd)
 	cmd->y = ft_atoi(line += sn(line)) * PADDING + OFFSETY;
 	cmd->visited = ft_atoi(line += sn(line));
 	cmd->level = ft_atoi(line += sn(line));
-	line += between_pipes(line);
-	cmd->name = ft_strsub(line, 1, between_pipes(line));
+	cmd->name = NULL;
 	cmd->type = DRAW_NODE;
 	cmd->draw = 1;
 	cmd->next = NULL;

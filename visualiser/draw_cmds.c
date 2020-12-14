@@ -87,13 +87,14 @@ int					draw_nodetexts(t_visu *visu, t_drawcmd *cmd)
 	white.g = 255;
 	white.b = 255;
 	white.a = 255;
-	debug = ft_strjoin(cmd->name, ft_itoa(cmd->level));
+	debug = ft_itoa(cmd->level);
 	surfacemessage = TTF_RenderText_Blended(visu->sdl_font, debug, white);
 	message = SDL_CreateTextureFromSurface(visu->sdl_renderer, surfacemessage);
 	message_rect.x = cmd->x + NODESIZE / 2 - surfacemessage->w / 2;
 	message_rect.y = cmd->y + NODESIZE / 6;
 	message_rect.w = surfacemessage->w;
 	message_rect.h = surfacemessage->h;
+	ft_strdel(&debug);
 	SDL_RenderCopy(visu->sdl_renderer, message, NULL, &message_rect);
 	SDL_FreeSurface(surfacemessage);
 	SDL_DestroyTexture(message);

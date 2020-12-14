@@ -53,9 +53,7 @@ void	print_path(t_bucket *set)
 {
 	t_paths	*paths;
 	t_path	*path;
-	int		i;
 
-	i = 1;
 	paths = set->paths;
 	while (paths != NULL)
 	{
@@ -63,24 +61,12 @@ void	print_path(t_bucket *set)
 		while (path != NULL)
 		{
 			if (path->next != NULL)
-				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", path->room->x, path->room->y, path->next->room->x, path->next->room->y);
+			{
+				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", path->room->x, \
+				path->room->y, path->next->room->x, path->next->room->y);
+			}
 			path = path->next;
 		}
 		paths = paths->next;
-		i++;
 	}
-}
-
-void	print_queue(t_queue *queue, int l)
-{
-	t_queue *q;
-
-	q = queue;
-	ft_printf("#queue l %d: ", l);
-	while (q != NULL)
-	{
-		ft_printf("#| %s ", q->edge->tgtroom->name);
-		q = q->next;
-	}
-	ft_printf("\n");
 }

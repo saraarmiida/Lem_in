@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:10:42 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:10:45 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:20:07 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:20:08 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

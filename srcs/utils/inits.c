@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:10:16 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:10:17 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:19:36 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:19:37 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

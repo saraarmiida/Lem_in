@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:09:26 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:09:29 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:18:17 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:18:18 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../includes/lem_in.h"
 

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   edmondskarp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:08:10 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:09:18 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:18:30 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:18:31 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../includes/lem_in.h"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_rooms.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:09:34 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:09:36 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:18:38 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:18:41 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

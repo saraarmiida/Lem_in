@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:09:40 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:09:42 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:18:47 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:18:50 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

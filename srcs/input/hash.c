@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:09:48 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:09:48 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:18:56 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:18:58 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

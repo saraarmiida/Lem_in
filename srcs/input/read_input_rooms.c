@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input_rooms.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:10:05 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:10:06 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:19:22 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:19:22 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

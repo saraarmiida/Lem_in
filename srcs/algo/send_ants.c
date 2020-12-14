@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:08:58 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:11:13 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:18:25 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:18:26 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../includes/lem_in.h"
 

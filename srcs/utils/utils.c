@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saraarmiida <saraarmiida@student.42.fr>    +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 13:10:28 by saraarmiida       #+#    #+#             */
-/*   Updated: 2020/12/14 13:10:28 by saraarmiida      ###   ########.fr       */
+/*   Created: 2020/12/14 13:19:50 by spentti           #+#    #+#             */
+/*   Updated: 2020/12/14 13:19:51 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

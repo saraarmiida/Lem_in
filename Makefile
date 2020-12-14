@@ -30,22 +30,17 @@ OBJS = 	main.o \
 		flags.o \
 		check_rooms.o
 
-INCS = -I ./srcs -I ./libft/includes/
+INCS = -I ./includes -I ./libft/includes/
 
 CFLAGS = -g -Wall -Wextra -Werror
 
-LIB = -L./libft -lft
-
-HEADER	= includes/
+LIB = -L ./libft -lft
 
 all: $(NAME)
 
 $(NAME):
 	make -C libft
-	gcc $(CFLAGS) -c $(SRCS) $(INCS)
-	gcc $(CFLAGS) $(INCS) $(OBJS) $(LIB) -o $(NAME)
-
-debug:
+	gcc $(CFLAGS) -o $(NAME) $(SRCS) $(INCS) $(LIB)
 
 .PHONY: clean fclean re all
 

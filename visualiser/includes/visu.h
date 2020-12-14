@@ -6,7 +6,7 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:01:08 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/12/14 13:01:45 by tlouekar         ###   ########.fr       */
+/*   Updated: 2020/12/14 13:45:40 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 typedef struct			s_drawcmd
 {
 	int					type;
-	char				*name;
 	int					draw;
 	int					fromx;
 	int					fromy;
@@ -46,8 +45,6 @@ typedef struct			s_drawcmd
 	int					color_g;
 	int					color_b;
 	int					color_a;
-	int					flow;
-	int					oflow;
 	struct s_drawcmd	*next;
 }						t_drawcmd;
 
@@ -55,9 +52,7 @@ typedef struct			s_visu
 {
 	int					room_amount;
 	int					link_amount;
-	int					drawxspaths;
 	int					drawxcmds;
-	int					drawxedges;
 	TTF_Font			*sdl_font;
 	SDL_Event			sdl_event;
 	SDL_Window			*sdl_window;
@@ -67,8 +62,6 @@ typedef struct			s_visu
 	t_drawcmd			*drawcmd_head;
 }						t_visu;
 
-int						draw_nodes(t_visu *visu);
-int						draw_lines(t_visu *visu);
 int						draw_nodetexts(t_visu *visu, t_drawcmd *cmd);
 int						draw_cmds(t_visu *visu);
 char					*draw_cmd_edge(char *line, t_drawcmd *cmd);

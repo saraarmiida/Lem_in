@@ -6,7 +6,7 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:03:05 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/12/14 13:03:07 by tlouekar         ###   ########.fr       */
+/*   Updated: 2020/12/14 13:41:11 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*draw_cmd_edge(char *line, t_drawcmd *cmd)
 	cmd->color_b = 255;
 	cmd->color_a = 200;
 	cmd->next = NULL;
-	cmd->name = NULL;
 	cmd->draw = 1;
 	return (line);
 }
@@ -41,7 +40,6 @@ char	*draw_cmd_path(char *line, t_drawcmd *cmd)
 	cmd->color_b = 0;
 	cmd->color_a = 200;
 	cmd->next = NULL;
-	cmd->name = NULL;
 	cmd->draw = 1;
 	return (line);
 }
@@ -58,7 +56,6 @@ char	*draw_cmd_fpath(char *line, t_drawcmd *cmd)
 	cmd->color_b = 255;
 	cmd->color_a = 200;
 	cmd->next = NULL;
-	cmd->name = NULL;
 	cmd->draw = 1;
 	return (line);
 }
@@ -69,7 +66,6 @@ char	*draw_cmd_nodes(char *line, t_drawcmd *cmd)
 	cmd->y = ft_atoi(line += sn(line)) * PADDING + OFFSETY;
 	cmd->visited = ft_atoi(line += sn(line));
 	cmd->level = ft_atoi(line += sn(line));
-	cmd->name = NULL;
 	cmd->type = DRAW_NODE;
 	cmd->draw = 1;
 	cmd->next = NULL;

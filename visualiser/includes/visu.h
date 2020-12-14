@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visu.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/14 13:01:08 by tlouekar          #+#    #+#             */
+/*   Updated: 2020/12/14 13:01:45 by tlouekar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VISU_H
 # define VISU_H
 
-# define NODESIZE	60
-# define PADDING	60
-# define FONTSIZE	24
-# define OFFSETX	700
-# define OFFSETY	100
-# define DRAW_EDGE	1
-# define DRAW_NODE	2
-# define DRAW_TEXT	3
-# define DRAW_PATH	4
-# define DRAW_FPTH	5
-# include <stdio.h>
-# include "../../includes/lem_in.h"
+# define NODESIZE		60
+# define PADDING		60
+# define FONTSIZE		24
+# define OFFSETX		700
+# define OFFSETY		100
+# define DRAW_EDGE		1
+# define DRAW_NODE		2
+# define DRAW_TEXT		3
+# define DRAW_PATH		4
+# define DRAW_FPTH		5
+# include <fcntl.h>
 # include "SDL2/SDL.h"
 # include "SDL2_ttf/SDL_ttf.h"
+# include "../../libft/ft_printf/includes/ft_printf.h"
 
-typedef struct		s_drawcmd
+typedef struct			s_drawcmd
 {
 	int					type;
 	char				*name;

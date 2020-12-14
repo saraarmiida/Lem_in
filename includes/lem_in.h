@@ -6,17 +6,14 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:20:07 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/14 13:20:08 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/14 13:48:12 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# define TABLE_SIZE	100
 # define BUF_SIZE	4194305
-# define BAD_MAGIC_NUMBER_LINKS 10
-# define MAX_INT	2147483647
 # include "../libft/ft_printf/includes/ft_printf.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -108,23 +105,11 @@ typedef struct		s_lem
 }					t_lem;
 
 /*
-** read_input_basics.c
+** input
 */
 int					read_input(t_lem *lem);
-
-/*
-** read_input_rooms.c
-*/
 int					get_rooms(t_lem *lem);
-
-/*
-** read_input_links.c
-*/
 int					get_links(t_lem *lem);
-
-/*
-** check_rooms.c
-*/
 void				check_rooms(t_lem *lem);
 
 /*
@@ -134,26 +119,17 @@ unsigned int		hash(char *key, int tablesize);
 t_room				*get_hashed_room(t_lem *lem, char *key);
 
 /*
-** solve.c
-*/
-int					solve(t_lem *lem);
-
-/*
-** edmondskarp.c
-*/
-
-int					edmondskarp(t_lem *lem);
-
-/*
-** send_ants.c
-*/
-void				send_ants(t_lem *lem);
-
-/*
 ** flags.c
 */
 void				handle_flags(int argc, char **argv, t_lem *lem);
 void				print_flags(t_lem *lem, int lines);
+
+/*
+** algo
+*/
+int					solve(t_lem *lem);
+int					edmondskarp(t_lem *lem);
+void				send_ants(t_lem *lem);
 
 /*
 ** utils.c
@@ -166,11 +142,11 @@ int					skip_line(char *input, int i);
 /*
 ** inits.c
 */
+t_path				**init_ants(int ants);
 t_path				*init_node(t_room *room, t_path *next, t_lem *lem, int len);
 t_queue				*init_newq(t_room *r, t_rlink *edge, t_queue *p, t_lem *l);
 void				*init_table(t_lem *lem);
 void				init_lem(t_lem *lem);
-t_path				**init_ants(int ants);
 
 /*
 ** free.c
@@ -182,12 +158,9 @@ void				free_queue(t_queue *queue);
 /*
 ** print_info.c
 */
-// remove ones that are not necessary for visu / explaining
 void				print_path(t_bucket *set);
 void				print_set(t_bucket *set);
 void				print_room_visu(t_room *room);
 void				print_edge_visu(t_rlink *edge, char c);
-
-void				ft_error(char *msg);
 
 #endif

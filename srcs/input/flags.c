@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:18:47 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/14 13:18:50 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/14 13:41:23 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		print_flags(t_lem *lem, int lines)
 	}
 }
 
-void		print_usage(void)
+static void	print_usage(void)
 {
 	ft_putstr_fd("\nusage: ./lem-in [option] < [map]\n", 2);
 	ft_putstr_fd("options:\n", 2);
@@ -47,7 +47,7 @@ void		print_usage(void)
 	exit(0);
 }
 
-int			get_flag(char c, t_lem *lem)
+static int	get_flag(char c, t_lem *lem)
 {
 	if (c == 'l')
 		lem->print_lines = 1;

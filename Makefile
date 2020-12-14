@@ -1,34 +1,19 @@
 NAME = lem-in
 
 SRCS = 	srcs/main.c \
-		srcs/read_input_basics.c \
-		srcs/read_input_rooms.c \
-		srcs/read_input_links.c \
-		srcs/solve.c \
-		srcs/hash.c \
-		srcs/send_ants.c \
-		srcs/print_info.c \
-		srcs/inits.c \
-		srcs/utils.c \
-		srcs/edmondskarp.c \
-		srcs/free.c \
-		srcs/flags.c \
-		srcs/check_rooms.c
-
-OBJS = 	main.o \
-		read_input_basics.o \
-		read_input_rooms.o \
-		read_input_links.o \
-		solve.o \
-		hash.o \
-		send_ants.o \
-		print_info.o \
-		inits.o \
-		utils.o \
-		edmondskarp.o \
-		free.o \
-		flags.o \
-		check_rooms.o
+		srcs/input/read_input_basics.c \
+		srcs/input/read_input_rooms.c \
+		srcs/input/read_input_links.c \
+		srcs/input/hash.c \
+		srcs/input/flags.c \
+		srcs/input/check_rooms.c \
+		srcs/algo/solve.c \
+		srcs/algo/edmondskarp.c \
+		srcs/algo/send_ants.c \
+		srcs/utils/print_info.c \
+		srcs/utils/inits.c \
+		srcs/utils/utils.c \
+		srcs/utils/free.c
 
 INCS = -I ./includes -I ./libft/includes/
 
@@ -45,7 +30,6 @@ $(NAME):
 .PHONY: clean fclean re all
 
 clean:
-	rm -f $(OBJS)
 	make -C libft clean
 
 fclean: clean

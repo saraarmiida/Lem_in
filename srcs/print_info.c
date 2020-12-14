@@ -71,30 +71,6 @@ void	print_path(t_bucket *set)
 	}
 }
 
-void	print_rooms(t_lem *lem)
-{
-	int		i;
-	t_room	*r;
-
-	ft_printf("#Rooms:\n");
-	i = 0;
-	while (i < lem->tablesize)
-	{
-		r = lem->rooms[i];
-		if (r != NULL)
-		{
-			ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", r->x, r->y, r->visited, r->level, r->name);
-			while (r->next != NULL)
-			{
-				r = r->next;
-				ft_printf("#n|x%d|y%d|v%d|l%d|%s|c1|\n", r->x, r->y, r->visited, r->level, r->name);
-			}
-		}
-		i++;
-	}
-	ft_printf("\n\n");
-}
-
 void	print_queue(t_queue *queue, int l)
 {
 	t_queue *q;

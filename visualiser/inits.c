@@ -6,7 +6,7 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:03:23 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/12/14 13:03:24 by tlouekar         ###   ########.fr       */
+/*   Updated: 2020/12/14 13:43:51 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ t_visu		*init_visu_data(int fd)
 		return (0);
 	visu->room_amount = 0;
 	visu->link_amount = 0;
-	visu->drawxspaths = 0;
-	visu->drawxedges = 0;
 	visu->drawxcmds = 0;
 	visu->cmds = NULL;
 	visu->drawcmd_head = NULL;

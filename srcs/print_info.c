@@ -57,15 +57,11 @@ void	print_path(t_bucket *set)
 
 	i = 1;
 	paths = set->paths;
-	ft_printf("\n#PRINTING SET\n");
-	ft_printf("#cost: %d\nflow: %d\nsteps: %d\n", set->cost, set->flow, set->length);
 	while (paths != NULL)
 	{
 		path = paths->path;
-		ft_printf("#Path%d length %d:\n", i, paths->length);
 		while (path != NULL)
 		{
-			ft_printf("#Room %s (level: %d)\n", path->room->name, path->room->level);
 			if (path->next != NULL)
 				ft_printf("#f|fx%d|fy%d|tx%d|ty%d\n", path->room->x, path->room->y, path->next->room->x, path->next->room->y);
 			path = path->next;

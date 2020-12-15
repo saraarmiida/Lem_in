@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:18:25 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/14 13:22:02 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/15 14:30:28 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ static int	send_new_ants(t_paths *path, int ant, t_lem *lem)
 ** one room forward. When ant has reached end room, it gets set back to NULL.
 */
 
-static void	move_ants(t_lem *lem)
+static void	move_ants(t_lem *lem, int last_ant)
 {
 	t_path	**ant;
 	int		i;
 
 	ant = lem->ant;
 	i = 0;
-	while (i < lem->ants)
+	while (i < last_ant)
 	{
 		if (ant[i] != NULL)
 		{
@@ -127,7 +127,7 @@ void		send_ants(t_lem *lem)
 	lem->ant = init_ants(lem->ants);
 	while (lem->path_length > 0 || ant <= lem->ants)
 	{
-		move_ants(lem);
+		move_ants(lem, ant - 1);
 		if (ant <= lem->ants)
 			ant = send_new_ants(lem->best_set->paths, ant, lem);
 		lem->path_length--;

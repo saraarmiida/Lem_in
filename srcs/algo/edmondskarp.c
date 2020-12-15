@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:18:30 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/14 13:21:29 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/15 10:05:04 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,8 @@ static t_queue	*save_newq(t_rlink *child, t_queue *pq, t_queue *cq, t_lem *l)
 static t_queue	*find_childq(t_queue *parentq, t_queue *childq, t_lem *lem)
 {
 	t_rlink			*child;
-	static t_room	*crossing_old_path;
 	int				flow;
 
-	if (!crossing_old_path)
-		crossing_old_path = NULL;
 	child = parentq->room->linked_rooms;
 	flow = 1;
 	if (parentq->room->in_path == 1 && parentq->parent->room->in_path == 0)

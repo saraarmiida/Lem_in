@@ -6,7 +6,7 @@
 #    By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/14 13:17:25 by spentti           #+#    #+#              #
-#    Updated: 2020/12/14 13:17:28 by spentti          ###   ########.fr        #
+#    Updated: 2020/12/15 13:57:44 by spentti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS = 	srcs/main.c \
 
 INCS = -I ./includes -I ./libft/includes/
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 LIB = -L ./libft -lft
 

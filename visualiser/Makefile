@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+         #
+#    By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/14 13:13:57 by tlouekar          #+#    #+#              #
-#    Updated: 2020/12/14 13:14:08 by tlouekar         ###   ########.fr        #
+#    Updated: 2020/12/15 13:57:56 by spentti          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ all: $(NAME)
 
 $(NAME):
 	@make -C ../libft/libft
-	gcc -g -Wall -Wextra -Werror -framework SDL2 -framework SDL2_ttf -F ./ $(FILES) $(LIB) -o $(NAME) -rpath @executable_path
+	gcc -Wall -Wextra -Werror -framework SDL2 -framework SDL2_ttf -F ./ $(FILES) $(LIB) -o $(NAME) -rpath @executable_path
 
 clean:
 	@make clean -C ../libft/libft

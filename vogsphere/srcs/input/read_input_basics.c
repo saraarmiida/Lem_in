@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:19:04 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/22 12:09:35 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:05:31 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	get_ants(t_lem *lem)
 		str = ft_itoa(lem->ants);
 		if (ft_strncmp(str, &lem->input[i], n) != 0)
 			ft_error("invalid number of ants");
+		ft_strdel(&str);
 		lem->i = i + ft_intlen(lem->ants) + 1;
 		if (lem->ants < 1)
 			ft_error("invalid number of ants");

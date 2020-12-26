@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:19:22 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/22 12:09:49 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:12:22 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ static int		save_room(t_lem *lem, int i)
 static int		get_start_and_end(t_lem *lem)
 {
 	lem->start_i = ft_strmatchlen(lem->input, "##start\n");
+	while (lem->input[lem->start_i] && lem->input[lem->start_i] == '#')
+		lem->start_i = skip_line(lem->input, lem->start_i);
 	lem->end_i = ft_strmatchlen(lem->input, "##end\n");
+	while (lem->input[lem->end_i] && lem->input[lem->end_i] == '#')
+		lem->end_i = skip_line(lem->input, lem->end_i);
 	if (lem->start_i == -1 || lem->end_i == -1)
 		ft_error("no start or end room");
 	return (1);

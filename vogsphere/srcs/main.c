@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:19:56 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/14 13:19:57 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:28:13 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int			main(int argc, char **argv)
 	handle_flags(argc, argv, lem);
 	read_input(lem);
 	if (solve(lem) == 1)
-	{
 		ft_error("no possible paths");
-		ft_printf("Couldn't solve\n");
-	}
 	send_ants(lem);
 	if (lem->leaks == 1)
 		while (1)

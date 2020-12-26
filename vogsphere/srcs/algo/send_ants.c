@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:18:25 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/22 12:08:27 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:34:32 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static int	send_new_ants(t_paths *path, int ant, t_lem *lem)
 	n = 0;
 	while (path != NULL && ant <= lem->ants)
 	{
-		if (lem->quiet == 0)
-			ft_printf("L%d-%s ", ant, path->path->next->room->name);
+		ft_printf("L%d-%s ", ant, path->path->next->room->name);
 		if (path->length > lem->path_length)
 			lem->path_length = path->length;
 		n += path->length;
@@ -63,8 +62,7 @@ static void	move_ants(t_lem *lem, int last_ant)
 	{
 		if (ant[i] != NULL)
 		{
-			if (lem->quiet == 0)
-				ft_printf("L%d-%s ", i + 1, ant[i]->next->room->name);
+			ft_printf("L%d-%s ", i + 1, ant[i]->next->room->name);
 			if (ant[i]->next->room != lem->end)
 				ant[i] = ant[i]->next;
 			else
@@ -131,8 +129,7 @@ void		send_ants(t_lem *lem)
 		if (ant <= lem->ants)
 			ant = send_new_ants(lem->best_set->paths, ant, lem);
 		lem->path_length--;
-		if (lem->quiet == 0)
-			ft_printf("\n");
+		ft_printf("\n");
 		lines++;
 	}
 	print_flags(lem, lines);

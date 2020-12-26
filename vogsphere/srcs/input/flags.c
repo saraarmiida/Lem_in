@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:18:47 by spentti           #+#    #+#             */
-/*   Updated: 2020/12/22 12:09:26 by spentti          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:37:02 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	print_usage(void)
 	ft_putstr_fd("	-h : get usage\n", 2);
 	ft_putstr_fd("	-v : run with visualiser. Print flags are not compatible \
 with this.\n", 2);
-	ft_putstr_fd("	-q : quiet mode\n", 2);
+	ft_putstr_fd("	-q : quiet mode, only prints ants movements\n", 2);
 	ft_putstr_fd("	-l : print number of lines\n", 2);
 	ft_putstr_fd("	-r : print number of lines required\n", 2);
 	ft_putstr_fd("	-s : print paths\n", 2);

@@ -6,7 +6,7 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 13:03:23 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/12/14 13:43:51 by tlouekar         ###   ########.fr       */
+/*   Updated: 2020/12/27 11:24:16 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_visu		*init_visu_data(int fd)
 	visu->room_amount = 0;
 	visu->link_amount = 0;
 	visu->drawxcmds = 0;
+	visu->state = 0;
 	visu->cmds = NULL;
 	visu->drawcmd_head = NULL;
 	while (get_next_line(fd, &line) == 1)

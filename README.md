@@ -5,7 +5,11 @@ C — Getting deeper into algorithms.
 Lem_in is essentially a graph and flow problem. Move x amount of "ants" Through a graph consisting of connected nodes. 
 
 ## Solution
-This is WIP but so far we're implementing something similar to Edmonds-Karp algorithm
+We implemented the Edmonds-Karp algorithm, in which we find the shortest paths using breadth-first search while also allowing negative flow to get the optimal paths.
+
+## Preview
+
+![](lem_in_visu.gif)
 
 ## Useful reading and watching
 [Dinic algorithm in Wikipedia](https://en.wikipedia.org/wiki/Dinic%27s_algorithm)\
